@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="diag_flow_utama" name="1. Flowchart Utama Sistem">
-        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="920" pageHeight="1060" math="0" shadow="0">
+        <mxGraphModel dx="1514" dy="1036" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1060" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -199,7 +199,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_login" name="2. Flowchart Login Sistem">
-        <mxGraphModel dx="806" dy="930" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="850" math="0" shadow="0">
+        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="900" pageHeight="850" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -234,7 +234,7 @@
                     <mxGeometry height="50" width="260" x="170" y="660" as="geometry"/>
                 </mxCell>
                 <mxCell id="t2_out_pk" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Arahkan ke Dashboard PK&amp;#xa;(Tampilkan 3 Kartu Metrik)" vertex="1">
-                    <mxGeometry height="50" width="230" x="480" y="660" as="geometry"/>
+                    <mxGeometry height="50" width="260" x="470" y="660" as="geometry"/>
                 </mxCell>
                 <mxCell id="t2_end" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=12;fontStyle=1;" value="Selesai" vertex="1">
                     <mxGeometry height="45" width="150" x="375" y="755" as="geometry"/>
@@ -268,33 +268,33 @@
                 <mxCell id="e2_8" edge="1" parent="1" source="t2_p3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;" target="t2_d2" value="">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e2_9" edge="1" parent="1" source="t2_d2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;" target="t2_out_adm" value="Admin">
-                    <mxGeometry relative="1" x="0.4839" as="geometry">
+                <mxCell id="e2_9" edge="1" parent="1" source="t2_d2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="t2_out_adm" value="Admin">
+                    <mxGeometry relative="1" x="0.4375" as="geometry">
                         <mxPoint as="offset"/>
                         <Array as="points">
-                            <mxPoint x="305" y="595"/>
+                            <mxPoint x="300" y="595"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e2_10" edge="1" parent="1" source="t2_d2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;" target="t2_out_pk" value="PK">
-                    <mxGeometry relative="1" x="0.4839" as="geometry">
+                <mxCell id="e2_10" edge="1" parent="1" source="t2_d2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="t2_out_pk" value="PK">
+                    <mxGeometry relative="1" x="0.4375" as="geometry">
                         <mxPoint as="offset"/>
                         <Array as="points">
-                            <mxPoint x="595" y="595"/>
+                            <mxPoint x="600" y="595"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e2_11" edge="1" parent="1" source="t2_out_adm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;" target="t2_end" value="">
-                    <mxGeometry relative="1" as="geometry">
+                <mxCell id="e2_11" edge="1" parent="1" source="t2_out_adm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="t2_end" value="">
+                    <mxGeometry relative="1" x="0.035" as="geometry">
                         <Array as="points">
-                            <mxPoint x="305" y="778"/>
+                            <mxPoint x="300" y="778"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e2_12" edge="1" parent="1" source="t2_out_pk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;" target="t2_end" value="">
-                    <mxGeometry relative="1" as="geometry">
+                <mxCell id="e2_12" edge="1" parent="1" source="t2_out_pk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="t2_end" value="">
+                    <mxGeometry relative="1" x="0.035" as="geometry">
                         <Array as="points">
-                            <mxPoint x="595" y="778"/>
+                            <mxPoint x="600" y="778"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -302,7 +302,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_sm" name="3. Flowchart Surat Masuk">
-        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
+        <mxGraphModel dx="2574" dy="1111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -337,7 +337,7 @@
                     <mxGeometry height="50" width="240" x="80" y="690" as="geometry"/>
                 </mxCell>
                 <mxCell id="t3_out_add_ok" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Tampilkan Notifikasi Berhasil &amp;amp;&amp;#xa;Perbarui Tabel Surat Masuk" vertex="1">
-                    <mxGeometry height="50" width="240" x="80" y="770" as="geometry"/>
+                    <mxGeometry height="50" width="240" x="80" y="776" as="geometry"/>
                 </mxCell>
                 <mxCell id="t3_in_det" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Pilih Baris &amp;amp; Klik Tombol Detail" vertex="1">
                     <mxGeometry height="50" width="210" x="345" y="390" as="geometry"/>
@@ -498,7 +498,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_sk" name="4. Flowchart Surat Keluar">
-        <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
+        <mxGraphModel dx="2345" dy="955" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -693,7 +693,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_klien" name="5. Flowchart Data Klien">
-        <mxGraphModel dx="1752" dy="960" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1020" math="0" shadow="0">
+        <mxGraphModel dx="2384" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1020" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -851,7 +851,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_atur_jadwal" name="6. Flowchart Atur Jadwal (PK)">
-        <mxGraphModel dx="607" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
+        <mxGraphModel dx="1160" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -927,7 +927,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_bimbingan" name="7. Flowchart Penjadwalan Bimbingan">
-        <mxGraphModel dx="600" dy="692" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
+        <mxGraphModel dx="1160" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1003,7 +1003,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_presensi" name="8. Flowchart Presensi &amp; Bukti Hadir">
-        <mxGraphModel dx="905" dy="1044" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="890" math="0" shadow="0">
+        <mxGraphModel dx="1276" dy="873" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="890" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
