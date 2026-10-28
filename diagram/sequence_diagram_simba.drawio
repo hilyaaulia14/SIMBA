@@ -1,0 +1,626 @@
+<mxfile host="65bd71144e">
+    <diagram id="tab_seq_login" name="1. Sequence Login Sistem">
+        <mxGraphModel dx="1238" dy="975" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" value="sd Sequence Diagram Login Sistem SIMBA (Multi-Role)" vertex="1">
+                    <mxGeometry height="880" width="1180" x="30" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Pengguna&#xa;(Admin / PK)" vertex="1">
+                    <mxGeometry height="90" width="50" x="100" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" value="" vertex="1">
+                    <mxGeometry height="700" x="125" y="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_form_log" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Halaman Login&#xa;(View)" vertex="1">
+                    <mxGeometry height="770" width="140" x="320" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_log" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="AuthController&#xa;(Sistem)" vertex="1">
+                    <mxGeometry height="770" width="140" x="580" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_log" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Database MySQL&#xa;(Model User)" vertex="1">
+                    <mxGeometry height="770" width="150" x="840" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_dash_log" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Dashboard View&#xa;(Admin / PK)" vertex="1">
+                    <mxGeometry height="770" width="130" x="1070" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="600" width="10" x="120" y="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="560" width="10" x="385" y="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="480" width="10" x="645" y="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="250" width="10" x="910" y="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_v1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="120" width="10" x="1130" y="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_101" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="1. Masukkan NIP &amp; Password, klik &quot;Masuk&quot;">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="130" y="230" as="sourcePoint"/>
+                        <mxPoint x="385" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_102" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="2. postLogin(nip, password)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="395" y="270" as="sourcePoint"/>
+                        <mxPoint x="645" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_103" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="3. findUserByNIP(nip)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="310" as="sourcePoint"/>
+                        <mxPoint x="910" y="310" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_104" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" value="4. Validasi Kredensial &amp; Hash Password">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="920" y="340" as="sourcePoint"/>
+                        <mxPoint x="920" y="370" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_105" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="5a. [Kredensial Tidak Cocok] Return false">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="420" as="sourcePoint"/>
+                        <mxPoint x="655" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_106" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="5b. Pesan Error &quot;NIP / Password Salah&quot;">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="645" y="450" as="sourcePoint"/>
+                        <mxPoint x="395" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_107" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="5c. Tampilkan Alert Error di Layar Login">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="480" as="sourcePoint"/>
+                        <mxPoint x="130" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_108" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="6a. [Valid] Return data user &amp; role">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="540" as="sourcePoint"/>
+                        <mxPoint x="655" y="540" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_109" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="6b. Set Auth Session">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="580" as="sourcePoint"/>
+                        <mxPoint x="655" y="580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_110" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="7. Redirect ke Dashboard sesuai Role">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="610" as="sourcePoint"/>
+                        <mxPoint x="1130" y="610" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_111" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="8. Render Data Metrik Dashboard">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1130" y="660" as="sourcePoint"/>
+                        <mxPoint x="655" y="660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_112" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="9. Tampilkan Halaman Dashboard">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="645" y="700" as="sourcePoint"/>
+                        <mxPoint x="395" y="700" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_113" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="10. Dashboard Tampil di Layar Pengguna">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="740" as="sourcePoint"/>
+                        <mxPoint x="130" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tab_seq_sm" name="2. Sequence Tambah Surat Masuk">
+        <mxGraphModel dx="1238" dy="975" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq2" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" value="sd Sequence Diagram Tambah Surat Masuk &amp; Upload PDF" vertex="1">
+                    <mxGeometry height="880" width="1180" x="30" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Admin /&#xa;Bagian Umum" vertex="1">
+                    <mxGeometry height="90" width="50" x="90" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" value="" vertex="1">
+                    <mxGeometry height="700" x="115" y="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ui_sm" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Modal Form Surat&#xa;(View)" vertex="1">
+                    <mxGeometry height="770" width="140" x="310" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_sm" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="SuratMasukController&#xa;(Sistem)" vertex="1">
+                    <mxGeometry height="770" width="160" x="570" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_store_sm" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Storage Disk&#xa;(/storage/surat)" vertex="1">
+                    <mxGeometry height="770" width="140" x="830" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_sm" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Database MySQL&#xa;(Tabel surat_masuk)" vertex="1">
+                    <mxGeometry height="770" width="140" x="1060" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="580" width="10" x="110" y="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="540" width="10" x="375" y="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="480" width="10" x="645" y="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_s2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="120" width="10" x="895" y="390" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="150" width="10" x="1125" y="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_114" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="1. Isi Form (No, Pengirim, Tgl, Perihal) &amp; Upload PDF">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="120" y="230" as="sourcePoint"/>
+                        <mxPoint x="375" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_115" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="2. store(Request $request)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="270" as="sourcePoint"/>
+                        <mxPoint x="645" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_116" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" value="3. Validasi Data &amp; Ekstensi PDF (Max 2MB)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="300" as="sourcePoint"/>
+                        <mxPoint x="655" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_117" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="4. storeFile(file_pdf, &quot;storage/surat&quot;)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="390" as="sourcePoint"/>
+                        <mxPoint x="895" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_118" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="5. Return $filePath (storage/surat/scan_01.pdf)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="895" y="450" as="sourcePoint"/>
+                        <mxPoint x="655" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_119" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="6. INSERT INTO surat_masuk (no_surat, asal, tgl, perihal, file, id_user)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="530" as="sourcePoint"/>
+                        <mxPoint x="1125" y="530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_120" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="7. Return Status: Success">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1125" y="600" as="sourcePoint"/>
+                        <mxPoint x="655" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_121" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="8. Response: JSON Success / Redirect with Flash Message">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="645" y="650" as="sourcePoint"/>
+                        <mxPoint x="375" y="650" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_122" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="9. Tutup Modal, Perbarui Tabel, &amp; Tampilkan Toast Sukses">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="375" y="710" as="sourcePoint"/>
+                        <mxPoint x="120" y="710" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tab_seq_detail" name="3. Sequence Detail &amp; Unduh Surat">
+        <mxGraphModel dx="1238" dy="975" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq3" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" value="sd Sequence Diagram Lihat Detail &amp; Unduh Surat Masuk" vertex="1">
+                    <mxGeometry height="880" width="1180" x="30" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user3" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" value="Admin /&#xa;Bagian Umum" vertex="1">
+                    <mxGeometry height="90" width="50" x="90" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" value="" vertex="1">
+                    <mxGeometry height="700" x="115" y="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ui_dt" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Tabel Surat&#xa;(View)" vertex="1">
+                    <mxGeometry height="770" width="140" x="310" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_dt" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="SuratMasukController&#xa;(Sistem)" vertex="1">
+                    <mxGeometry height="770" width="160" x="570" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_dt" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Database MySQL&#xa;(Model Surat)" vertex="1">
+                    <mxGeometry height="770" width="140" x="830" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_store_dt" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" value="Storage Disk&#xa;(File PDF)" vertex="1">
+                    <mxGeometry height="770" width="140" x="1060" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="580" width="10" x="110" y="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="540" width="10" x="375" y="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="480" width="10" x="645" y="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="120" width="10" x="895" y="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_s3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" value="" vertex="1">
+                    <mxGeometry height="140" width="10" x="1125" y="540" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_123" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="1. Klik Tombol &quot;Lihat Detail&quot; pada baris surat">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="120" y="230" as="sourcePoint"/>
+                        <mxPoint x="375" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_124" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="2. show($id)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="260" as="sourcePoint"/>
+                        <mxPoint x="645" y="260" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_125" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="3. SELECT * FROM surat_masuk WHERE id = $id">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="300" as="sourcePoint"/>
+                        <mxPoint x="895" y="300" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_126" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="4. Return Data Rincian Surat">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="895" y="360" as="sourcePoint"/>
+                        <mxPoint x="655" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_127" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="5. Render Modal Detail &amp; Pratinjau PDF di Browser">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="645" y="410" as="sourcePoint"/>
+                        <mxPoint x="375" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_128" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="6. Tampilkan Modal Detail &amp; Preview PDF ke Admin">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="375" y="460" as="sourcePoint"/>
+                        <mxPoint x="120" y="460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_129" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="7. Klik Tombol &quot;Unduh Berkas PDF&quot;">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="120" y="510" as="sourcePoint"/>
+                        <mxPoint x="375" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_130" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="8. download($id)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="540" as="sourcePoint"/>
+                        <mxPoint x="645" y="540" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_131" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="9. Storage::download($filePath)">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="655" y="580" as="sourcePoint"/>
+                        <mxPoint x="1125" y="580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_132" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="10. Stream File Binary PDF">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1125" y="630" as="sourcePoint"/>
+                        <mxPoint x="655" y="630" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_133" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="11. Header Content-Disposition: attachment">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="645" y="670" as="sourcePoint"/>
+                        <mxPoint x="375" y="670" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_134" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" value="12. Berkas PDF Terunduh ke Komputer Admin">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="375" y="720" as="sourcePoint"/>
+                        <mxPoint x="120" y="720" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tab_seq_klien" name="4. Sequence Tambah Data Klien">
+        <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq4" value="sd Sequence Diagram Registrasi Klien Pemasyarakatan Baru (PK)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="20" width="1180" height="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user4" value="Pembimbing&#xa;Kemasyarakatan" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="80" width="60" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user4" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="170" width="0" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ui_kl" value="Modal Form Klien&#xa;(View)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="100" width="140" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_kl" value="KlienController&#xa;(Sistem)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="100" width="150" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_kl" value="Database MySQL&#xa;(Tabel klien)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="100" width="150" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="105" y="210" width="10" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="385" y="230" width="10" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="270" width="10" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="970" y="380" width="10" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_135" value="1. Isi Form (No Register, Nama, Tindak Pidana, Masa Bimbingan)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="115" y="230" as="sourcePoint"/>
+                        <mxPoint x="385" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_136" value="2. store(KlienRequest $request)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="395" y="270" as="sourcePoint"/>
+                        <mxPoint x="670" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_137" value="3. Validasi Keunikan No. Register &amp; Kelengkapan Identitas" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="300" as="sourcePoint"/>
+                        <mxPoint x="680" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_138" value="4. Check duplicate: SELECT id FROM klien WHERE no_register = ?" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="390" as="sourcePoint"/>
+                        <mxPoint x="970" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_139" value="5. Return: Unique / Not Found" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="970" y="440" as="sourcePoint"/>
+                        <mxPoint x="680" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_140" value="6. INSERT INTO klien (no_register, nama, tindak_pidana, masa_mulai, masa_selesai, id_user)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="500" as="sourcePoint"/>
+                        <mxPoint x="970" y="500" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_141" value="7. Return $klien (ID Baru Klien)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="970" y="560" as="sourcePoint"/>
+                        <mxPoint x="680" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_142" value="8. Response: Redirect with Success Message" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="670" y="620" as="sourcePoint"/>
+                        <mxPoint x="385" y="620" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_143" value="9. Tutup Modal, Perbarui Tabel Klien, &amp; Tampilkan Toast Berhasil" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="680" as="sourcePoint"/>
+                        <mxPoint x="115" y="680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tab_seq_jadwal" name="5. Sequence Penjadwalan Bimbingan">
+        <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq5" value="sd Sequence Diagram Penjadwalan Bimbingan Klien (PK)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="20" width="1180" height="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user5" value="Pembimbing&#xa;Kemasyarakatan" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="80" width="60" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user5" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="170" width="0" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ui_jb" value="Modal Jadwal&#xa;(View)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="100" width="140" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_jb" value="JadwalController&#xa;(Sistem)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="100" width="150" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_jb" value="Database MySQL&#xa;(Tabel jadwal_bimbingan)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="100" width="160" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="105" y="210" width="10" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="385" y="230" width="10" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="670" y="270" width="10" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="975" y="380" width="10" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_144" value="1. Pilih Klien Bapas, Tanggal Bimbingan, Jam Mulai, &amp; Materi" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="115" y="230" as="sourcePoint"/>
+                        <mxPoint x="385" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_145" value="2. storeJadwal(Request $request)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="395" y="270" as="sourcePoint"/>
+                        <mxPoint x="670" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_146" value="3. Validasi Tanggal &gt;= Hari Ini &amp; Jam Operasional PK" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="300" as="sourcePoint"/>
+                        <mxPoint x="680" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_147" value="4. INSERT INTO jadwal_bimbingan (id_klien, id_user, tgl, jam, status=&quot;Dijadwalkan&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="390" as="sourcePoint"/>
+                        <mxPoint x="975" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_148" value="5. Return Status: Saved" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="975" y="450" as="sourcePoint"/>
+                        <mxPoint x="680" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_149" value="6. Hitung Ulang Metrik (Jadwal Hari Ini &amp; Jadwal Minggu Ini)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="680" y="510" as="sourcePoint"/>
+                        <mxPoint x="975" y="510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_150" value="7. Return Data Metrik Terbaru" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="975" y="560" as="sourcePoint"/>
+                        <mxPoint x="680" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_151" value="8. Response: Update View &amp; Refresh Table" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="670" y="620" as="sourcePoint"/>
+                        <mxPoint x="385" y="620" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_152" value="9. Tampilkan Jadwal Baru di Kalender/Tabel &amp; Update Metrik Dashboard" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385" y="680" as="sourcePoint"/>
+                        <mxPoint x="115" y="680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="tab_seq_absen" name="6. Sequence Bukti Kehadiran Klien">
+        <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="950" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="frame_seq6" value="sd Sequence Diagram Pencatatan Bukti Kehadiran Klien (Wajib Lapor)" style="shape=umlFrame;whiteSpace=wrap;html=1;width=350;height=30;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="20" width="1180" height="880" as="geometry"/>
+                </mxCell>
+                <mxCell id="act_user6" value="Pembimbing&#xa;Kemasyarakatan" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;strokeWidth=1.5;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="80" width="60" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="line_user6" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;size=0;strokeWidth=1.5;strokeColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="170" width="0" height="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ui_ab" value="Modal Presensi&#xa;(View)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="100" width="140" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_ctrl_ab" value="KehadiranController&#xa;(Sistem)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="550" y="100" width="160" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_store_ab" value="Storage Disk&#xa;(/storage/presensi)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="800" y="100" width="150" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="ll_db_ab" value="Database MySQL&#xa;(kehadiran &amp; jadwal)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=12;size=40;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="100" width="160" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_u6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="105" y="210" width="10" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_f6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="365" y="230" width="10" height="560" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_c6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="625" y="270" width="10" height="500" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_s6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="870" y="390" width="10" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="actv_d6" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;" vertex="1" parent="1">
+                    <mxGeometry x="1115" y="530" width="10" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="msg_153" value="1. Upload Foto Kehadiran, Konfirmasi Waktu, Paraf, &amp; Catatan Evaluasi" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="115" y="230" as="sourcePoint"/>
+                        <mxPoint x="365" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_154" value="2. storeKehadiran(Request $request)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="375" y="270" as="sourcePoint"/>
+                        <mxPoint x="625" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_155" value="3. Validasi Format Foto (JPG/PNG) &amp; Kelengkapan Evaluasi" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="635" y="300" as="sourcePoint"/>
+                        <mxPoint x="635" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_156" value="4. storeFoto(foto_bukti, &quot;storage/presensi&quot;)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="635" y="390" as="sourcePoint"/>
+                        <mxPoint x="870" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_157" value="5. Return $pathFoto" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="870" y="450" as="sourcePoint"/>
+                        <mxPoint x="635" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_158" value="6. INSERT INTO kehadiran_klien (id_jadwal, foto, tgl, paraf, evaluasi)" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="635" y="530" as="sourcePoint"/>
+                        <mxPoint x="1115" y="530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_159" value="7. UPDATE jadwal_bimbingan SET status = &quot;Selesai&quot; WHERE id = $id_jadwal" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="635" y="580" as="sourcePoint"/>
+                        <mxPoint x="1115" y="580" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_160" value="8. Return Status: Success" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1115" y="630" as="sourcePoint"/>
+                        <mxPoint x="635" y="630" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_161" value="9. Response: Tutup Modal &amp; Refresh Status Pertemuan" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="625" y="680" as="sourcePoint"/>
+                        <mxPoint x="365" y="680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="msg_162" value="10. Status Jadwal Berubah &quot;Selesai&quot; &amp; Riwayat Kehadiran Klien Diperbarui" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;strokeColor=#000000;strokeWidth=1.5;fontColor=#000000;fontSize=11;labelBackgroundColor=#ffffff;" edge="1" parent="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="365" y="730" as="sourcePoint"/>
+                        <mxPoint x="115" y="730" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
