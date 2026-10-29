@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2260 1050" width="2260" height="1050" style="background-color: #ffffff; font-family: Helvetica, Arial, sans-serif;">
+<defs>
+
+    <marker id="ERone" viewBox="0 0 10 16" refX="5" refY="8" markerWidth="10" markerHeight="16" orient="auto">
+        <line x1="5" y1="0" x2="5" y2="16" stroke="#00AAAA" stroke-width="1.5" />
+    </marker>
+    
+
+    <marker id="ERoneToMany" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" orient="auto">
+        <line x1="3" y1="0" x2="3" y2="16" stroke="#00AAAA" stroke-width="1.5" />
+        <line x1="3" y1="8" x2="15" y2="0" stroke="#00AAAA" stroke-width="1.5" />
+        <line x1="3" y1="8" x2="15" y2="16" stroke="#00AAAA" stroke-width="1.5" />
+    </marker>
+    
+</defs>
+
+    <rect x="80" y="15" width="2090" height="42" rx="4" ry="4" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+    <text x="1125" y="32" text-anchor="middle" font-size="13" font-weight="bold" fill="#000000">PHYSICAL DATA MODEL (PDM) SISTEM INFORMASI SIMBA</text>
+    <text x="1125" y="47" text-anchor="middle" font-size="11" fill="#333333">Balai Pemasyarakatan (Bapas) Kelas I Banjarmasin - Model Fisik Basis Data (Notasi PowerDesigner PDM dengan Kolom Fisik, &lt;pk&gt;, &lt;fk&gt;, dan &lt;index&gt;)</text>
+    
+
+    <rect x="80" y="990" width="2090" height="30" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1"/>
+    <text x="95" y="1010" font-size="11" fill="#000000">
+        <tspan font-weight="bold">Keterangan Notasi PDM:</tspan>
+        <tspan dx="15">&#8226; <tspan text-decoration="underline">Garis Bawah</tspan> = Primary Key (&lt;pk&gt;)</tspan>
+        <tspan dx="15">&#8226; &lt;fk&gt; / &lt;fk1..3&gt; = Foreign Key</tspan>
+        <tspan dx="15">&#8226; &lt;i&gt; / &lt;i1..4&gt; = Index Constraint</tspan>
+        <tspan dx="15">&#8226; | = Mandatory One (1)</tspan>
+        <tspan dx="15">&#8226; &gt;-| = Mandatory Many (1,n)</tspan>
+    </text>
+    
+<path d="M 410 150 L 490 150" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERone)"/>
+<rect x="414.0" y="136.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="450" y="149" text-anchor="middle" font-size="11" fill="#000000">menerima</text>
+<path d="M 820 200 L 870 200 L 870 460 L 920 460" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="834.0" y="321.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="870" y="334" text-anchor="middle" font-size="11" fill="#000000">memiliki</text>
+<path d="M 570 254 L 570 740" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="527.0" y="488.0" width="86" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="570" y="501" text-anchor="middle" font-size="11" fill="#000000">menghadiri</text>
+<path d="M 1085 174 L 1085 420" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1049.0" y="288.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="1085" y="301" text-anchor="middle" font-size="11" fill="#000000">menandai</text>
+<path d="M 986 594 L 986 830 L 820 830" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERone)"/>
+<rect x="849.5" y="816.0" width="107" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="903" y="829" text-anchor="middle" font-size="11" fill="#000000">memverifikasi</text>
+<path d="M 1390 500 L 1250 500" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1270.0" y="486.0" width="100" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="1320" y="499" text-anchor="middle" font-size="11" fill="#000000">menjadwalkan</text>
+<path d="M 1555 174 L 1555 420" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1515.5" y="288.0" width="79" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="1555" y="301" text-anchor="middle" font-size="11" fill="#000000">mempunyai</text>
+<path d="M 1720 500 L 1840 500" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1740.5" y="486.0" width="79" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="1780" y="499" text-anchor="middle" font-size="11" fill="#000000">mengelola</text>
+<path d="M 2005 440 L 2005 254" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1955.0" y="338.0" width="100" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="2005" y="351" text-anchor="middle" font-size="11" fill="#000000">mengarsipkan</text>
+<path d="M 2005 514 L 2005 740" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
+<rect x="1969.0" y="618.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
+<text x="2005" y="631" text-anchor="middle" font-size="11" fill="#000000">mencatat</text>
+<rect x="80" y="100" width="330" height="114" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="245.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">atur_jadwal</text>
+<line x1="80" y1="126" x2="410" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="88" y="143" font-size="11" fill="#000000" text-decoration="underline">id_atur_jadwal</text>
+<text x="218" y="143" font-size="11" fill="#000000">int</text>
+<text x="355" y="143" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="390" y="143" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="88" y="163" font-size="11" fill="#000000">id_klien</text>
+<text x="218" y="163" font-size="11" fill="#000000">int</text>
+<text x="355" y="163" font-size="11" fill="#000000">&lt;fk&gt;</text>
+<text x="390" y="163" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="88" y="183" font-size="11" fill="#000000">hari</text>
+<text x="218" y="183" font-size="11" fill="#000000">varchar(20)</text>
+<text x="88" y="203" font-size="11" fill="#000000">jam_mulai</text>
+<text x="218" y="203" font-size="11" fill="#000000">time</text>
+<rect x="490" y="80" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="655.0" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">klien</text>
+<line x1="490" y1="106" x2="820" y2="106" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="498" y="123" font-size="11" fill="#000000" text-decoration="underline">id_klien</text>
+<text x="628" y="123" font-size="11" fill="#000000">int</text>
+<text x="765" y="123" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="800" y="123" font-size="11" fill="#000000">&lt;i&gt;</text>
+<text x="498" y="143" font-size="11" fill="#000000">nama_klien</text>
+<text x="628" y="143" font-size="11" fill="#000000">varchar(100)</text>
+<text x="498" y="163" font-size="11" fill="#000000">no_register</text>
+<text x="628" y="163" font-size="11" fill="#000000">varchar(50)</text>
+<text x="498" y="183" font-size="11" fill="#000000">jenis_kelamin</text>
+<text x="628" y="183" font-size="11" fill="#000000">varchar(20)</text>
+<text x="498" y="203" font-size="11" fill="#000000">tgl_lahir</text>
+<text x="628" y="203" font-size="11" fill="#000000">date</text>
+<text x="498" y="223" font-size="11" fill="#000000">jam_mulai</text>
+<text x="628" y="223" font-size="11" fill="#000000">time</text>
+<text x="498" y="243" font-size="11" fill="#000000">tindak_pidana</text>
+<text x="628" y="243" font-size="11" fill="#000000">varchar(100)</text>
+<rect x="920" y="100" width="330" height="74" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1085.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">status_bimbingan</text>
+<line x1="920" y1="126" x2="1250" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="928" y="143" font-size="11" fill="#000000" text-decoration="underline">id_status_bimbingan</text>
+<text x="1058" y="143" font-size="11" fill="#000000">int</text>
+<text x="1195" y="143" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="1230" y="143" font-size="11" fill="#000000">&lt;i&gt;</text>
+<text x="928" y="163" font-size="11" fill="#000000">nama_status</text>
+<text x="1058" y="163" font-size="11" fill="#000000">varchar(50)</text>
+<rect x="1390" y="100" width="330" height="74" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1555.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">role</text>
+<line x1="1390" y1="126" x2="1720" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1398" y="143" font-size="11" fill="#000000" text-decoration="underline">id_role</text>
+<text x="1528" y="143" font-size="11" fill="#000000">int</text>
+<text x="1665" y="143" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="1700" y="143" font-size="11" fill="#000000">&lt;i&gt;</text>
+<text x="1398" y="163" font-size="11" fill="#000000">nama_role</text>
+<text x="1528" y="163" font-size="11" fill="#000000">varchar(50)</text>
+<rect x="1840" y="80" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="2005.0" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat_masuk</text>
+<line x1="1840" y1="106" x2="2170" y2="106" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1848" y="123" font-size="11" fill="#000000" text-decoration="underline">id_surat_masuk</text>
+<text x="1978" y="123" font-size="11" fill="#000000">int</text>
+<text x="2115" y="123" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="2150" y="123" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="1848" y="143" font-size="11" fill="#000000">id_surat</text>
+<text x="1978" y="143" font-size="11" fill="#000000">int</text>
+<text x="2115" y="143" font-size="11" fill="#000000">&lt;fk&gt;</text>
+<text x="2150" y="143" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="1848" y="163" font-size="11" fill="#000000">no_surat</text>
+<text x="1978" y="163" font-size="11" fill="#000000">varchar(50)</text>
+<text x="1848" y="183" font-size="11" fill="#000000">asal_surat</text>
+<text x="1978" y="183" font-size="11" fill="#000000">varchar(100)</text>
+<text x="1848" y="203" font-size="11" fill="#000000">tgl_masuk</text>
+<text x="1978" y="203" font-size="11" fill="#000000">date</text>
+<text x="1848" y="223" font-size="11" fill="#000000">perihal</text>
+<text x="1978" y="223" font-size="11" fill="#000000">varchar(255)</text>
+<text x="1848" y="243" font-size="11" fill="#000000">upload_dokumen</text>
+<text x="1978" y="243" font-size="11" fill="#000000">varchar(255)</text>
+<rect x="920" y="420" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1085.0" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">jadwal_bimbingan</text>
+<line x1="920" y1="446" x2="1250" y2="446" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="928" y="463" font-size="11" fill="#000000" text-decoration="underline">id_jadwal_bimbingan</text>
+<text x="1058" y="463" font-size="11" fill="#000000">int</text>
+<text x="1195" y="463" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="1230" y="463" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="928" y="483" font-size="11" fill="#000000">id_pegawai</text>
+<text x="1058" y="483" font-size="11" fill="#000000">int</text>
+<text x="1195" y="483" font-size="11" fill="#000000">&lt;fk1&gt;</text>
+<text x="1230" y="483" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="928" y="503" font-size="11" fill="#000000">id_klien</text>
+<text x="1058" y="503" font-size="11" fill="#000000">int</text>
+<text x="1195" y="503" font-size="11" fill="#000000">&lt;fk2&gt;</text>
+<text x="1230" y="503" font-size="11" fill="#000000">&lt;i3&gt;</text>
+<text x="928" y="523" font-size="11" fill="#000000">id_status_bimbingan</text>
+<text x="1058" y="523" font-size="11" fill="#000000">int</text>
+<text x="1195" y="523" font-size="11" fill="#000000">&lt;fk3&gt;</text>
+<text x="1230" y="523" font-size="11" fill="#000000">&lt;i4&gt;</text>
+<text x="928" y="543" font-size="11" fill="#000000">tgl_bimbingan</text>
+<text x="1058" y="543" font-size="11" fill="#000000">date</text>
+<text x="928" y="563" font-size="11" fill="#000000">jam_mulai</text>
+<text x="1058" y="563" font-size="11" fill="#000000">time</text>
+<text x="928" y="583" font-size="11" fill="#000000">keterangan</text>
+<text x="1058" y="583" font-size="11" fill="#000000">varchar(255)</text>
+<rect x="1390" y="420" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1555.0" y="437" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">pegawai</text>
+<line x1="1390" y1="446" x2="1720" y2="446" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1398" y="463" font-size="11" fill="#000000" text-decoration="underline">id_pegawai</text>
+<text x="1528" y="463" font-size="11" fill="#000000">int</text>
+<text x="1665" y="463" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="1700" y="463" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="1398" y="483" font-size="11" fill="#000000">id_role</text>
+<text x="1528" y="483" font-size="11" fill="#000000">int</text>
+<text x="1665" y="483" font-size="11" fill="#000000">&lt;fk&gt;</text>
+<text x="1700" y="483" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="1398" y="503" font-size="11" fill="#000000">nama_pegawai</text>
+<text x="1528" y="503" font-size="11" fill="#000000">varchar(100)</text>
+<text x="1398" y="523" font-size="11" fill="#000000">nip(usn)</text>
+<text x="1528" y="523" font-size="11" fill="#000000">varchar(30)</text>
+<text x="1398" y="543" font-size="11" fill="#000000">password</text>
+<text x="1528" y="543" font-size="11" fill="#000000">varchar(64)</text>
+<text x="1398" y="563" font-size="11" fill="#000000">jabatan</text>
+<text x="1528" y="563" font-size="11" fill="#000000">varchar(50)</text>
+<text x="1398" y="583" font-size="11" fill="#000000">foto</text>
+<text x="1528" y="583" font-size="11" fill="#000000">varchar(255)</text>
+<rect x="1840" y="440" width="330" height="74" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="2005.0" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat</text>
+<line x1="1840" y1="466" x2="2170" y2="466" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1848" y="483" font-size="11" fill="#000000" text-decoration="underline">id_surat</text>
+<text x="1978" y="483" font-size="11" fill="#000000">int</text>
+<text x="2115" y="483" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="2150" y="483" font-size="11" fill="#000000">&lt;i&gt;</text>
+<text x="1848" y="503" font-size="11" fill="#000000">nama_surat</text>
+<text x="1978" y="503" font-size="11" fill="#000000">varchar(100)</text>
+<rect x="490" y="740" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="655.0" y="757" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">kehadiran_klien</text>
+<line x1="490" y1="766" x2="820" y2="766" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="498" y="783" font-size="11" fill="#000000" text-decoration="underline">id_kehadiran</text>
+<text x="628" y="783" font-size="11" fill="#000000">int</text>
+<text x="765" y="783" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="800" y="783" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="498" y="803" font-size="11" fill="#000000">id_jadwal_bimbingan</text>
+<text x="628" y="803" font-size="11" fill="#000000">int</text>
+<text x="765" y="803" font-size="11" fill="#000000">&lt;fk1&gt;</text>
+<text x="800" y="803" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="498" y="823" font-size="11" fill="#000000">id_klien</text>
+<text x="628" y="823" font-size="11" fill="#000000">int</text>
+<text x="765" y="823" font-size="11" fill="#000000">&lt;fk2&gt;</text>
+<text x="800" y="823" font-size="11" fill="#000000">&lt;i3&gt;</text>
+<text x="498" y="843" font-size="11" fill="#000000">tgl_hadir</text>
+<text x="628" y="843" font-size="11" fill="#000000">date</text>
+<text x="498" y="863" font-size="11" fill="#000000">jam_hadir</text>
+<text x="628" y="863" font-size="11" fill="#000000">time</text>
+<text x="498" y="883" font-size="11" fill="#000000">foto_kehadiran</text>
+<text x="628" y="883" font-size="11" fill="#000000">varchar(255)</text>
+<text x="498" y="903" font-size="11" fill="#000000">catatan</text>
+<text x="628" y="903" font-size="11" fill="#000000">varchar(255)</text>
+<rect x="1840" y="740" width="330" height="174" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="2005.0" y="757" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat_keluar</text>
+<line x1="1840" y1="766" x2="2170" y2="766" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1848" y="783" font-size="11" fill="#000000" text-decoration="underline">id_surat_keluar</text>
+<text x="1978" y="783" font-size="11" fill="#000000">int</text>
+<text x="2115" y="783" font-size="11" fill="#000000">&lt;pk&gt;</text>
+<text x="2150" y="783" font-size="11" fill="#000000">&lt;i1&gt;</text>
+<text x="1848" y="803" font-size="11" fill="#000000">id_surat</text>
+<text x="1978" y="803" font-size="11" fill="#000000">int</text>
+<text x="2115" y="803" font-size="11" fill="#000000">&lt;fk&gt;</text>
+<text x="2150" y="803" font-size="11" fill="#000000">&lt;i2&gt;</text>
+<text x="1848" y="823" font-size="11" fill="#000000">no_surat</text>
+<text x="1978" y="823" font-size="11" fill="#000000">varchar(50)</text>
+<text x="1848" y="843" font-size="11" fill="#000000">tujuan_surat</text>
+<text x="1978" y="843" font-size="11" fill="#000000">varchar(100)</text>
+<text x="1848" y="863" font-size="11" fill="#000000">tgl_keluar</text>
+<text x="1978" y="863" font-size="11" fill="#000000">date</text>
+<text x="1848" y="883" font-size="11" fill="#000000">perihal</text>
+<text x="1978" y="883" font-size="11" fill="#000000">varchar(255)</text>
+<text x="1848" y="903" font-size="11" fill="#000000">upload_dokumen</text>
+<text x="1978" y="903" font-size="11" fill="#000000">varchar(255)</text>
+</svg>
