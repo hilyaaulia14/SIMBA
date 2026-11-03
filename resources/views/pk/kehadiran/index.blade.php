@@ -85,13 +85,13 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-inline-flex gap-1 align-items-center">
-                                    <button class="btn-action-icon btn-action-view" title="Detail Kehadiran" onclick="showDetailKehadiran({{ $kh->id_kehadiran }})">
+                                    <button class="btn-action-square" title="Detail Kehadiran" onclick="showDetailKehadiran({{ $kh->id_kehadiran }})">
                                         <i class="bi bi-eye"></i>
                                     </button>
-                                    <button class="btn-action-icon btn-action-edit" title="Edit Presensi" onclick="showEditKehadiran({{ $kh->id_kehadiran }})">
+                                    <button class="btn-action-square" title="Edit Presensi" onclick="showEditKehadiran({{ $kh->id_kehadiran }})">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button class="btn-action-icon btn-action-delete" title="Hapus Presensi" onclick="confirmDeleteKehadiran({{ $kh->id_kehadiran }}, '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')">
+                                    <button class="btn-action-square" title="Hapus Presensi" onclick="confirmDeleteKehadiran({{ $kh->id_kehadiran }}, '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
