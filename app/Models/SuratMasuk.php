@@ -17,12 +17,17 @@ class SuratMasuk extends Model
         'no_surat',
         'asal_surat',
         'tgl_masuk',
+        'tgl_diterima',
+        'tujuan',
         'perihal',
+        'lampiran',
+        'keterangan',
         'upload_dokumen',
     ];
 
     protected $casts = [
         'tgl_masuk' => 'date',
+        'tgl_diterima' => 'date',
     ];
 
     public function surat()

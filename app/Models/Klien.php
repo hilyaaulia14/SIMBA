@@ -15,10 +15,13 @@ class Klien extends Model
     protected $fillable = [
         'no_register',
         'nama_klien',
+        'telepon',
         'jenis_kelamin',
         'tgl_lahir',
         'jam_mulai',
         'tindak_pidana',
+        'alamat',
+        'keterangan',
     ];
 
     protected $casts = [

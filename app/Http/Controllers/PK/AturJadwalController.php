@@ -38,26 +38,49 @@ class AturJadwalController extends Controller
     {
         $validated = $request->validate([
             'id_klien' => 'required|exists:klien,id_klien',
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat',
+            'hari' => 'nullable|in:Senin,Selasa,Rabu,Kamis,Jumat',
+            'tgl_bimbingan' => 'nullable|date',
             'jam_mulai' => 'required',
+            'keterangan' => 'nullable|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
-            'hari.required' => 'Hari bimbingan wajib dipilih.',
-            'jam_mulai.required' => 'Jam mulai bimbingan wajib ditentukan.',
+            'jam_mulai.required' => 'Waktu bimbingan wajib ditentukan.',
         ]);
 
-        // Check if schedule already exists for this client; if so, update it
-        $aturJadwal = AturJadwal::updateOrCreate(
+        $hari = $validated['hari'] ?? null;
+        if (!$hari && !empty($validated['tgl_bimbingan'])) {
+            $dayName = \Carbon\Carbon::parse($validated['tgl_bimbingan'])->locale('id')->isoFormat('dddd');
+            $hari = in_array($dayName, ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']) ? $dayName : 'Senin';
+        }
+
+        if (!$hari) {
+            $hari = 'Senin';
+        }
+
+        // Set rule in atur_jadwal
+        AturJadwal::updateOrCreate(
             ['id_klien' => $validated['id_klien']],
-            ['hari' => $validated['hari'], 'jam_mulai' => $validated['jam_mulai']]
+            ['hari' => $hari, 'jam_mulai' => $validated['jam_mulai']]
         );
 
-        // Also update standard jam_mulai in Klien table
+        // Update Klien jam_mulai
         Klien::where('id_klien', $validated['id_klien'])->update([
             'jam_mulai' => $validated['jam_mulai'],
         ]);
 
-        return redirect()->route('pk.atur-jadwal.index')->with('success', 'Jadwal rutin bimbingan klien berhasil ditetapkan.');
+        // If date is provided, also create session in jadwal_bimbingan
+        if (!empty($validated['tgl_bimbingan'])) {
+            \App\Models\JadwalBimbingan::create([
+                'id_pegawai' => \Illuminate\Support\Facades\Auth::id() ?? 2,
+                'id_klien' => $validated['id_klien'],
+                'id_status_bimbingan' => 4, // Terjadwal
+                'tgl_bimbingan' => $validated['tgl_bimbingan'],
+                'jam_mulai' => $validated['jam_mulai'],
+                'keterangan' => $validated['keterangan'] ?? 'Bimbingan rutin klien pemasyarakatan',
+            ]);
+        }
+
+        return redirect()->route('pk.atur-jadwal.index')->with('success', 'Jadwal sesi bimbingan klien berhasil dibuat.');
     }
 
     public function update(Request $request, $id)

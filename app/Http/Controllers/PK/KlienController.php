@@ -35,17 +35,23 @@ class KlienController extends Controller
         $validated = $request->validate([
             'no_register' => 'required|string|max:50|unique:klien,no_register',
             'nama_klien' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'telepon' => 'nullable|string|max:30',
+            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
             'tgl_lahir' => 'nullable|date',
             'jam_mulai' => 'nullable',
             'tindak_pidana' => 'required|string|max:100',
+            'alamat' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
         ], [
-            'no_register.required' => 'Nomor register klien wajib diisi.',
-            'no_register.unique' => 'Nomor register klien sudah terdaftar.',
+            'no_register.required' => 'Nomor registrasi klien wajib diisi.',
+            'no_register.unique' => 'Nomor registrasi klien sudah terdaftar.',
             'nama_klien.required' => 'Nama lengkap klien wajib diisi.',
-            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
             'tindak_pidana.required' => 'Perkara / tindak pidana wajib diisi.',
         ]);
+
+        if (empty($validated['jenis_kelamin'])) {
+            $validated['jenis_kelamin'] = 'Laki-laki';
+        }
 
         Klien::create($validated);
 
@@ -82,17 +88,23 @@ class KlienController extends Controller
         $validated = $request->validate([
             'no_register' => 'required|string|max:50|unique:klien,no_register,' . $klien->id_klien . ',id_klien',
             'nama_klien' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'telepon' => 'nullable|string|max:30',
+            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
             'tgl_lahir' => 'nullable|date',
             'jam_mulai' => 'nullable',
             'tindak_pidana' => 'required|string|max:100',
+            'alamat' => 'nullable|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
         ], [
-            'no_register.required' => 'Nomor register klien wajib diisi.',
-            'no_register.unique' => 'Nomor register klien sudah terdaftar.',
+            'no_register.required' => 'Nomor registrasi klien wajib diisi.',
+            'no_register.unique' => 'Nomor registrasi klien sudah terdaftar.',
             'nama_klien.required' => 'Nama lengkap klien wajib diisi.',
-            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
             'tindak_pidana.required' => 'Perkara / tindak pidana wajib diisi.',
         ]);
+
+        if (empty($validated['jenis_kelamin'])) {
+            $validated['jenis_kelamin'] = $klien->jenis_kelamin ?? 'Laki-laki';
+        }
 
         $klien->update($validated);
 

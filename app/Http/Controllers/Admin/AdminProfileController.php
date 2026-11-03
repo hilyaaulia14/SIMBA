@@ -25,6 +25,8 @@ class AdminProfileController extends Controller
             'nama_pegawai' => 'required|string|max:100',
             'nip_usn' => 'required|string|max:30|unique:pegawai,nip_usn,' . $admin->id_pegawai . ',id_pegawai',
             'jabatan' => 'required|string|max:50',
+            'email' => 'nullable|string|max:100',
+            'alamat' => 'nullable|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'nama_pegawai.required' => 'Nama lengkap wajib diisi.',

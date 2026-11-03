@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard PK - SIMBA')
+@section('title', 'Dashboard Pembimbing - SIMBA')
 
 @section('content')
 <div class="container-fluid px-0">
@@ -8,20 +8,19 @@
     <!-- Page Header Row -->
     <div class="page-header-row">
         <div>
-            <h3 class="page-title-main">Dashboard</h3>
-            <p class="page-subtitle-main">Ringkasan informasi bimbingan klien pemasyarakatan Bapas Kelas I Banjarmasin</p>
+            <h2 class="page-title-main">Dashboard</h2>
+            <p class="page-subtitle-main">Ringkasan Jadwal Bimbingan Anda Hari Ini.</p>
         </div>
         <div>
-            <a href="{{ route('pk.jadwal.index') }}" class="btn-simba-primary">
-                <i class="bi bi-plus-lg"></i>
-                <span>Tambah Jadwal</span>
-            </a>
+            <div class="header-date-badge">
+                <i class="bi bi-calendar3"></i>
+                <span>{{ date('d/m/Y') }}</span>
+            </div>
         </div>
     </div>
 
-    <!-- 3 Metric Cards Sesuai Desain Figma -->
-    <div class="row g-3 mb-4">
-        <!-- 1. Jadwal Hari Ini -->
+    <!-- 3 Metric Cards (Figma Exact) -->
+    <div class="row g-4 mb-5">
         <div class="col-12 col-md-4">
             <div class="metric-card-figma">
                 <div class="metric-card-label">Jadwal Hari Ini</div>
@@ -29,7 +28,6 @@
             </div>
         </div>
 
-        <!-- 2. Jadwal Minggu Ini -->
         <div class="col-12 col-md-4">
             <div class="metric-card-figma">
                 <div class="metric-card-label">Jadwal Minggu Ini</div>
@@ -37,7 +35,6 @@
             </div>
         </div>
 
-        <!-- 3. Total Klien -->
         <div class="col-12 col-md-4">
             <div class="metric-card-figma">
                 <div class="metric-card-label">Total Klien</div>
@@ -46,17 +43,17 @@
         </div>
     </div>
 
-    <!-- Table Card: Agenda Sesi Bimbingan Terdekat -->
+    <!-- Jadwal Bimbingan Hari Ini Card -->
     <div class="table-card-figma">
-        <div class="table-filter-bar">
+        <div class="table-card-header">
             <div>
-                <h5 class="fw-bold mb-0" style="color: var(--simba-navy); font-size: 1.05rem;">Agenda Bimbingan Klien</h5>
-                <small class="text-muted" style="font-size: 0.76rem;">Daftar jadwal bimbingan tatap muka terdekat</small>
+                <h5 class="table-card-title">Jadwal Bimbingan Hari Ini</h5>
+                <p class="table-card-subtitle">{{ \Carbon\Carbon::now()->translatedFormat('l, j F Y') }}</p>
             </div>
             <div>
-                <a href="{{ route('pk.jadwal.index') }}" class="btn-simba-primary" style="padding: 0.45rem 1.15rem; font-size: 0.78rem;">
-                    <span>Lihat Semua</span>
-                    <i class="bi bi-arrow-right"></i>
+                <a href="{{ route('pk.atur-jadwal.index') }}" class="btn-simba-primary">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Buat Jadwal</span>
                 </a>
             </div>
         </div>
@@ -65,51 +62,43 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 50px;" class="text-center">No</th>
+                        <th style="width: 120px;">Jam</th>
                         <th>Nama Klien</th>
-                        <th>No. Register</th>
-                        <th>Status</th>
-                        <th>Tanggal & Jam Bimbingan</th>
-                        <th style="width: 100px;" class="text-center">Aksi</th>
+                        <th style="width: 200px;">Status</th>
+                        <th>Nama Pembimbing</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($agendaTerdekat as $index => $agenda)
+                    @forelse($agendaTerdekat as $agenda)
                         @php
                             $stName = strtolower($agenda->statusBimbingan->nama_status ?? '');
-                            $badgeClass = match($stName) {
-                                'terlaksana' => 'badge-simba-success',
-                                'dijadwalkan' => 'badge-simba-info',
-                                'absen' => 'badge-simba-danger',
-                                default => 'badge-simba-warning'
+                            $statusClass = match(true) {
+                                str_contains($stName, 'hadir') && !str_contains($stName, 'tidak') => 'status-pill-hadir',
+                                str_contains($stName, 'ulang') => 'status-pill-dijadwalkan-ulang',
+                                str_contains($stName, 'tidak') || str_contains($stName, 'absen') => 'status-pill-tidak-hadir',
+                                default => 'status-pill-terjadwal'
+                            };
+                            $displayStatus = match(true) {
+                                str_contains($stName, 'hadir') && !str_contains($stName, 'tidak') => 'Hadir',
+                                str_contains($stName, 'ulang') => 'Dijadwalkan Ulang',
+                                str_contains($stName, 'tidak') || str_contains($stName, 'absen') => 'Tidak Hadir',
+                                default => 'Terjadwal'
                             };
                         @endphp
                         <tr>
-                            <td class="text-center text-muted">{{ $index + 1 }}</td>
+                            <td class="fw-medium">{{ substr($agenda->jam_mulai, 0, 5) }}</td>
+                            <td class="fw-medium">{{ $agenda->klien->nama_klien ?? '-' }}</td>
                             <td>
-                                <span class="fw-bold text-dark">{{ $agenda->klien->nama_klien ?? 'Klien Dihapus' }}</span>
-                            </td>
-                            <td>
-                                <span class="font-monospace text-muted small">{{ $agenda->klien->no_register ?? '-' }}</span>
-                            </td>
-                            <td>
-                                <span class="badge-simba {{ $badgeClass }}">
-                                    {{ $agenda->statusBimbingan->nama_status ?? 'Dijadwalkan' }}
+                                <span class="{{ $statusClass }}">
+                                    ● {{ $displayStatus }}
                                 </span>
                             </td>
-                            <td>
-                                {{ $agenda->tgl_bimbingan->format('d/m/Y') }} &bull; {{ substr($agenda->jam_mulai, 0, 5) }} WITA
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('pk.kehadiran.index', ['search' => $agenda->klien->nama_klien ?? '']) }}" class="btn-action-icon btn-action-view" title="Catat Presensi Kehadiran">
-                                    <i class="bi bi-camera-fill"></i>
-                                </a>
-                            </td>
+                            <td>{{ $agenda->pegawai->nama_pegawai ?? 'Ahmad Fauzan, S.H.' }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                Tidak ada agenda bimbingan terdekat.
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                Tidak ada agenda jadwal bimbingan untuk hari ini.
                             </td>
                         </tr>
                     @endforelse

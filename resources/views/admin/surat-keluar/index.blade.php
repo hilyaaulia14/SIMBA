@@ -6,16 +6,10 @@
 <div class="container-fluid px-0">
 
     <!-- Page Header Row -->
-    <div class="page-header-row">
+    <div class="page-header-row mb-4">
         <div>
-            <h3 class="page-title-main">Surat Keluar</h3>
-            <p class="page-subtitle-main">Kelola data penerbitan arsip surat keluar Bapas Kelas I Banjarmasin</p>
-        </div>
-        <div>
-            <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahSuratKeluar">
-                <i class="bi bi-plus-lg"></i>
-                <span>Tambah Surat Keluar</span>
-            </button>
+            <h2 class="page-title-main">Surat Keluar</h2>
+            <p class="page-subtitle-main">Kelola dan catat surat yang keluar.</p>
         </div>
     </div>
 
@@ -23,18 +17,22 @@
     <div class="table-card-figma">
         <div class="table-filter-bar">
             <form action="{{ route('admin.surat-keluar.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
-                <div style="max-width: 320px; width: 100%;">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px; border-color: var(--simba-border);">
+                <div style="max-width: 260px;">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
                             <i class="bi bi-search"></i>
                         </span>
-                        <input type="text" name="search" class="form-control form-control-sm border-start-0" placeholder="Cari surat keluar..." value="{{ request('search') }}" style="border-radius: 0 8px 8px 0; border-color: var(--simba-border);">
+                        <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
                     </div>
                 </div>
 
-                <div style="max-width: 240px; width: 100%;">
-                    <select name="id_surat" class="form-select form-select-sm" style="border-radius: 8px; border-color: var(--simba-border);" onchange="this.form.submit()">
-                        <option value="">Semua Kategori</option>
+                <div style="max-width: 170px;">
+                    <input type="date" name="tgl_keluar" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_keluar') }}" placeholder="DD/MM/YY" onchange="this.form.submit()">
+                </div>
+
+                <div style="max-width: 190px;">
+                    <select name="id_surat" class="form-select form-select-sm filter-pill-input" onchange="this.form.submit()">
+                        <option value="">Filter</option>
                         @foreach($klasifikasiSurat as $klas)
                             <option value="{{ $klas->id_surat }}" {{ request('id_surat') == $klas->id_surat ? 'selected' : '' }}>
                                 {{ $klas->nama_surat }}
@@ -43,65 +41,56 @@
                     </select>
                 </div>
 
-                @if(request()->hasAny(['search', 'id_surat']))
-                    <a href="{{ route('admin.surat-keluar.index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 8px;">
+                @if(request()->hasAny(['search', 'tgl_keluar', 'id_surat']))
+                    <a href="{{ route('admin.surat-keluar.index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 50px;">
                         Reset
                     </a>
                 @endif
             </form>
+
+            <div>
+                <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahSuratKeluar">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Tambah Surat</span>
+                </button>
+            </div>
         </div>
 
         <div class="table-responsive">
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 50px;" class="text-center">No</th>
-                        <th>No. Surat</th>
-                        <th>Tujuan / Penerima</th>
-                        <th>Tanggal Keluar</th>
+                        <th style="width: 50px;">No</th>
+                        <th>Nomor Surat</th>
+                        <th>Tgl Surat</th>
+                        <th>Tujuan</th>
                         <th>Perihal</th>
-                        <th>Klasifikasi</th>
-                        <th class="text-center">Lampiran</th>
-                        <th style="width: 120px;" class="text-center">Aksi</th>
+                        <th>Jenis Surat</th>
+                        <th style="width: 130px; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($suratKeluarList as $index => $sk)
                         <tr>
-                            <td class="text-center text-muted">{{ $suratKeluarList->firstItem() + $index }}</td>
-                            <td>
-                                <span class="fw-bold text-dark">{{ $sk->no_surat }}</span>
-                            </td>
-                            <td>{{ $sk->tujuan_surat }}</td>
+                            <td>{{ $suratKeluarList->firstItem() + $index }}</td>
+                            <td class="fw-medium">{{ $sk->no_surat }}</td>
                             <td>{{ $sk->tgl_keluar->format('d/m/Y') }}</td>
+                            <td>{{ $sk->tujuan_surat }}</td>
                             <td>
-                                <div class="text-truncate" style="max-width: 220px;" title="{{ $sk->perihal }}">
+                                <div class="text-truncate" style="max-width: 240px;" title="{{ $sk->perihal }}">
                                     {{ $sk->perihal }}
                                 </div>
                             </td>
-                            <td>
-                                <span class="badge-simba badge-simba-success">
-                                    {{ $sk->surat->nama_surat ?? 'Umum' }}
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                @if($sk->upload_dokumen)
-                                    <a href="{{ route('admin.surat-keluar.download', $sk->id_surat_keluar) }}" class="btn-action-icon btn-action-view" title="Unduh Berkas">
-                                        <i class="bi bi-file-earmark-arrow-down-fill text-success"></i>
-                                    </a>
-                                @else
-                                    <span class="text-muted small">-</span>
-                                @endif
-                            </td>
-                            <td class="text-center">
+                            <td>{{ $sk->surat->nama_surat ?? 'Surat Dinas' }}</td>
+                            <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
-                                    <button class="btn-action-icon btn-action-view" title="Detail Surat" onclick="showDetailKeluar({{ $sk->id_surat_keluar }})">
+                                    <button class="btn-action-square" title="Detail Surat" onclick="showDetailSuratKeluar({{ $sk->id_surat_keluar }})">
                                         <i class="bi bi-eye"></i>
                                     </button>
-                                    <button class="btn-action-icon btn-action-edit" title="Edit Surat" onclick="showEditKeluar({{ $sk->id_surat_keluar }})">
+                                    <button class="btn-action-square" title="Edit Surat" onclick="showEditSuratKeluar({{ $sk->id_surat_keluar }})">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button class="btn-action-icon btn-action-delete" title="Hapus Surat" onclick="confirmDeleteKeluar({{ $sk->id_surat_keluar }}, '{{ addslashes($sk->no_surat) }}')">
+                                    <button class="btn-action-square btn-delete" title="Hapus Surat" onclick="confirmDeleteSuratKeluar({{ $sk->id_surat_keluar }}, '{{ addslashes($sk->no_surat) }}')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </div>
@@ -109,7 +98,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-5 text-muted">
+                            <td colspan="7" class="text-center py-5 text-muted">
                                 Tidak ada data surat keluar yang ditemukan.
                             </td>
                         </tr>
@@ -118,19 +107,19 @@
             </table>
         </div>
 
-        @if($suratKeluarList->hasPages())
-            <div class="p-3 border-top d-flex justify-content-between align-items-center" style="font-size: 0.8rem;">
-                <span class="text-muted">
-                    Menampilkan {{ $suratKeluarList->firstItem() }} - {{ $suratKeluarList->lastItem() }} dari {{ $suratKeluarList->total() }} data
-                </span>
-                {{ $suratKeluarList->links() }}
+        @if($suratKeluarList->hasPages() || $suratKeluarList->total() > 0)
+            <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
+                <span>Menampilkan {{ $suratKeluarList->firstItem() ?? 0 }} sampai {{ $suratKeluarList->lastItem() ?? 0 }} dari {{ $suratKeluarList->total() }} surat</span>
+                <div>
+                    {{ $suratKeluarList->links() }}
+                </div>
             </div>
         @endif
     </div>
 
 </div>
 
-<!-- Modal Tambah Surat Keluar -->
+<!-- Modal Tambah Surat Keluar (Sesuai Tambah Surat Keluar.png) -->
 <div class="modal fade" id="modalTambahSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -138,83 +127,97 @@
                 @csrf
                 <div class="modal-header-figma">
                     <div>
-                        <h5 class="modal-title-figma">Tambah Surat Keluar</h5>
-                        <p class="modal-subtitle-figma">Catat penerbitan arsip surat dinas keluar baru</p>
+                        <h4 class="modal-title-figma">Tambah Surat Keluar</h4>
+                        <p class="modal-subtitle-figma">Lengkapi data surat yang akan dikirim.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Nomor Agenda / Surat <span class="text-danger">*</span></label>
-                            <input type="text" name="no_surat" class="form-control form-control-figma" placeholder="Contoh: W19.PAS.PAS.10-PK.02.01-094" required>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Klasifikasi Surat <span class="text-danger">*</span></label>
+                        <div class="col-12">
+                            <label class="form-label-figma">Jenis Surat <span class="text-danger">*</span></label>
                             <select name="id_surat" class="form-select form-control-figma" required>
-                                <option value="">Pilih Kategori Surat</option>
                                 @foreach($klasifikasiSurat as $klas)
-                                    <option value="{{ $klas->id_surat }}">{{ $klas->nama_surat }}</option>
+                                    <option value="{{ $klas->id_surat }}" {{ $loop->first ? 'selected' : '' }}>
+                                        {{ $klas->nama_surat }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Tujuan (Penerima Surat) <span class="text-danger">*</span></label>
-                            <input type="text" name="tujuan_surat" class="form-control form-control-figma" placeholder="Contoh: Lapas Kelas IIA Banjarmasin" required>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Tanggal Keluar <span class="text-danger">*</span></label>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Tanggal Surat <span class="text-danger">*</span></label>
                             <input type="date" name="tgl_keluar" class="form-control form-control-figma" value="{{ date('Y-m-d') }}" required>
                         </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Nomor Surat <span class="text-danger">*</span></label>
+                            <input type="text" name="no_surat" class="form-control form-control-figma" placeholder="Contoh: 089/BPS.BJM/VIII/2026" required>
+                        </div>
+
                         <div class="col-12">
                             <label class="form-label-figma">Perihal <span class="text-danger">*</span></label>
-                            <textarea name="perihal" class="form-control form-control-figma" rows="3" placeholder="Uraikan pokok ringkasan perihal surat keluar..." required></textarea>
+                            <input type="text" name="perihal" class="form-control form-control-figma" placeholder="Masukkan perihal surat" required>
                         </div>
+
                         <div class="col-12">
-                            <label class="form-label-figma">Unggah Berkas Lampiran</label>
-                            <label class="upload-dropzone-figma d-block mb-0">
-                                <i class="bi bi-cloud-arrow-up-fill fs-2" style="color: var(--simba-navy);"></i>
-                                <div class="fw-bold mt-1" style="font-size: 0.85rem; color: var(--simba-navy);">Klik untuk unggah atau seret file ke sini</div>
-                                <div class="text-muted" style="font-size: 0.72rem;">Format: PDF, DOCX, JPG (Maks. 10MB)</div>
-                                <input type="file" name="upload_dokumen" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="previewUploadName(this, 'tambah_keluar_file_label')">
-                            </label>
-                            <div id="tambah_keluar_file_label" class="mt-1 small text-primary fw-medium"></div>
+                            <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
+                            <input type="text" name="tujuan_surat" class="form-control form-control-figma" placeholder="Contoh: Kejaksaan Negeri Banjarmasin" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">File Surat</label>
+                            <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sk_add').click()">
+                                <i class="bi bi-cloud-arrow-up-fill text-dark fs-2 d-block mb-1"></i>
+                                <span class="small text-muted" id="sk_add_filename">Unggah file PDF/Word</span>
+                                <input type="file" name="upload_dokumen" id="upload_sk_add" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="updateFilename(this, 'sk_add_filename')">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer-figma">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn-simba-primary" style="border-radius: 8px; padding: 0.65rem 1.75rem;">Simpan</button>
+                    <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-figma-save">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Detail Surat Keluar -->
+<!-- Modal Detail Surat Keluar (Sesuai Detail Surat Keluar.png) -->
 <div class="modal fade" id="modalDetailSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
             <div class="modal-header-figma">
                 <div>
-                    <h5 class="modal-title-figma">Detail Surat Keluar</h5>
-                    <p class="modal-subtitle-figma">Informasi lengkap dokumen arsip persuratan keluar</p>
+                    <h4 class="modal-title-figma">Detail Surat Keluar</h4>
+                    <p class="modal-subtitle-figma" id="detail_sk_no_title">-</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4" id="detailKeluarContent">
+            <div class="modal-body p-4" id="detailSuratKeluarContent">
                 <div class="text-center py-4">
-                    <div class="spinner-border" style="color: var(--simba-navy);" role="status"></div>
+                    <div class="spinner-border text-primary" role="status"></div>
                 </div>
             </div>
-            <div class="modal-footer-figma">
-                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Tutup</button>
+            <div class="modal-footer-figma justify-content-between">
+                <div>
+                    <button type="button" class="btn btn-outline-danger px-4" id="detail_sk_btn_delete" style="border-radius: 8px;">
+                        <i class="bi bi-trash me-1"></i> Hapus
+                    </button>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-figma-save" id="detail_sk_btn_edit">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Surat
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Edit Surat Keluar -->
+<!-- Modal Edit Surat Keluar (Sesuai Edit Surat Keluar.png) -->
 <div class="modal fade" id="modalEditSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -223,76 +226,80 @@
                 @method('PUT')
                 <div class="modal-header-figma">
                     <div>
-                        <h5 class="modal-title-figma">Edit Surat Keluar</h5>
-                        <p class="modal-subtitle-figma">Perbarui data arsip persuratan keluar</p>
+                        <h4 class="modal-title-figma">Edit Surat Keluar</h4>
+                        <p class="modal-subtitle-figma">Lengkapi data surat yang akan dikirim.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Nomor Agenda / Surat <span class="text-danger">*</span></label>
-                            <input type="text" name="no_surat" id="edit_keluar_no_surat" class="form-control form-control-figma" required>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Klasifikasi Surat <span class="text-danger">*</span></label>
-                            <select name="id_surat" id="edit_keluar_id_surat" class="form-select form-control-figma" required>
+                        <div class="col-12">
+                            <label class="form-label-figma">Jenis Surat <span class="text-danger">*</span></label>
+                            <select name="id_surat" id="edit_sk_id_surat" class="form-select form-control-figma" required>
                                 @foreach($klasifikasiSurat as $klas)
                                     <option value="{{ $klas->id_surat }}">{{ $klas->nama_surat }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Tujuan (Penerima) <span class="text-danger">*</span></label>
-                            <input type="text" name="tujuan_surat" id="edit_keluar_tujuan_surat" class="form-control form-control-figma" required>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Tanggal Surat <span class="text-danger">*</span></label>
+                            <input type="date" name="tgl_keluar" id="edit_sk_tgl_keluar" class="form-control form-control-figma" required>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Tanggal Keluar <span class="text-danger">*</span></label>
-                            <input type="date" name="tgl_keluar" id="edit_keluar_tgl_keluar" class="form-control form-control-figma" required>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Nomor Surat <span class="text-danger">*</span></label>
+                            <input type="text" name="no_surat" id="edit_sk_no_surat" class="form-control form-control-figma" required>
                         </div>
+
                         <div class="col-12">
                             <label class="form-label-figma">Perihal <span class="text-danger">*</span></label>
-                            <textarea name="perihal" id="edit_keluar_perihal" class="form-control form-control-figma" rows="3" required></textarea>
+                            <input type="text" name="perihal" id="edit_sk_perihal" class="form-control form-control-figma" required>
                         </div>
+
                         <div class="col-12">
-                            <label class="form-label-figma">Ganti Berkas Lampiran (Opsional)</label>
-                            <label class="upload-dropzone-figma d-block mb-0">
-                                <i class="bi bi-cloud-arrow-up-fill fs-2" style="color: var(--simba-navy);"></i>
-                                <div class="fw-bold mt-1" style="font-size: 0.85rem; color: var(--simba-navy);">Klik untuk mengganti berkas</div>
-                                <div class="text-muted" style="font-size: 0.72rem;">Biarkan kosong jika tidak ingin mengubah berkas yang ada</div>
-                                <input type="file" name="upload_dokumen" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="previewUploadName(this, 'edit_keluar_file_label')">
-                            </label>
-                            <div id="edit_keluar_file_label" class="mt-1 small text-primary fw-medium"></div>
+                            <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
+                            <input type="text" name="tujuan_surat" id="edit_sk_tujuan" class="form-control form-control-figma" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">File Surat</label>
+                            <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sk_edit').click()">
+                                <i class="bi bi-cloud-arrow-up-fill text-dark fs-2 d-block mb-1"></i>
+                                <span class="small text-muted" id="sk_edit_filename">Unggah file PDF/Word</span>
+                                <input type="file" name="upload_dokumen" id="upload_sk_edit" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="updateFilename(this, 'sk_edit_filename')">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer-figma">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn-simba-primary" style="border-radius: 8px; padding: 0.65rem 1.75rem;">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-figma-save">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Konfirmasi Hapus Surat Keluar -->
+<!-- Modal Hapus Surat Keluar -->
 <div class="modal fade" id="modalDeleteSuratKeluar" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 380px;">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
         <div class="modal-content modal-content-figma text-center p-4">
-            <form id="formDeleteSuratKeluar" method="POST">
-                @csrf
-                @method('DELETE')
-                <div class="delete-icon-wrapper mx-auto">
+            <div class="modal-body p-2">
+                <div class="delete-dialog-badge">
                     <i class="bi bi-exclamation-triangle-fill"></i>
                 </div>
-                <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.15rem;">Hapus Surat?</h5>
-                <p class="text-muted small mb-3">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.</p>
-                <div class="fw-bold fs-6 mb-4 font-monospace text-dark" id="deleteKeluarNumber">-</div>
-                <div class="d-flex gap-2 justify-content-center">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn btn-danger px-4 fw-semibold" style="border-radius: 8px; font-size: 0.84rem; background-color: #EF4444; border: none;">Hapus</button>
-                </div>
-            </form>
+                <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Surat?</h4>
+                <p class="text-dark small mb-4" style="line-height: 1.5;">
+                    Surat akan dihapus permanen dari sistem.<br>Tindakan ini tidak dapat dibatalkan.
+                </p>
+                <form id="formDeleteSuratKeluar" method="POST" class="d-flex justify-content-center gap-3">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-figma-cancel px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger px-4" style="background-color: #EF4444; border-color: #EF4444; border-radius: 8px; font-weight: 500;">Hapus</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -300,13 +307,13 @@
 
 @section('scripts')
 <script>
-    function previewUploadName(input, labelId) {
+    function updateFilename(input, targetId) {
         if (input.files && input.files[0]) {
-            document.getElementById(labelId).innerText = "Berkas terpilih: " + input.files[0].name;
+            document.getElementById(targetId).innerText = input.files[0].name;
         }
     }
 
-    function showDetailKeluar(id) {
+    function showDetailSuratKeluar(id) {
         const modal = new bootstrap.Modal(document.getElementById('modalDetailSuratKeluar'));
         modal.show();
 
@@ -316,45 +323,45 @@
         .then(res => res.json())
         .then(res => {
             const data = res.data;
-            let downloadBtn = data.upload_dokumen 
-                ? `<a href="/admin/surat-keluar/${data.id_surat_keluar}/download" class="btn-simba-primary" style="padding: 0.45rem 1.25rem; font-size: 0.78rem;"><i class="bi bi-download me-1"></i> Unduh Berkas Digital</a>`
-                : `<span class="badge bg-secondary">Berkas digital belum diunggah</span>`;
-
-            document.getElementById('detailKeluarContent').innerHTML = `
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="text-muted small">Nomor Surat:</div>
-                        <div class="fw-bold text-dark fs-6 font-monospace">${data.no_surat}</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-muted small">Klasifikasi Surat:</div>
-                        <span class="badge-simba badge-simba-success">${data.surat ? data.surat.nama_surat : '-'}</span>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-muted small">Tujuan (Penerima):</div>
-                        <div class="fw-semibold text-dark">${data.tujuan_surat}</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-muted small">Tanggal Keluar:</div>
-                        <div class="fw-semibold text-dark">${res.formatted_date}</div>
+            document.getElementById('detail_sk_no_title').innerText = data.no_surat;
+            document.getElementById('detailSuratKeluarContent').innerHTML = `
+                <div class="row g-4 text-start">
+                    <div class="col-12">
+                        <div class="form-label-figma">Jenis Surat *</div>
+                        <div class="fw-medium text-dark">${data.surat ? data.surat.nama_surat : 'Surat Dinas'}</div>
                     </div>
                     <div class="col-12">
-                        <div class="text-muted small">Perihal:</div>
-                        <div class="p-3 bg-light rounded-3 mt-1 text-dark" style="font-size: 0.88rem;">${data.perihal}</div>
+                        <div class="form-label-figma">Tanggal Surat *</div>
+                        <div class="fw-medium text-dark">${data.tgl_keluar ? data.tgl_keluar.substring(0, 10) : '-'}</div>
                     </div>
                     <div class="col-12">
-                        <div class="text-muted small">Berkas Lampiran Digital:</div>
-                        <div class="mt-2">${downloadBtn}</div>
+                        <div class="form-label-figma">Nomor Surat *</div>
+                        <div class="fw-medium text-dark">${data.no_surat}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-label-figma">Perihal *</div>
+                        <div class="fw-medium text-dark">${data.perihal}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-label-figma">Tujuan *</div>
+                        <div class="fw-medium text-dark">${data.tujuan_surat}</div>
                     </div>
                 </div>
             `;
-        })
-        .catch(err => {
-            document.getElementById('detailKeluarContent').innerHTML = `<div class="alert alert-danger">Gagal memuat rincian surat keluar.</div>`;
+
+            document.getElementById('detail_sk_btn_delete').onclick = function() {
+                modal.hide();
+                confirmDeleteSuratKeluar(data.id_surat_keluar, data.no_surat);
+            };
+
+            document.getElementById('detail_sk_btn_edit').onclick = function() {
+                modal.hide();
+                showEditSuratKeluar(data.id_surat_keluar);
+            };
         });
     }
 
-    function showEditKeluar(id) {
+    function showEditSuratKeluar(id) {
         fetch(`/admin/surat-keluar/${id}`, {
             headers: { 'Accept': 'application/json' }
         })
@@ -362,21 +369,19 @@
         .then(res => {
             const data = res.data;
             document.getElementById('formEditSuratKeluar').action = `/admin/surat-keluar/${data.id_surat_keluar}`;
-            document.getElementById('edit_keluar_id_surat').value = data.id_surat;
-            document.getElementById('edit_keluar_no_surat').value = data.no_surat;
-            document.getElementById('edit_keluar_tujuan_surat').value = data.tujuan_surat;
-            document.getElementById('edit_keluar_tgl_keluar').value = data.tgl_keluar.substring(0, 10);
-            document.getElementById('edit_keluar_perihal').value = data.perihal;
-            document.getElementById('edit_keluar_file_label').innerText = data.upload_dokumen ? "Berkas saat ini tersimpan di sistem." : "";
-            
+            document.getElementById('edit_sk_id_surat').value = data.id_surat;
+            document.getElementById('edit_sk_tgl_keluar').value = data.tgl_keluar ? data.tgl_keluar.substring(0, 10) : '';
+            document.getElementById('edit_sk_no_surat').value = data.no_surat;
+            document.getElementById('edit_sk_perihal').value = data.perihal;
+            document.getElementById('edit_sk_tujuan').value = data.tujuan_surat;
+
             const modal = new bootstrap.Modal(document.getElementById('modalEditSuratKeluar'));
             modal.show();
         });
     }
 
-    function confirmDeleteKeluar(id, noSurat) {
+    function confirmDeleteSuratKeluar(id, noSurat) {
         document.getElementById('formDeleteSuratKeluar').action = `/admin/surat-keluar/${id}`;
-        document.getElementById('deleteKeluarNumber').innerText = noSurat;
         const modal = new bootstrap.Modal(document.getElementById('modalDeleteSuratKeluar'));
         modal.show();
     }

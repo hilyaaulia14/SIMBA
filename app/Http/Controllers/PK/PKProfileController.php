@@ -25,6 +25,7 @@ class PKProfileController extends Controller
             'nama_pegawai' => 'required|string|max:100',
             'nip_usn' => 'required|string|max:30|unique:pegawai,nip_usn,' . $pk->id_pegawai . ',id_pegawai',
             'jabatan' => 'required|string|max:50',
+            'alamat' => 'nullable|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'nama_pegawai.required' => 'Nama lengkap beserta gelar wajib diisi.',

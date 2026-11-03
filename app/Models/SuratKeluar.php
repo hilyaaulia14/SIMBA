@@ -18,6 +18,8 @@ class SuratKeluar extends Model
         'tujuan_surat',
         'tgl_keluar',
         'perihal',
+        'lampiran',
+        'keterangan',
         'upload_dokumen',
     ];
 

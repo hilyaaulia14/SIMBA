@@ -272,4 +272,41 @@ class SimbaSystemTest extends TestCase
             ]);
         }
     }
+
+    /** Test 11: Admin Update Profile (Tanpa Ubah Password) */
+    public function test_admin_profile_update()
+    {
+        $response = $this->actingAs($this->admin)->put('/admin/profile', [
+            'nama_pegawai' => 'Rina Wulandari, S.H.',
+            'nip_usn' => $this->admin->nip_usn,
+            'jabatan' => 'PK Madya / Bagian Umum',
+            'email' => 'admin@bapasbanjarmasin.go.id',
+            'alamat' => 'Jl. Hasan Basri No. 12 Banjarmasin',
+        ]);
+
+        $response->assertRedirect(route('admin.profile.index'));
+        $this->assertDatabaseHas('pegawai', [
+            'id_pegawai' => $this->admin->id_pegawai,
+            'nama_pegawai' => 'Rina Wulandari, S.H.',
+            'email' => 'admin@bapasbanjarmasin.go.id',
+        ]);
+    }
+
+    /** Test 12: PK Update Profile (Tanpa Password & Tanpa Kontak) */
+    public function test_pk_profile_update()
+    {
+        $response = $this->actingAs($this->pk)->put('/pk/profile', [
+            'nama_pegawai' => 'Hilyatul Aulia, S.Tr.Pas.',
+            'nip_usn' => $this->pk->nip_usn,
+            'jabatan' => 'Pembimbing Kemasyarakatan Pertama',
+            'alamat' => 'Kota Banjarmasin',
+        ]);
+
+        $response->assertRedirect(route('pk.profile.index'));
+        $this->assertDatabaseHas('pegawai', [
+            'id_pegawai' => $this->pk->id_pegawai,
+            'nama_pegawai' => 'Hilyatul Aulia, S.Tr.Pas.',
+            'alamat' => 'Kota Banjarmasin',
+        ]);
+    }
 }

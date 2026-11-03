@@ -36,14 +36,15 @@ class SuratKeluarController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_surat' => 'required|exists:surat,id_surat',
+            'id_surat' => 'nullable|exists:surat,id_surat',
             'no_surat' => 'required|string|max:50',
             'tujuan_surat' => 'required|string|max:100',
             'tgl_keluar' => 'required|date',
             'perihal' => 'required|string|max:255',
+            'lampiran' => 'nullable|string|max:100',
+            'keterangan' => 'nullable|string|max:255',
             'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
         ], [
-            'id_surat.required' => 'Klasifikasi surat wajib dipilih.',
             'no_surat.required' => 'Nomor agenda / surat wajib diisi.',
             'tujuan_surat.required' => 'Tujuan / penerima surat wajib diisi.',
             'tgl_keluar.required' => 'Tanggal keluar wajib diisi.',
@@ -51,6 +52,10 @@ class SuratKeluarController extends Controller
             'upload_dokumen.max' => 'Ukuran berkas tidak boleh melebihi 10MB.',
             'upload_dokumen.mimes' => 'Format berkas harus PDF, DOC, DOCX, JPG, atau PNG.',
         ]);
+
+        if (empty($validated['id_surat'])) {
+            $validated['id_surat'] = 2;
+        }
 
         if ($request->hasFile('upload_dokumen')) {
             $file = $request->file('upload_dokumen');
@@ -85,20 +90,25 @@ class SuratKeluarController extends Controller
         $suratKeluar = SuratKeluar::findOrFail($id);
 
         $validated = $request->validate([
-            'id_surat' => 'required|exists:surat,id_surat',
+            'id_surat' => 'nullable|exists:surat,id_surat',
             'no_surat' => 'required|string|max:50',
             'tujuan_surat' => 'required|string|max:100',
             'tgl_keluar' => 'required|date',
             'perihal' => 'required|string|max:255',
+            'lampiran' => 'nullable|string|max:100',
+            'keterangan' => 'nullable|string|max:255',
             'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
         ], [
-            'id_surat.required' => 'Klasifikasi surat wajib dipilih.',
             'no_surat.required' => 'Nomor agenda / surat wajib diisi.',
             'tujuan_surat.required' => 'Tujuan / penerima surat wajib diisi.',
             'tgl_keluar.required' => 'Tanggal keluar wajib diisi.',
             'perihal.required' => 'Perihal surat wajib diisi.',
             'upload_dokumen.max' => 'Ukuran berkas tidak boleh melebihi 10MB.',
         ]);
+
+        if (empty($validated['id_surat'])) {
+            $validated['id_surat'] = $suratKeluar->id_surat ?? 2;
+        }
 
         if ($request->hasFile('upload_dokumen')) {
             if ($suratKeluar->upload_dokumen && Storage::disk('public')->exists($suratKeluar->upload_dokumen)) {

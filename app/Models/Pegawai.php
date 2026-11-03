@@ -19,6 +19,8 @@ class Pegawai extends Authenticatable
         'nip_usn',
         'password',
         'jabatan',
+        'email',
+        'alamat',
         'foto',
     ];
 
@@ -57,5 +59,14 @@ class Pegawai extends Authenticatable
             return asset('storage/' . $this->foto);
         }
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->nama_pegawai) . '&background=0D2A4A&color=fff&bold=true';
+    }
+
+    public function getInitialsAttribute(): string
+    {
+        $words = explode(' ', trim($this->nama_pegawai));
+        if (count($words) >= 2) {
+            return strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
+        }
+        return strtoupper(substr($this->nama_pegawai, 0, 2));
     }
 }

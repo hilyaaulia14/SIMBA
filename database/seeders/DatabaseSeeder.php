@@ -32,10 +32,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 2. Status Bimbingan
-        $statusMenunggu = StatusBimbingan::create(['id_status_bimbingan' => 1, 'nama_status' => 'Menunggu']);
-        $statusTerlaksana = StatusBimbingan::create(['id_status_bimbingan' => 2, 'nama_status' => 'Terlaksana']);
-        $statusAbsen = StatusBimbingan::create(['id_status_bimbingan' => 3, 'nama_status' => 'Absen']);
-        $statusDijadwalkan = StatusBimbingan::create(['id_status_bimbingan' => 4, 'nama_status' => 'Dijadwalkan']);
+        $statusDijadwalkanUlang = StatusBimbingan::create(['id_status_bimbingan' => 1, 'nama_status' => 'Dijadwalkan Ulang']);
+        $statusHadir = StatusBimbingan::create(['id_status_bimbingan' => 2, 'nama_status' => 'Hadir']);
+        $statusTidakHadir = StatusBimbingan::create(['id_status_bimbingan' => 3, 'nama_status' => 'Tidak Hadir']);
+        $statusTerjadwal = StatusBimbingan::create(['id_status_bimbingan' => 4, 'nama_status' => 'Terjadwal']);
 
         // 3. Klasifikasi Surat
         $suratSK = Surat::create(['id_surat' => 1, 'nama_surat' => 'Surat Keputusan (SK)']);

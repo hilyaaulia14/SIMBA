@@ -13,8 +13,9 @@ class AdminDashboardController extends Controller
     {
         $totalSuratMasuk = SuratMasuk::count();
         $totalSuratKeluar = SuratKeluar::count();
+        $totalJadwal = \App\Models\JadwalBimbingan::count();
         
-        // Total Berkas Terarsip Digital: Surat masuk & keluar yang memiliki file upload dokumen
+        // Total Berkas Terarsip Digital
         $totalArsipDigital = SuratMasuk::whereNotNull('upload_dokumen')->where('upload_dokumen', '!=', '')->count()
                            + SuratKeluar::whereNotNull('upload_dokumen')->where('upload_dokumen', '!=', '')->count();
 
@@ -25,6 +26,7 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', compact(
             'totalSuratMasuk',
             'totalSuratKeluar',
+            'totalJadwal',
             'totalArsipDigital',
             'recentSuratMasuk',
             'recentSuratKeluar'

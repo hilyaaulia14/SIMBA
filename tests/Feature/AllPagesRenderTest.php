@@ -30,7 +30,7 @@ class AllPagesRenderTest extends TestCase
             $response = $this->actingAs($this->admin)->get($route);
             $response->assertStatus(200);
             $response->assertSee('Poppins');
-            $response->assertSee('#0D2A4A');
+            $response->assertSee('#102A45');
         }
     }
 
@@ -49,7 +49,7 @@ class AllPagesRenderTest extends TestCase
             $response = $this->actingAs($this->pk)->get($route);
             $response->assertStatus(200);
             $response->assertSee('Poppins');
-            $response->assertSee('#0D2A4A');
+            $response->assertSee('#102A45');
         }
     }
 }
