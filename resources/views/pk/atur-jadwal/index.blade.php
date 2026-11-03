@@ -112,7 +112,7 @@
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
                 <span>Menampilkan {{ $aturJadwalList->firstItem() ?? 0 }} sampai {{ $aturJadwalList->lastItem() ?? 0 }} dari {{ $aturJadwalList->total() }} jadwal</span>
                 <div>
-                    {{ $aturJadwalList->links() }}
+                    {{ $aturJadwalList->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         @endif

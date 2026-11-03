@@ -309,4 +309,14 @@ class SimbaSystemTest extends TestCase
             'alamat' => 'Kota Banjarmasin',
         ]);
     }
+
+    /** Test 13: Kehadiran pagination and topbar radius */
+    public function test_kehadiran_page_pagination_and_topbar()
+    {
+        $response = $this->actingAs($this->pk)->get('/pk/kehadiran?page=1');
+        $response->assertStatus(200);
+        $response->assertSee('border-bottom-left-radius: 24px', false);
+        $response->assertSee('class="pagination"', false);
+        $response->assertDontSee('pagination.previous');
+    }
 }

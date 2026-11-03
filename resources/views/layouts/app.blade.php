@@ -26,7 +26,7 @@
             --simba-text: #102A45;
             --simba-muted: #64748B;
             --topbar-height: 72px;
-            --sidebar-width: 250px;
+            --sidebar-width: 270px;
         }
 
         * {
@@ -43,7 +43,7 @@
         }
 
         /* -------------------------------------------------------------
-           1. Top Navbar Header (#102A45)
+           1. Top Navbar Header (#102A45 with Rounded Bottom Corners)
            ------------------------------------------------------------- */
         #topbar-header {
             height: var(--topbar-height);
@@ -58,6 +58,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 4px 20px rgba(16, 42, 69, 0.15);
         }
 
         .header-brand {
@@ -176,8 +179,8 @@
         .sidebar-nav-item {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
-            padding: 0.75rem 1.4rem;
+            gap: 0.85rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 50px;
             text-decoration: none;
             font-size: 0.88rem;
@@ -187,6 +190,7 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
             border: 1px solid transparent;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .sidebar-nav-item:hover {
@@ -203,7 +207,10 @@
         }
 
         .sidebar-nav-item i {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .sidebar-nav-item.active i {
@@ -220,7 +227,7 @@
             justify-content: center;
             gap: 0.75rem;
             width: 100%;
-            padding: 0.75rem 1.4rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 50px;
             border: none;
             background-color: #FFFFFF;
@@ -229,6 +236,7 @@
             font-weight: 500;
             box-shadow: 0 1px 4px rgba(0,0,0,0.04);
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .sidebar-logout-btn:hover {
@@ -616,6 +624,53 @@
             margin-bottom: 1.25rem;
         }
 
+        /* -------------------------------------------------------------
+           7. Pagination Styling (Bootstrap 5 Clean Pill/Button Match)
+           ------------------------------------------------------------- */
+        .pagination {
+            margin-bottom: 0;
+            gap: 4px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .page-item .page-link {
+            color: var(--simba-navy);
+            border-radius: 8px !important;
+            border: 1px solid #CBD5E1;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.38rem 0.75rem;
+            background-color: #FFFFFF;
+            transition: all 0.2s ease;
+        }
+        .page-item .page-link:hover {
+            background-color: #F1F5F9;
+            color: var(--simba-navy);
+            border-color: #94A3B8;
+        }
+        .page-item.active .page-link {
+            background-color: var(--simba-navy) !important;
+            border-color: var(--simba-navy) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 2px 6px rgba(16, 42, 69, 0.25);
+        }
+        .page-item.disabled .page-link {
+            color: #94A3B8 !important;
+            background-color: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+            cursor: not-allowed;
+        }
+        /* Strict constraint on any SVGs inside pagination to prevent giant icons */
+        nav svg,
+        .pagination svg {
+            max-width: 14px !important;
+            max-height: 14px !important;
+            width: 14px !important;
+            height: 14px !important;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
         /* Mobile View */
         @media (max-width: 991.98px) {
             #simba-sidebar {
@@ -732,20 +787,20 @@
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
-                        <i class="bi bi-calendar-event-fill"></i>
+                    <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') || request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
+                        <i class="bi bi-calendar-event"></i>
                         <span>Jadwal Bimbingan</span>
                     </a>
                     <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
-                        <i class="bi bi-clock-fill"></i>
+                        <i class="bi bi-clock"></i>
                         <span>Buat Jadwal</span>
                     </a>
                     <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
-                        <i class="bi bi-person-vcard-fill"></i>
+                        <i class="bi bi-person-vcard"></i>
                         <span>Data Klien</span>
                     </a>
                     <a href="{{ route('pk.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.profile.*') ? 'active' : '' }}">
-                        <i class="bi bi-person-fill"></i>
+                        <i class="bi bi-person"></i>
                         <span>Profil</span>
                     </a>
                 @endif

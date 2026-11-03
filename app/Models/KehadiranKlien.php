@@ -37,6 +37,9 @@ class KehadiranKlien extends Model
 
     public function getFotoUrlAttribute(): ?string
     {
-        return $this->foto_kehadiran ? asset('storage/' . $this->foto_kehadiran) : null;
+        if ($this->foto_kehadiran && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->foto_kehadiran)) {
+            return asset('storage/' . $this->foto_kehadiran);
+        }
+        return null;
     }
 }

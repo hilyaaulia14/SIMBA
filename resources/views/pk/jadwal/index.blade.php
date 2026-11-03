@@ -104,7 +104,7 @@
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
                 <span>Menampilkan {{ $jadwalList->firstItem() ?? 0 }} sampai {{ $jadwalList->lastItem() ?? 0 }} dari {{ $jadwalList->total() }} jadwal</span>
                 <div>
-                    {{ $jadwalList->links() }}
+                    {{ $jadwalList->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         @endif

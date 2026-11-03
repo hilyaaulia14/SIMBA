@@ -72,10 +72,10 @@
                                 <span class="fw-semibold text-dark">{{ $kh->klien->nama_klien ?? 'Klien Dihapus' }}</span>
                             </td>
                             <td class="text-center">
-                                @if($kh->foto_kehadiran)
-                                    <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 44px; height: 44px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')">
+                                @if($kh->foto_url)
+                                    <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 44px; height: 44px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'badge bg-light text-muted border\'>Tanpa Foto</span>';">
                                 @else
-                                    <span class="badge-simba" style="background-color: #F1F5F9; color: #94A3B8;">Tanpa Foto</span>
+                                    <span class="badge" style="background-color: #F1F5F9; color: #64748B; font-size: 0.75rem; border-radius: 6px; padding: 0.35rem 0.6rem;">Tanpa Foto</span>
                                 @endif
                             </td>
                             <td>
@@ -109,11 +109,13 @@
         </div>
 
         @if($kehadiranList->hasPages())
-            <div class="p-3 border-top d-flex justify-content-between align-items-center" style="font-size: 0.8rem;">
+            <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2" style="font-size: 0.82rem;">
                 <span class="text-muted">
                     Menampilkan {{ $kehadiranList->firstItem() }} - {{ $kehadiranList->lastItem() }} dari {{ $kehadiranList->total() }} presensi
                 </span>
-                {{ $kehadiranList->links() }}
+                <div>
+                    {{ $kehadiranList->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         @endif
     </div>

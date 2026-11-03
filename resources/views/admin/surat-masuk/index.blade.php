@@ -113,7 +113,7 @@
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
                 <span>Menampilkan {{ $suratMasukList->firstItem() ?? 0 }} sampai {{ $suratMasukList->lastItem() ?? 0 }} dari {{ $suratMasukList->total() }} surat</span>
                 <div>
-                    {{ $suratMasukList->links() }}
+                    {{ $suratMasukList->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         @endif
