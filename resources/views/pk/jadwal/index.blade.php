@@ -20,7 +20,7 @@
                 <div style="max-width: 260px;">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.png') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
                         </span>
                         <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
                     </div>
@@ -78,13 +78,13 @@
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Jadwal" onclick="showDetailJadwal({{ $jadwal->id_jadwal_bimbingan }})">
-                                        <img src="{{ asset('assets/images/detail.png') }}" alt="Detail">
+                                        <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
                                     </button>
                                     <button class="btn-action-square" title="Edit Jadwal" onclick="showEditJadwal({{ $jadwal->id_jadwal_bimbingan }})">
-                                        <img src="{{ asset('assets/images/edit.png') }}" alt="Edit">
+                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
                                     <button class="btn-action-square" title="Catatan Kehadiran" onclick="openCatatanKehadiran({{ $jadwal->id_jadwal_bimbingan }}, '{{ addslashes($jadwal->klien->nama_klien ?? '') }}', '{{ $jadwal->tgl_bimbingan->translatedFormat('d F Y') }}', '{{ substr($jadwal->jam_mulai, 0, 5) }}')">
-                                        <img src="{{ asset('assets/images/kehadiran.png') }}" alt="Catatan Kehadiran">
+                                        <img src="{{ asset('assets/images/kehadiran.svg') }}" alt="Catatan Kehadiran">
                                     </button>
                                 </div>
                             </td>
@@ -112,7 +112,7 @@
 
 </div>
 
-<!-- Modal Detail Jadwal Bimbingan (Sesuai Detail Jadwal Bimbingan.png) -->
+<!-- Modal Detail Jadwal Bimbingan (Sesuai Detail Jadwal Bimbingan.svg) -->
 <div class="modal fade" id="modalDetailJadwal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -145,7 +145,7 @@
     </div>
 </div>
 
-<!-- Modal Edit Jadwal Bimbingan (Sesuai Edit Jadwal Bimbingan.png) -->
+<!-- Modal Edit Jadwal Bimbingan (Sesuai Edit Jadwal Bimbingan.svg) -->
 <div class="modal fade" id="modalEditJadwal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -195,7 +195,7 @@
     </div>
 </div>
 
-<!-- Modal Catatan Kehadiran (Sesuai Catatan Kehadiran.png) -->
+<!-- Modal Catatan Kehadiran (Sesuai Catatan Kehadiran.svg) -->
 <div class="modal fade" id="modalCatatanKehadiran" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -227,7 +227,7 @@
                         <div class="col-12">
                             <label class="form-label-figma">Bukti Dokumentasi <span class="text-danger">*</span></label>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file').click()">
-                                <img src="{{ asset('assets/images/unggah.png') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="small text-muted d-block" id="presensi_filename">Klik untuk mengunggah bukti</span>
                                 <input type="file" name="foto_kehadiran" id="upload_presensi_file" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename')">
                             </div>
@@ -254,7 +254,7 @@
         <div class="modal-content modal-content-figma text-center p-4">
             <div class="modal-body p-2">
                 <div class="delete-dialog-badge">
-                    <img src="{{ asset('assets/images/warning.png') }}" alt="Peringatan">
+                    <img src="{{ asset('assets/images/warning.svg') }}" alt="Peringatan">
                 </div>
                 <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Jadwal?</h4>
                 <p class="text-dark small mb-4" style="line-height: 1.5;">

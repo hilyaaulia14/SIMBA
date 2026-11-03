@@ -38,9 +38,9 @@ class SimbaSystemTest extends TestCase
         $response = $this->get('/login');
         $response->assertStatus(200);
         $response->assertSee('SIMBA');
-        $response->assertSee('figma_login_logos.png');
-        $response->assertSee('role_admin_card.png');
-        $response->assertSee('role_pk_card.png');
+        $response->assertSee('figma_login_logos.svg');
+        $response->assertSee('role_admin_card.svg');
+        $response->assertSee('role_pk_card.svg');
         $response->assertDontSee('<path');
     }
 

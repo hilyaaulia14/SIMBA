@@ -254,7 +254,7 @@ Berikut daftar 10 entitas pada CDM SIMBA berserta atribut konseptual dan identit
 ## 4. Perbedaan Mendasar ERD vs CDM pada SIMBA
 
 1. **Notasi Chen vs Notasi PowerDesigner CDM**:
-   - Pada **ERD Chen** (`erd_baru.png`), setiap atribut digambarkan sebagai *elips* yang menempel pada entitas persegi panjang, dan relasi digambarkan sebagai *belah ketupat* (*rhombus*).
+   - Pada **ERD Chen** (`erd_baru.svg`), setiap atribut digambarkan sebagai *elips* yang menempel pada entitas persegi panjang, dan relasi digambarkan sebagai *belah ketupat* (*rhombus*).
    - Pada **CDM PowerDesigner** (`cdm_simba.drawio`), setiap entitas digambarkan sebagai satu kesatuan kotak tabel 3 kompartemen bergaris tepi *cyan* (`#00AAAA`) dan latar *pale cyan* (`#E5FFFF`).
 2. **Penghapusan Kolom Foreign Key Redundan**:
    - Pada ERD Chen awal, seringkali foreign key seperti `id_role` atau `id_klien` dituliskan langsung sebagai atribut di entitas anak.

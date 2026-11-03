@@ -572,7 +572,7 @@
                         <mxPoint x="625" y="270" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="msg_155" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" value="3. Validasi Format Foto (JPG/PNG) &amp; Kelengkapan Evaluasi">
+                <mxCell id="msg_155" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;strokeColor=#000000;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;fontColor=#000000;fontSize=11;" value="3. Validasi Format Foto (JPG/svg) &amp; Kelengkapan Evaluasi">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="635" y="300" as="sourcePoint"/>
                         <mxPoint x="635" y="330" as="targetPoint"/>

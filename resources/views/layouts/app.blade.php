@@ -202,7 +202,7 @@
         .sidebar-nav-item.active {
             background-color: var(--simba-navy);
             color: #FFFFFF !important;
-            font-weight: 600;
+            font-weight: 500;
             box-shadow: 0 4px 12px rgba(16, 42, 69, 0.25);
         }
 
@@ -211,11 +211,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            padding: 16px 24px;
         }
 
         .sidebar-icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             object-fit: contain;
             display: inline-block;
             vertical-align: middle;
@@ -722,7 +724,7 @@
             </button>
             <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('pk.dashboard') }}" class="header-brand">
                 <div class="logos-container">
-                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
                 </div>
                 <div class="brand-divider"></div>
                 <div class="brand-titles">
@@ -795,41 +797,41 @@
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/surat_masuk.png') }}" class="sidebar-icon" alt="Surat Masuk">
+                        <img src="{{ asset('assets/images/surat_masuk.svg') }}" class="sidebar-icon" alt="Surat Masuk">
                         <span>Surat Masuk</span>
                     </a>
                     <a href="{{ route('admin.surat-keluar.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-keluar.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/surat_keluar.png') }}" class="sidebar-icon" alt="Surat Keluar">
+                        <img src="{{ asset('assets/images/surat_keluar.svg') }}" class="sidebar-icon" alt="Surat Keluar">
                         <span>Surat Keluar</span>
                     </a>
                     <a href="{{ route('admin.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/profil.png') }}" class="sidebar-icon" alt="Profil">
+                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil">
                         <span>Profil</span>
                     </a>
                 @else
                     <!-- PK Menu Items -->
                     <a href="{{ route('pk.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('pk.dashboard') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/dashboard.png') }}" class="sidebar-icon" alt="Dashboard">
+                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/kalender.png') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
+                        <img src="{{ asset('assets/images/kalender.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
                         <span>Jadwal Bimbingan</span>
                     </a>
                     <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/kehadiran.png') }}" class="sidebar-icon" alt="Bukti Kehadiran">
+                        <img src="{{ asset('assets/images/kehadiran.svg') }}" class="sidebar-icon" alt="Bukti Kehadiran">
                         <span>Bukti Kehadiran</span>
                     </a>
                     <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/jam.png') }}" class="sidebar-icon" alt="Buat Jadwal">
+                        <img src="{{ asset('assets/images/jam.svg') }}" class="sidebar-icon" alt="Buat Jadwal">
                         <span>Buat Jadwal</span>
                     </a>
                     <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/data_klien.png') }}" class="sidebar-icon" alt="Data Klien">
+                        <img src="{{ asset('assets/images/data_klien.svg') }}" class="sidebar-icon" alt="Data Klien">
                         <span>Data Klien</span>
                     </a>
                     <a href="{{ route('pk.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.profile.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/profil.png') }}" class="sidebar-icon" alt="Profil">
+                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil">
                         <span>Profil</span>
                     </a>
                 @endif
@@ -840,7 +842,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="sidebar-logout-btn">
-                    <img src="{{ asset('assets/images/logout.png') }}" class="sidebar-icon" alt="Keluar">
+                    <img src="{{ asset('assets/images/logout.svg') }}" class="sidebar-icon" alt="Keluar">
                     <span>Keluar</span>
                 </button>
             </form>

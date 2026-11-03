@@ -26,7 +26,7 @@
                 <div style="max-width: 340px; width: 100%;">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.png') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
                         </span>
                         <input type="text" name="search" class="form-control form-control-sm border-start-0" placeholder="Cari nama atau nomor register..." value="{{ request('search') }}" style="border-radius: 0 8px 8px 0; border-color: var(--simba-border);">
                     </div>
@@ -86,13 +86,13 @@
                             <td class="text-center">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Kehadiran" onclick="showDetailKehadiran({{ $kh->id_kehadiran }})">
-                                        <img src="{{ asset('assets/images/detail.png') }}" alt="Detail">
+                                        <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
                                     </button>
                                     <button class="btn-action-square" title="Edit Presensi" onclick="showEditKehadiran({{ $kh->id_kehadiran }})">
-                                        <img src="{{ asset('assets/images/edit.png') }}" alt="Edit">
+                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
                                     <button class="btn-action-square" title="Hapus Presensi" onclick="confirmDeleteKehadiran({{ $kh->id_kehadiran }}, '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')">
-                                        <img src="{{ asset('assets/images/hapus.png') }}" alt="Hapus">
+                                        <img src="{{ asset('assets/images/hapus.svg') }}" alt="Hapus">
                                     </button>
                                 </div>
                             </td>
@@ -172,10 +172,10 @@
                         <div class="col-12">
                             <label class="form-label-figma">Foto Bukti Fisik / Dokumentasi (Opsional)</label>
                             <div class="upload-dropzone p-3 text-center" style="border: 2px dashed #93C5FD; border-radius: 12px; background: #F8FAFC; cursor: pointer;" onclick="document.getElementById('input_foto_kehadiran').click()">
-                                <img src="{{ asset('assets/images/unggah.png') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="fw-semibold text-dark d-block" style="font-size: 0.84rem;">Klik untuk mengunggah foto kehadiran</span>
-                                <div class="text-muted" style="font-size: 0.75rem;">Format JPG, PNG, WEBP (Maksimal 5MB)</div>
-                                <input type="file" id="input_foto_kehadiran" name="foto_kehadiran" class="d-none" accept="image/jpeg,image/png,image/jpg,image/webp" onchange="previewUploadName(this, 'tambah_foto_label')">
+                                <div class="text-muted" style="font-size: 0.75rem;">Format JPG, svg, WEBP (Maksimal 5MB)</div>
+                                <input type="file" id="input_foto_kehadiran" name="foto_kehadiran" class="d-none" accept="image/jpeg,image/svg,image/jpg,image/webp" onchange="previewUploadName(this, 'tambah_foto_label')">
                                 <div id="tambah_foto_label" class="mt-2 text-primary fw-semibold small"></div>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label-figma">Ganti Foto Bukti (Opsional)</label>
-                            <input type="file" name="foto_kehadiran" class="form-control form-control-figma" accept="image/jpeg,image/png,image/jpg,image/webp">
+                            <input type="file" name="foto_kehadiran" class="form-control form-control-figma" accept="image/jpeg,image/svg,image/jpg,image/webp">
                             <div class="text-muted" style="font-size: 0.75rem;">Biarkan kosong jika tidak ingin mengubah foto dokumentasi.</div>
                         </div>
                         <div class="col-12">
@@ -302,7 +302,7 @@
         <div class="modal-content modal-content-figma text-center p-3">
             <div class="modal-body p-3">
                 <div class="delete-dialog-badge mx-auto">
-                    <img src="{{ asset('assets/images/warning.png') }}" alt="Peringatan">
+                    <img src="{{ asset('assets/images/warning.svg') }}" alt="Peringatan">
                 </div>
                 <h5 class="fw-bold mb-2" style="color: #1E293B;">Hapus Presensi?</h5>
                 <p class="text-muted small mb-2">

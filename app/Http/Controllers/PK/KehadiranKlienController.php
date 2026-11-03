@@ -42,7 +42,7 @@ class KehadiranKlienController extends Controller
             'id_jadwal_bimbingan' => 'nullable|exists:jadwal_bimbingan,id_jadwal_bimbingan',
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
-            'foto_kehadiran' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
             'catatan' => 'required|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
@@ -98,7 +98,7 @@ class KehadiranKlienController extends Controller
             'id_jadwal_bimbingan' => 'nullable|exists:jadwal_bimbingan,id_jadwal_bimbingan',
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
-            'foto_kehadiran' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
             'catatan' => 'required|string|max:255',
         ]);
 

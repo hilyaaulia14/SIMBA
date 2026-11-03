@@ -31,7 +31,7 @@
                         <label for="foto-upload" class="position-absolute bottom-0 end-0 bg-white shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; cursor: pointer; border: 1px solid #E2E8F0;" title="Ganti Foto">
                             <i class="bi bi-camera text-secondary" style="font-size: 0.8rem;"></i>
                         </label>
-                        <input type="file" id="foto-upload" name="foto" class="d-none" accept="image/jpeg,image/png,image/jpg,image/webp" onchange="previewAvatar(this)">
+                        <input type="file" id="foto-upload" name="foto" class="d-none" accept="image/jpeg,image/svg,image/jpg,image/webp" onchange="previewAvatar(this)">
                     </div>
                     <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.15rem;">{{ $admin->nama_pegawai }}</h5>
                     <div class="text-muted" style="font-size: 0.9rem;">@admin</div>
