@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="cdm_simba_main" name="CONCEPTUAL DATA MODEL (CDM)">
-        <mxGraphModel dx="1810" dy="1053" grid="0" gridSize="10" guides="1" tooltips="0" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1714" dy="861" grid="0" gridSize="10" guides="1" tooltips="0" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -89,16 +89,16 @@
                     <mxGeometry height="22" width="190" y="72" as="geometry"/>
                 </mxCell>
                 <mxCell id="ent_kehadiran_klien" parent="1" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;strokeWidth=1;whiteSpace=wrap;html=1;fontSize=12;" value="kehadiran_klien" vertex="1">
-                    <mxGeometry height="152" width="190" x="400" y="667" as="geometry"/>
+                    <mxGeometry height="129" width="190" x="400" y="667" as="geometry"/>
                 </mxCell>
                 <mxCell id="ent_kehadiran_klien_attrs" parent="ent_kehadiran_klien" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#000000;fontSize=11;strokeWidth=1;" value="&lt;u&gt;id_kehadiran&lt;/u&gt;&lt;br&gt;tgl_hadir&lt;br&gt;jam_hadir&lt;br&gt;foto_kehadiran&lt;br&gt;catatan" vertex="1">
-                    <mxGeometry height="100" width="190" y="26" as="geometry"/>
+                    <mxGeometry height="77" width="190" y="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="ent_kehadiran_klien_div" parent="ent_kehadiran_klien" style="line;strokeWidth=1;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;" value="" vertex="1">
-                    <mxGeometry height="4" width="190" y="126" as="geometry"/>
+                    <mxGeometry height="4" width="190" y="103" as="geometry"/>
                 </mxCell>
                 <mxCell id="ent_kehadiran_klien_id" parent="ent_kehadiran_klien" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#000000;fontSize=11;strokeWidth=1;" value="identifier_1 &amp;#160;&amp;#160;&amp;#160;&amp;#160;&lt;pi&gt;" vertex="1">
-                    <mxGeometry height="22" width="190" y="130" as="geometry"/>
+                    <mxGeometry height="22" width="190" y="107" as="geometry"/>
                 </mxCell>
                 <mxCell id="ent_surat_keluar" parent="1" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;strokeWidth=1;whiteSpace=wrap;html=1;fontSize=12;" value="surat_keluar" vertex="1">
                     <mxGeometry height="146" width="190" x="1480" y="658" as="geometry"/>
@@ -166,7 +166,7 @@
                     <mxGeometry height="30" width="60" x="499" y="446" as="geometry"/>
                 </mxCell>
                 <mxCell id="44qAEAlqABeXiz2nQJMZ-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="memverifikasi" vertex="1">
-                    <mxGeometry height="30" width="60" x="743" y="720" as="geometry"/>
+                    <mxGeometry height="30" width="60" x="743" y="707" as="geometry"/>
                 </mxCell>
                 <mxCell id="44qAEAlqABeXiz2nQJMZ-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="memiliki" vertex="1">
                     <mxGeometry height="30" width="60" x="633" y="163" as="geometry"/>
