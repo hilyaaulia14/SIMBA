@@ -791,7 +791,7 @@
                 @if(Auth::user()->isAdmin())
                     <!-- Admin Menu Items -->
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/dashboard.png') }}" class="sidebar-icon" alt="Dashboard">
+                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
