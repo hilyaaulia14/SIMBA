@@ -1,92 +1,85 @@
 @extends('layouts.app')
 
 @section('title', 'Profil Admin - SIMBA')
-@section('page_title', 'Pengaturan Profil Admin')
 
 @section('content')
-<div class="container-fluid px-0" style="max-width: 900px;">
+<div class="container-fluid px-0">
 
-    <!-- Breadcrumb / Back Navigation -->
-    <div class="mb-4">
-        <a href="{{ route('admin.dashboard') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center gap-1">
-            <i class="bi bi-arrow-left"></i> Kembali ke Dashboard
-        </a>
-        <h4 class="fw-bold mt-2 text-dark">Profil Pengguna (Admin / Bagian Umum)</h4>
-        <p class="text-muted small">Kelola informasi identitas akun staf Bagian Umum Bapas Kelas I Banjarmasin.</p>
+    <!-- Page Header Row -->
+    <div class="page-header-row mb-4">
+        <div>
+            <h3 class="page-title-main">Profil Akun</h3>
+            <p class="page-subtitle-main">Kelola informasi identitas akun staf Bagian Umum Bapas Kelas I Banjarmasin</p>
+        </div>
     </div>
 
-    <div class="row g-4">
-        <!-- Profile Overview Card -->
-        <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm text-center p-4">
-                <div class="position-relative d-inline-block mx-auto mb-3">
-                    <img src="{{ $admin->foto_url }}" alt="Foto Admin" class="avatar-circle shadow" style="width: 110px; height: 110px;">
-                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-primary p-2 border border-white">
-                        <i class="bi bi-shield-check text-white"></i>
-                    </span>
-                </div>
-                <h5 class="fw-bold text-dark mb-1">{{ $admin->nama_pegawai }}</h5>
-                <span class="badge bg-primary-subtle text-primary border border-primary-subtle mb-2">
-                    {{ $admin->role->nama_role ?? 'Admin / Bagian Umum' }}
-                </span>
-                <p class="text-muted small mb-0">{{ $admin->jabatan }}</p>
-                <div class="mt-3 pt-3 border-top text-start">
-                    <div class="text-muted" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700;">NIP (Username Login):</div>
-                    <div class="fw-semibold text-dark font-monospace">{{ $admin->nip_usn }}</div>
+    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <div class="row g-4">
+            <!-- Left Card: Avatar -->
+            <div class="col-12 col-md-4">
+                <div class="table-card-figma p-4 text-center">
+                    <div class="position-relative d-inline-block mx-auto mb-3">
+                        <img src="{{ $admin->foto_url }}" alt="Foto Admin" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #FFFFFF;">
+                    </div>
+                    <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.05rem;">{{ $admin->nama_pegawai }}</h5>
+                    <div class="text-muted small mb-3">NIP: {{ $admin->nip_usn }}</div>
+                    
+                    <label class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 50px; font-size: 0.78rem; cursor: pointer;">
+                        <i class="bi bi-camera me-1"></i> Ganti Foto Profil
+                        <input type="file" name="foto" class="d-none" accept="image/jpeg,image/png,image/jpg,image/webp" onchange="previewAvatar(this)">
+                    </label>
+                    <div id="avatar_feedback" class="small text-primary mt-2"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Form Edit Profile -->
-        <div class="col-12 col-md-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h6 class="mb-0 fw-bold text-dark">
-                        <i class="bi bi-person-lines-fill text-primary me-2"></i> Perbarui Data Profil
+            <!-- Right Card: Data Profil -->
+            <div class="col-12 col-md-8">
+                <div class="table-card-figma p-4">
+                    <h6 class="fw-bold mb-4" style="color: var(--simba-navy); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.95rem;">
+                        Data Profil
                     </h6>
-                </div>
-                <div class="card-body p-4">
-                    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
 
-                        <div class="mb-3">
-                            <label for="nama_pegawai" class="form-label small fw-semibold">Nama Lengkap beserta Gelar <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" value="{{ old('nama_pegawai', $admin->nama_pegawai) }}" required>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Nama Lengkap <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_pegawai" class="form-control form-control-figma" value="{{ old('nama_pegawai', $admin->nama_pegawai) }}" required>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">NIP (Username) <span class="text-danger">*</span></label>
+                            <input type="text" name="nip_usn" class="form-control form-control-figma" value="{{ old('nip_usn', $admin->nip_usn) }}" required>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Jabatan Kedinasan <span class="text-danger">*</span></label>
+                            <input type="text" name="jabatan" class="form-control form-control-figma" value="{{ old('jabatan', $admin->jabatan) }}" required>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Peran Hak Akses</label>
+                            <input type="text" class="form-control form-control-figma bg-light" value="{{ $admin->role->nama_role ?? 'Admin / Bagian Umum' }}" disabled>
+                        </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="nip_usn" class="form-label small fw-semibold">NIP (Username Login) <span class="text-danger">*</span></label>
-                            <input type="text" name="nip_usn" id="nip_usn" class="form-control" value="{{ old('nip_usn', $admin->nip_usn) }}" required>
-                            <small class="text-muted">NIP digunakan sebagai identifikasi unik saat masuk ke sistem.</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="jabatan" class="form-label small fw-semibold">Jabatan Kedinasan <span class="text-danger">*</span></label>
-                            <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ old('jabatan', $admin->jabatan) }}" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="foto" class="form-label small fw-semibold">Ganti Foto Profil (Opsional)</label>
-                            <input type="file" name="foto" id="foto" class="form-control" accept="image/jpeg,image/png,image/jpg,image/webp">
-                            <small class="text-muted">Format gambar: JPG, JPEG, PNG, WEBP. Maksimal 2MB.</small>
-                        </div>
-
-                        <div class="alert alert-info border-0 bg-info-subtle small d-flex align-items-center gap-2 mb-4">
-                            <i class="bi bi-info-circle-fill text-info fs-5"></i>
-                            <div>Sesuai dengan ketentuan operasional, modul profil ini tidak menyediakan fitur penggantian kata sandi mandiri.</div>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary fw-semibold px-4">
-                                <i class="bi bi-check-lg me-1"></i> Simpan Perubahan Profil
-                            </button>
-                        </div>
-                    </form>
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <button type="submit" class="btn-simba-primary" style="padding: 0.65rem 2rem;">
+                            Simpan Perubahan
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function previewAvatar(input) {
+        if (input.files && input.files[0]) {
+            document.getElementById('avatar_feedback').innerText = "Foto dipilih: " + input.files[0].name;
+        }
+    }
+</script>
 @endsection

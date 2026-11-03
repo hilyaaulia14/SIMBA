@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
+  <circle cx="50" cy="50" r="48" fill="#0C4A28" stroke="#D4AF37" stroke-width="3"/>
+  <circle cx="50" cy="50" r="42" fill="#093B1F"/>
+  <!-- Gold Sun Rays / Stars -->
+  <polygon points="50,14 52,20 58,20 53,24 55,30 50,26 45,30 47,24 42,20 48,20" fill="#FFD700"/>
+  <!-- Pohon Pengayoman (Banyan Tree) -->
+  <path d="M50 28 C40 28 32 36 32 45 C32 48 34 51 36 53 C33 55 31 58 31 62 C31 68 36 72 42 72 L47 72 L47 82 L53 82 L53 72 L58 72 C64 72 69 68 69 62 C69 58 67 55 64 53 C66 51 68 48 68 45 C68 36 60 28 50 28 Z" fill="#D4AF37"/>
+  <!-- Tree Trunk Core -->
+  <path d="M48 60 L48 80 L52 80 L52 60 Z" fill="#784212"/>
+  <!-- Banner / Pita Pengayoman -->
+  <path d="M28 84 Q50 90 72 84 L70 89 Q50 95 30 89 Z" fill="#D4AF37"/>
+  <text x="50" y="87" font-size="4" font-family="'Poppins', sans-serif" font-weight="bold" fill="#093B1F" text-anchor="middle">PENGAYOMAN</text>
+</svg>

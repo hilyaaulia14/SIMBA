@@ -1,92 +1,85 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Pembimbing Kemasyarakatan - SIMBA')
-@section('page_title', 'Profil Pembimbing Kemasyarakatan (PK)')
+@section('title', 'Profil PK - SIMBA')
 
 @section('content')
-<div class="container-fluid px-0" style="max-width: 900px;">
+<div class="container-fluid px-0">
 
-    <!-- Breadcrumb / Back Navigation -->
-    <div class="mb-4">
-        <a href="{{ route('pk.dashboard') }}" class="text-decoration-none text-muted small d-inline-flex align-items-center gap-1">
-            <i class="bi bi-arrow-left"></i> Kembali ke Dashboard
-        </a>
-        <h4 class="fw-bold mt-2 text-dark">Profil Pembimbing Kemasyarakatan (PK)</h4>
-        <p class="text-muted small">Kelola informasi data diri fungsional Pembimbing Kemasyarakatan Bapas Kelas I Banjarmasin.</p>
+    <!-- Page Header Row -->
+    <div class="page-header-row mb-4">
+        <div>
+            <h3 class="page-title-main">Profil</h3>
+            <p class="page-subtitle-main">Kelola informasi identitas fungsional Pembimbing Kemasyarakatan (PK) Bapas Banjarmasin</p>
+        </div>
     </div>
 
-    <div class="row g-4">
-        <!-- Profile Overview Card -->
-        <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm text-center p-4">
-                <div class="position-relative d-inline-block mx-auto mb-3">
-                    <img src="{{ $pk->foto_url }}" alt="Foto PK" class="avatar-circle shadow" style="width: 110px; height: 110px;">
-                    <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success p-2 border border-white">
-                        <i class="bi bi-person-check-fill text-white"></i>
-                    </span>
-                </div>
-                <h5 class="fw-bold text-dark mb-1">{{ $pk->nama_pegawai }}</h5>
-                <span class="badge bg-success-subtle text-success border border-success-subtle mb-2">
-                    {{ $pk->role->nama_role ?? 'Pembimbing Kemasyarakatan' }}
-                </span>
-                <p class="text-muted small mb-0">{{ $pk->jabatan }}</p>
-                <div class="mt-3 pt-3 border-top text-start">
-                    <div class="text-muted" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700;">NIP (Username Login):</div>
-                    <div class="fw-semibold text-dark font-monospace">{{ $pk->nip_usn }}</div>
+    <form action="{{ route('pk.profile.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <div class="row g-4">
+            <!-- Left Card: Avatar -->
+            <div class="col-12 col-md-4">
+                <div class="table-card-figma p-4 text-center">
+                    <div class="position-relative d-inline-block mx-auto mb-3">
+                        <img src="{{ $pk->foto_url }}" alt="Foto PK" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #FFFFFF;">
+                    </div>
+                    <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.05rem;">{{ $pk->nama_pegawai }}</h5>
+                    <div class="text-muted small mb-3">NIP: {{ $pk->nip_usn }}</div>
+                    
+                    <label class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 50px; font-size: 0.78rem; cursor: pointer;">
+                        <i class="bi bi-camera me-1"></i> Ganti Foto Profil
+                        <input type="file" name="foto" class="d-none" accept="image/jpeg,image/png,image/jpg,image/webp" onchange="previewAvatar(this)">
+                    </label>
+                    <div id="avatar_feedback" class="small text-primary mt-2"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Form Edit Profile -->
-        <div class="col-12 col-md-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h6 class="mb-0 fw-bold text-dark">
-                        <i class="bi bi-person-lines-fill text-success me-2"></i> Perbarui Data Fungsional PK
+            <!-- Right Card: Data Profil -->
+            <div class="col-12 col-md-8">
+                <div class="table-card-figma p-4">
+                    <h6 class="fw-bold mb-4" style="color: var(--simba-navy); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.95rem;">
+                        Data Profil
                     </h6>
-                </div>
-                <div class="card-body p-4">
-                    <form action="{{ route('pk.profile.update') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
 
-                        <div class="mb-3">
-                            <label for="nama_pegawai" class="form-label small fw-semibold">Nama Lengkap beserta Gelar <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" value="{{ old('nama_pegawai', $pk->nama_pegawai) }}" required>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Nama Lengkap <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_pegawai" class="form-control form-control-figma" value="{{ old('nama_pegawai', $pk->nama_pegawai) }}" required>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">NIP (Username Login) <span class="text-danger">*</span></label>
+                            <input type="text" name="nip_usn" class="form-control form-control-figma" value="{{ old('nip_usn', $pk->nip_usn) }}" required>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Jabatan Fungsional PK <span class="text-danger">*</span></label>
+                            <input type="text" name="jabatan" class="form-control form-control-figma" value="{{ old('jabatan', $pk->jabatan) }}" required>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Peran Hak Akses</label>
+                            <input type="text" class="form-control form-control-figma bg-light" value="{{ $pk->role->nama_role ?? 'Pembimbing Kemasyarakatan' }}" disabled>
+                        </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="nip_usn" class="form-label small fw-semibold">NIP (Username Login) <span class="text-danger">*</span></label>
-                            <input type="text" name="nip_usn" id="nip_usn" class="form-control" value="{{ old('nip_usn', $pk->nip_usn) }}" required>
-                            <small class="text-muted">NIP dipergunakan sebagai kredensial unik saat masuk sistem SIMBA.</small>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="jabatan" class="form-label small fw-semibold">Jabatan Fungsional PK <span class="text-danger">*</span></label>
-                            <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ old('jabatan', $pk->jabatan) }}" placeholder="Contoh: Pembimbing Kemasyarakatan Ahli Pertama" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="foto" class="form-label small fw-semibold">Ganti Foto Profil (Opsional)</label>
-                            <input type="file" name="foto" id="foto" class="form-control" accept="image/jpeg,image/png,image/jpg,image/webp">
-                            <small class="text-muted">Format gambar: JPG, JPEG, PNG, WEBP. Maksimal 2MB.</small>
-                        </div>
-
-                        <div class="alert alert-secondary border-0 bg-light small d-flex align-items-center gap-2 mb-4 text-muted">
-                            <i class="bi bi-info-circle text-secondary fs-5"></i>
-                            <div>Berdasarkan standar operasional Bapas, modul profil Pembimbing Kemasyarakatan (PK) tidak menyertakan fitur ganti kata sandi mandiri dan tanpa informasi kontak.</div>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success fw-semibold px-4">
-                                <i class="bi bi-check-lg me-1"></i> Simpan Profil PK
-                            </button>
-                        </div>
-                    </form>
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <button type="submit" class="btn-simba-primary" style="padding: 0.65rem 2rem;">
+                            Simpan Perubahan
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function previewAvatar(input) {
+        if (input.files && input.files[0]) {
+            document.getElementById('avatar_feedback').innerText = "Foto dipilih: " + input.files[0].name;
+        }
+    }
+</script>
 @endsection

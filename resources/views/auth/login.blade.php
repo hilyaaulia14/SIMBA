@@ -3,298 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk - SIMBA (Sistem Informasi Balai Pemasyarakatan) Bapas Kelas I Banjarmasin</title>
+    <title>Login Dashboard - SIMBA Bapas Kelas I Banjarmasin</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
+        * {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
         :root {
-            --bapas-navy: #0D2A4A;
-            --bapas-navy-dark: #07192C;
-            --bapas-gold: #D4AF37;
-            --bapas-gold-dark: #B8860B;
-            --bapas-accent: #0284C7;
+            --simba-navy: #0D2A4A;
+            --simba-navy-light: #163E6B;
+            --simba-bg: #F4F7FB;
+            --simba-border: #E2E8F0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--simba-bg);
             min-height: 100vh;
-            background: linear-gradient(135deg, #07192C 0%, #0D2A4A 60%, #163B65 100%);
+        }
+
+        .login-split-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Left Half Banner */
+        .login-left-banner {
+            flex: 1;
+            background-color: var(--simba-navy);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 3rem;
             position: relative;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-            background-size: 24px 24px;
-            pointer-events: none;
+        .banner-identity {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            color: #FFFFFF;
         }
 
-        .login-card {
-            background: #FFFFFF;
-            border-radius: 18px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
-            overflow: hidden;
-            max-width: 460px;
-            width: 100%;
-            z-index: 10;
+        .banner-logos {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
         }
 
-        .login-header {
-            background: linear-gradient(180deg, #F8FAFC 0%, #EDF2F7 100%);
-            padding: 2rem 2rem 1.5rem;
-            text-align: center;
-            border-bottom: 1px solid #E2E8F0;
+        .banner-logo-img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
         }
 
-        .emblem-wrapper {
-            display: inline-flex;
+        .banner-divider-line {
+            width: 2px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .banner-text-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.25;
+            letter-spacing: 0.3px;
+        }
+
+        .banner-text-sub {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.2;
+        }
+
+        /* Right Half Form */
+        .login-right-form {
+            flex: 1;
+            background-color: var(--simba-bg);
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 68px;
-            height: 68px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #0D2A4A 0%, #163B65 100%);
-            box-shadow: 0 8px 18px rgba(13, 42, 74, 0.35);
-            margin-bottom: 1rem;
-            border: 2px solid var(--bapas-gold);
-            color: #FFFFFF;
+            padding: 2.5rem;
         }
 
-        .role-nav .nav-link {
-            border: none;
+        .login-form-card {
+            background-color: #FFFFFF;
+            border-radius: 18px;
+            border: 1px solid #EAEFF5;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            padding: 2.5rem 2.25rem;
+            max-width: 440px;
+            width: 100%;
+        }
+
+        .login-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--simba-navy);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .login-subtitle {
+            font-size: 0.8rem;
             color: #64748B;
-            font-size: 0.86rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.45;
+        }
+
+        .role-section-label {
+            font-size: 0.72rem;
             font-weight: 600;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-selector-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-card-btn {
+            border-radius: 12px;
+            padding: 0.9rem 0.75rem;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #FFFFFF;
+            border: 1.5px solid var(--simba-border);
+            color: #64748B;
+            user-select: none;
         }
 
-        .role-nav .nav-link:hover {
-            color: var(--bapas-navy);
-            background-color: #F1F5F9;
+        .role-card-btn:hover {
+            border-color: #CBD5E1;
+            background-color: #F8FAFC;
         }
 
-        .role-nav .nav-link.active {
-            color: #FFFFFF;
-            background: linear-gradient(135deg, var(--bapas-navy) 0%, #163B65 100%);
-            box-shadow: 0 4px 12px rgba(13, 42, 74, 0.25);
+        .role-card-btn.active {
+            border-color: var(--simba-navy);
+            background-color: #EFF6FF;
+            color: var(--simba-navy);
+            box-shadow: 0 2px 8px rgba(13, 42, 74, 0.1);
         }
 
-        .form-control {
-            border-radius: 10px;
+        .role-card-btn i {
+            font-size: 1.45rem;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .role-card-btn.active i {
+            color: var(--simba-navy);
+        }
+
+        .role-card-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .form-label-figma {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.35rem;
+        }
+
+        .form-control-figma {
+            border-radius: 8px;
+            border: 1px solid var(--simba-border);
             padding: 0.75rem 1rem;
-            border: 1px solid #CBD5E1;
-            font-size: 0.92rem;
+            font-size: 0.86rem;
+            color: #1E293B;
+            background-color: #FFFFFF;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .form-control:focus {
-            border-color: var(--bapas-accent);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        .form-control-figma:focus {
+            border-color: var(--simba-navy);
+            box-shadow: 0 0 0 3px rgba(13, 42, 74, 0.12);
+            outline: none;
         }
 
-        .input-group-text {
-            border-radius: 10px;
-            border: 1px solid #CBD5E1;
-            background-color: #F8FAFC;
-            color: #64748B;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #0D2A4A 0%, #163B65 100%);
+        .btn-simba-login {
+            background-color: var(--simba-navy);
             color: #FFFFFF;
+            font-size: 0.88rem;
             font-weight: 600;
-            padding: 0.8rem 1.25rem;
-            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             border: none;
-            transition: all 0.2s ease;
+            width: 100%;
+            letter-spacing: 0.5px;
             box-shadow: 0 4px 12px rgba(13, 42, 74, 0.25);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
         }
 
-        .btn-submit:hover {
-            background: linear-gradient(135deg, #163B65 0%, #0D2A4A 100%);
+        .btn-simba-login:hover {
+            background-color: var(--simba-navy-light);
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(13, 42, 74, 0.35);
             color: #FFFFFF;
         }
 
-        .credential-pill {
+        .login-footer-copy {
+            text-align: center;
+            font-size: 0.74rem;
+            color: #94A3B8;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .demo-pill-btn {
             cursor: pointer;
             border: 1px dashed #CBD5E1;
-            border-radius: 8px;
-            padding: 0.4rem 0.65rem;
+            border-radius: 6px;
+            padding: 0.35rem 0.65rem;
             background-color: #F8FAFC;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
+            color: #475569;
             transition: all 0.2s ease;
         }
 
-        .credential-pill:hover {
+        .demo-pill-btn:hover {
             background-color: #EFF6FF;
             border-color: #3B82F6;
+            color: var(--simba-navy);
+        }
+
+        /* Responsive Breakpoint */
+        @media (max-width: 991.98px) {
+            .login-split-container {
+                flex-direction: column;
+            }
+            .login-left-banner {
+                padding: 2.25rem 1.5rem;
+                flex: none;
+            }
+            .banner-logo-img {
+                height: 42px;
+            }
+            .banner-text-title {
+                font-size: 1.05rem;
+            }
+            .banner-text-sub {
+                font-size: 0.85rem;
+            }
+            .login-right-form {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <!-- Login Header with Institutional Identity -->
-        <div class="login-header">
-            <div class="emblem-wrapper">
-                <i class="bi bi-shield-lock-fill fs-2" style="color: var(--bapas-gold);"></i>
-            </div>
-            <h4 class="fw-bold text-dark mb-1" style="letter-spacing: -0.3px;">SIMBA</h4>
-            <div class="fw-semibold text-primary" style="font-size: 0.85rem; letter-spacing: 0.3px;">
-                Sistem Informasi Balai Pemasyarakatan
-            </div>
-            <div class="text-muted small mt-1">
-                Bapas Kelas I Banjarmasin &bull; Poliban
+    <div class="login-split-container">
+        <!-- Left Side: Solid Navy Banner with Logos & Text -->
+        <div class="login-left-banner">
+            <div class="banner-identity">
+                <div class="banner-logos">
+                    <img src="{{ asset('assets/images/logo_poliban.svg') }}" alt="Logo Poliban" class="banner-logo-img">
+                    <img src="{{ asset('assets/images/logo_kemenkumham.svg') }}" alt="Logo Kemenkumham" class="banner-logo-img">
+                </div>
+                <div class="banner-divider-line"></div>
+                <div>
+                    <div class="banner-text-title">Balai Pemasyarakatan</div>
+                    <div class="banner-text-sub">Kelas I Banjarmasin</div>
+                </div>
             </div>
         </div>
 
-        <div class="p-4 p-sm-4">
-            <!-- Flash Alerts -->
-            @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show small d-flex align-items-center gap-2 mb-3" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill"></i>
-                    <div>{{ session('error') }}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+        <!-- Right Side: White Login Form Card -->
+        <div class="login-right-form">
+            <div class="login-form-card">
+                <h4 class="login-title">LOGIN DASHBOARD</h4>
+                <p class="login-subtitle">Silakan pilih role dan masukkan akun terdaftar Anda untuk mengakses sistem SIMBA.</p>
 
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show small d-flex align-items-center gap-2 mb-3" role="alert">
-                    <i class="bi bi-check-circle-fill"></i>
-                    <div>{{ session('success') }}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                <!-- Flash Alerts -->
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show small d-flex align-items-center gap-2 mb-3 py-2" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <div>{{ session('error') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show small mb-3" role="alert">
-                    <ul class="mb-0 ps-3">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show small d-flex align-items-center gap-2 mb-3 py-2" role="alert">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <div>{{ session('success') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-            <!-- Role Selector Tabs -->
-            <label class="form-label small fw-bold text-secondary mb-2">Pilih Peran Pengguna (Role):</label>
-            <ul class="nav nav-pills nav-fill role-nav p-1 bg-light rounded-3 mb-4" id="roleTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link {{ ($activeRole ?? 'admin') === 'admin' ? 'active' : '' }}" 
-                            id="tab-admin" 
-                            type="button" 
-                            onclick="selectRole('admin')">
-                        <i class="bi bi-folder-symlink me-1"></i> Admin / Umum
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link {{ ($activeRole ?? '') === 'pk' ? 'active' : '' }}" 
-                            id="tab-pk" 
-                            type="button" 
-                            onclick="selectRole('pk')">
-                        <i class="bi bi-person-check me-1"></i> Pembimbing (PK)
-                    </button>
-                </li>
-            </ul>
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show small mb-3 py-2" role="alert">
+                        <ul class="mb-0 ps-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-            <!-- Login Form -->
-            <form action="{{ route('login.post') }}" method="POST">
-                @csrf
-                <input type="hidden" name="role_target" id="role_target" value="{{ $activeRole ?? 'admin' }}">
+                <!-- Form -->
+                <form action="{{ route('login.post') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="role_target" id="role_target" value="{{ $activeRole ?? 'admin' }}">
 
-                <div class="mb-3">
-                    <label for="nip_usn" class="form-label small fw-semibold text-dark">
-                        Nomor Induk Pegawai (NIP / Username) <span class="text-danger">*</span>
-                    </label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                    <!-- Role Selector -->
+                    <div class="role-section-label">PILIH ROLE LOGIN</div>
+                    <div class="role-selector-grid">
+                        <div class="role-card-btn {{ ($activeRole ?? 'admin') === 'admin' ? 'active' : '' }}" id="role-btn-admin" onclick="setRole('admin')">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <div class="role-card-title">Admin / Umum</div>
+                        </div>
+                        <div class="role-card-btn {{ ($activeRole ?? '') === 'pk' ? 'active' : '' }}" id="role-btn-pk" onclick="setRole('pk')">
+                            <i class="bi bi-person-badge-fill"></i>
+                            <div class="role-card-title">Pembimbing (PK)</div>
+                        </div>
+                    </div>
+
+                    <!-- NIP Input -->
+                    <div class="mb-3">
+                        <label for="nip_usn" class="form-label-figma">NIP (USN) <span class="text-danger">*</span></label>
                         <input type="text" 
                                name="nip_usn" 
                                id="nip_usn" 
-                               class="form-control @error('nip_usn') is-invalid @enderror" 
+                               class="form-control form-control-figma" 
                                placeholder="Masukkan NIP Anda" 
                                value="{{ old('nip_usn', ($activeRole ?? 'admin') === 'admin' ? '198501152010121001' : '199003202015031002') }}" 
                                required 
                                autofocus>
                     </div>
-                </div>
 
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label for="password" class="form-label small fw-semibold text-dark mb-0">
-                            Kata Sandi <span class="text-danger">*</span>
+                    <!-- Password Input -->
+                    <div class="mb-4">
+                        <label for="password" class="form-label-figma">PASSWORD <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input type="password" 
+                                   name="password" 
+                                   id="password" 
+                                   class="form-control form-control-figma" 
+                                   placeholder="Masukkan kata sandi" 
+                                   value="{{ ($activeRole ?? 'admin') === 'admin' ? 'admin123' : 'pk123' }}"
+                                   required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePasswordBtn" style="border-radius: 0 8px 8px 0; border: 1px solid var(--simba-border);">
+                                <i class="bi bi-eye" id="passwordEyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember" checked>
+                        <label class="form-check-label small text-muted" for="remember">
+                            Ingat saya di perangkat ini
                         </label>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-key"></i></span>
-                        <input type="password" 
-                               name="password" 
-                               id="password" 
-                               class="form-control @error('password') is-invalid @enderror" 
-                               placeholder="Masukkan kata sandi" 
-                               value="{{ ($activeRole ?? 'admin') === 'admin' ? 'admin123' : 'pk123' }}"
-                               required>
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                            <i class="bi bi-eye" id="passwordIcon"></i>
-                        </button>
-                    </div>
-                </div>
 
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" checked>
-                    <label class="form-check-label small text-muted" for="remember">
-                        Ingat saya di perangkat ini
-                    </label>
-                </div>
+                    <button type="submit" class="btn btn-simba-login">
+                        MASUK
+                    </button>
+                </form>
 
-                <button type="submit" class="btn btn-submit w-100 d-flex align-items-center justify-content-center gap-2">
-                    <i class="bi bi-box-arrow-in-right fs-5"></i>
-                    <span>Masuk ke Dashboard</span>
-                </button>
-            </form>
+                <p class="login-footer-copy">
+                    &copy; SIMBA - Bapas Kelas I Banjarmasin
+                </p>
 
-            <!-- Quick Auto-Fill Demo Credentials -->
-            <div class="mt-4 pt-3 border-top">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="text-muted" style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">
-                        Kredensial Pengujian (Demo):
+                <!-- Demo Pills -->
+                <div class="mt-3 pt-3 border-top d-flex gap-2 justify-content-center">
+                    <span class="demo-pill-btn" onclick="fillCredential('admin', '198501152010121001', 'admin123')">
+                        <i class="bi bi-key-fill text-primary me-1"></i> Demo Admin
                     </span>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <div class="credential-pill d-flex align-items-center justify-content-between" onclick="fillCredentials('admin', '198501152010121001', 'admin123')">
-                        <div>
-                            <span class="badge bg-primary me-1">Admin</span>
-                            <span class="fw-semibold text-dark">Budi Santoso (NIP: 198501152010121001)</span>
-                        </div>
-                        <i class="bi bi-arrow-right-short text-primary"></i>
-                    </div>
-                    <div class="credential-pill d-flex align-items-center justify-content-between" onclick="fillCredentials('pk', '199003202015031002', 'pk123')">
-                        <div>
-                            <span class="badge bg-success me-1">PK</span>
-                            <span class="fw-semibold text-dark">Hilyatul Aulia (NIP: 199003202015031002)</span>
-                        </div>
-                        <i class="bi bi-arrow-right-short text-success"></i>
-                    </div>
+                    <span class="demo-pill-btn" onclick="fillCredential('pk', '199003202015031002', 'pk123')">
+                        <i class="bi bi-key-fill text-success me-1"></i> Demo PK
+                    </span>
                 </div>
             </div>
         </div>
@@ -304,39 +410,37 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Role tab selection
-        function selectRole(role) {
+        function setRole(role) {
             document.getElementById('role_target').value = role;
             if (role === 'admin') {
-                document.getElementById('tab-admin').classList.add('active');
-                document.getElementById('tab-pk').classList.remove('active');
+                document.getElementById('role-btn-admin').classList.add('active');
+                document.getElementById('role-btn-pk').classList.remove('active');
                 document.getElementById('nip_usn').value = '198501152010121001';
                 document.getElementById('password').value = 'admin123';
             } else {
-                document.getElementById('tab-pk').classList.add('active');
-                document.getElementById('tab-admin').classList.remove('active');
+                document.getElementById('role-btn-pk').classList.add('active');
+                document.getElementById('role-btn-admin').classList.remove('active');
                 document.getElementById('nip_usn').value = '199003202015031002';
                 document.getElementById('password').value = 'pk123';
             }
         }
 
-        // Quick fill credentials
-        function fillCredentials(role, nip, pass) {
-            selectRole(role);
+        function fillCredential(role, nip, pass) {
+            setRole(role);
             document.getElementById('nip_usn').value = nip;
             document.getElementById('password').value = pass;
         }
 
         // Toggle password visibility
-        const togglePassword = document.getElementById('togglePassword');
+        const togglePasswordBtn = document.getElementById('togglePasswordBtn');
         const passwordInput = document.getElementById('password');
-        const passwordIcon = document.getElementById('passwordIcon');
+        const passwordEyeIcon = document.getElementById('passwordEyeIcon');
 
-        togglePassword.addEventListener('click', function () {
+        togglePasswordBtn.addEventListener('click', function () {
             const isPassword = passwordInput.getAttribute('type') === 'password';
             passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-            passwordIcon.classList.toggle('bi-eye');
-            passwordIcon.classList.toggle('bi-eye-slash');
+            passwordEyeIcon.classList.toggle('bi-eye');
+            passwordEyeIcon.classList.toggle('bi-eye-slash');
         });
     </script>
 </body>
