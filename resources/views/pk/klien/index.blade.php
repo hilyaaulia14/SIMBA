@@ -20,7 +20,7 @@
                 <div style="max-width: 280px; width: 100%;">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.png') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
                         </span>
                         <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
                     </div>
@@ -64,13 +64,13 @@
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Klien" onclick="showDetailKlien({{ $klien->id_klien }})">
-                                        <img src="{{ asset('assets/images/detail.png') }}" alt="Detail">
+                                        <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
                                     </button>
                                     <button class="btn-action-square" title="Edit Klien" onclick="showEditKlien({{ $klien->id_klien }})">
-                                        <img src="{{ asset('assets/images/edit.png') }}" alt="Edit">
+                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
                                     <button class="btn-action-square btn-delete" title="Hapus Klien" onclick="confirmDeleteKlien({{ $klien->id_klien }}, '{{ addslashes($klien->nama_klien) }}')">
-                                        <img src="{{ asset('assets/images/hapus.png') }}" alt="Hapus">
+                                        <img src="{{ asset('assets/images/hapus.svg') }}" alt="Hapus">
                                     </button>
                                 </div>
                             </td>
@@ -98,7 +98,7 @@
 
 </div>
 
-<!-- Modal Tambah Klien (Sesuai Tambah Klien.png) -->
+<!-- Modal Tambah Klien (Sesuai Tambah Klien.svg) -->
 <div class="modal fade" id="modalTambahKlien" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -153,7 +153,7 @@
     </div>
 </div>
 
-<!-- Modal Detail Klien (Sesuai Detail Klien.png) -->
+<!-- Modal Detail Klien (Sesuai Detail Klien.svg) -->
 <div class="modal fade" id="modalDetailKlien" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -177,7 +177,7 @@
     </div>
 </div>
 
-<!-- Modal Edit Data Klien (Sesuai Edit Data Klien.png) -->
+<!-- Modal Edit Data Klien (Sesuai Edit Data Klien.svg) -->
 <div class="modal fade" id="modalEditKlien" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -233,13 +233,13 @@
     </div>
 </div>
 
-<!-- Modal Hapus Klien (Sesuai Hapus Klien.png) -->
+<!-- Modal Hapus Klien (Sesuai Hapus Klien.svg) -->
 <div class="modal fade" id="modalDeleteKlien" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
         <div class="modal-content modal-content-figma text-center p-4">
             <div class="modal-body p-2">
                 <div class="delete-dialog-badge">
-                    <img src="{{ asset('assets/images/warning.png') }}" alt="Peringatan">
+                    <img src="{{ asset('assets/images/warning.svg') }}" alt="Peringatan">
                 </div>
                 <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Klien?</h4>
                 <p class="text-dark small mb-4" style="line-height: 1.5;">

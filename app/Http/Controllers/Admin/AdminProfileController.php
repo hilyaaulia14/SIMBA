@@ -27,7 +27,7 @@ class AdminProfileController extends Controller
             'jabatan' => 'required|string|max:50',
             'email' => 'nullable|string|max:100',
             'alamat' => 'nullable|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:2048',
         ], [
             'nama_pegawai.required' => 'Nama lengkap wajib diisi.',
             'nip_usn.required' => 'NIP (Username) wajib diisi.',

@@ -430,7 +430,7 @@ flowchart TD
     PRES_P1["Klien Hadir Wajib Lapor; PK Akses Menu Presensi"]:::bw
     PRES_OUT1[/"Tampilkan Daftar Jadwal Klien Hari Ini & Tombol Input Presensi"/]:::bw
     PRES_IN[/"Pilih Klien Hadir, Input Catatan Evaluasi, & Upload Foto Hadir"/]:::bw
-    PRES_P2["Validasi Kelengkapan Catatan & Format File Foto (JPG/PNG)"]:::bw
+    PRES_P2["Validasi Kelengkapan Catatan & Format File Foto (JPG/svg)"]:::bw
     PRES_D{"Data & Foto Lengkap?"}:::bw
     PRES_ERR[/"Tampilkan Peringatan: Catatan & Foto Bukti Wajib Diisi!"/]:::bw
     PRES_P3["Simpan Berkas Foto Fisik ke /storage/presensi/ Server"]:::bw

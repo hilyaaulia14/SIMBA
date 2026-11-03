@@ -69,7 +69,7 @@
         .banner-divider-line {
             width: 2px;
             height: 60px;
-            background-color: rgba(255, 255, 255, 0.45);
+            background-color: #FFFFFF;
         }
 
         .banner-text-title {
@@ -242,7 +242,7 @@
             <div></div>
             <div class="banner-center-content">
                 <div class="banner-logos">
-                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi" style="height: 64px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" style="height: 64px; width: auto; object-fit: contain;">
                 </div>
                 <div class="banner-divider-line"></div>
                 <div>
@@ -290,14 +290,14 @@
                     <div class="role-selector-grid">
                         <div class="role-card-item {{ ($activeRole ?? 'admin') === 'admin' ? 'active' : '' }}" id="role-btn-admin" onclick="setRole('admin')">
                             <div class="role-icon-box">
-                                <img src="{{ asset('assets/images/role_admin_card.png') }}" alt="Admin" style="height: 38px; width: auto; object-fit: contain;">
+                                <img src="{{ asset('assets/images/role_admin_card.svg') }}" alt="Admin" style="height: 38px; width: auto; object-fit: contain;">
                             </div>
                             <div class="role-card-name">Admin</div>
                         </div>
 
                         <div class="role-card-item {{ ($activeRole ?? '') === 'pk' ? 'active' : '' }}" id="role-btn-pk" onclick="setRole('pk')">
                             <div class="role-icon-box">
-                                <img src="{{ asset('assets/images/role_pk_card.png') }}" alt="Pembimbing" style="height: 38px; width: auto; object-fit: contain;">
+                                <img src="{{ asset('assets/images/role_pk_card.svg') }}" alt="Pembimbing" style="height: 38px; width: auto; object-fit: contain;">
                             </div>
                             <div class="role-card-name">Pembimbing</div>
                         </div>

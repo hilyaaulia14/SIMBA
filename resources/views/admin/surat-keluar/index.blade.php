@@ -20,7 +20,7 @@
                 <div style="max-width: 260px;">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.png') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
                         </span>
                         <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
                     </div>
@@ -85,13 +85,13 @@
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Surat" onclick="showDetailSuratKeluar({{ $sk->id_surat_keluar }})">
-                                        <img src="{{ asset('assets/images/detail.png') }}" alt="Detail">
+                                        <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
                                     </button>
                                     <button class="btn-action-square" title="Edit Surat" onclick="showEditSuratKeluar({{ $sk->id_surat_keluar }})">
-                                        <img src="{{ asset('assets/images/edit.png') }}" alt="Edit">
+                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
                                     <button class="btn-action-square btn-delete" title="Hapus Surat" onclick="confirmDeleteSuratKeluar({{ $sk->id_surat_keluar }}, '{{ addslashes($sk->no_surat) }}')">
-                                        <img src="{{ asset('assets/images/hapus.png') }}" alt="Hapus">
+                                        <img src="{{ asset('assets/images/hapus.svg') }}" alt="Hapus">
                                     </button>
                                 </div>
                             </td>
@@ -119,7 +119,7 @@
 
 </div>
 
-<!-- Modal Tambah Surat Keluar (Sesuai Tambah Surat Keluar.png) -->
+<!-- Modal Tambah Surat Keluar (Sesuai Tambah Surat Keluar.svg) -->
 <div class="modal fade" id="modalTambahSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -168,9 +168,9 @@
                         <div class="col-12">
                             <label class="form-label-figma">File Surat</label>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sk_add').click()">
-                                <img src="{{ asset('assets/images/unggah.png') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="small text-muted d-block" id="sk_add_filename">Unggah file PDF/Word</span>
-                                <input type="file" name="upload_dokumen" id="upload_sk_add" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="updateFilename(this, 'sk_add_filename')">
+                                <input type="file" name="upload_dokumen" id="upload_sk_add" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="updateFilename(this, 'sk_add_filename')">
                             </div>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
     </div>
 </div>
 
-<!-- Modal Detail Surat Keluar (Sesuai Detail Surat Keluar.png) -->
+<!-- Modal Detail Surat Keluar (Sesuai Detail Surat Keluar.svg) -->
 <div class="modal fade" id="modalDetailSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -217,7 +217,7 @@
     </div>
 </div>
 
-<!-- Modal Edit Surat Keluar (Sesuai Edit Surat Keluar.png) -->
+<!-- Modal Edit Surat Keluar (Sesuai Edit Surat Keluar.svg) -->
 <div class="modal fade" id="modalEditSuratKeluar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -265,9 +265,9 @@
                         <div class="col-12">
                             <label class="form-label-figma">File Surat</label>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sk_edit').click()">
-                                <img src="{{ asset('assets/images/unggah.png') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="small text-muted d-block" id="sk_edit_filename">Unggah file PDF/Word</span>
-                                <input type="file" name="upload_dokumen" id="upload_sk_edit" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onchange="updateFilename(this, 'sk_edit_filename')">
+                                <input type="file" name="upload_dokumen" id="upload_sk_edit" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="updateFilename(this, 'sk_edit_filename')">
                             </div>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
         <div class="modal-content modal-content-figma text-center p-4">
             <div class="modal-body p-2">
                 <div class="delete-dialog-badge">
-                    <img src="{{ asset('assets/images/warning.png') }}" alt="Peringatan">
+                    <img src="{{ asset('assets/images/warning.svg') }}" alt="Peringatan">
                 </div>
                 <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Surat?</h4>
                 <p class="text-dark small mb-4" style="line-height: 1.5;">

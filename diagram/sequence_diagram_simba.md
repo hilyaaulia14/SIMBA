@@ -476,7 +476,7 @@ sequenceDiagram
     activate Modal
     Modal->>Ctrl: storeKehadiran(Request $request)
     activate Ctrl
-    Ctrl->>Ctrl: Validasi Format Foto (JPG/PNG) & Kelengkapan Evaluasi
+    Ctrl->>Ctrl: Validasi Format Foto (JPG/svg) & Kelengkapan Evaluasi
 
     Ctrl->>Store: storeFoto(foto_kehadiran, "storage/presensi")
     activate Store
