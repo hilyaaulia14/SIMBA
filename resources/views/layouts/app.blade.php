@@ -815,7 +815,7 @@
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/kalender.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
+                        <img src="{{ asset('assets/images/jadwal_bimbingan.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
                         <span>Jadwal Bimbingan</span>
                     </a>
                     <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">

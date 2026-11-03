@@ -333,7 +333,7 @@
                 </form>
 
                 <div class="login-footer-text">
-                    &copy; 2026 SIMBA - Dikembangkan oleh Dhea & Hilya<br>
+                    &copy; 2026 SIMBA - Dikembangkan oleh Dhea Zahra & Hilyatul Aulia<br>
                     Mahasiswa Teknik Informatika, Politeknik Negeri Banjarmasin.
                 </div>
             </div>
