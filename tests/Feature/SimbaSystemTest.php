@@ -310,7 +310,7 @@ class SimbaSystemTest extends TestCase
         ]);
     }
 
-    /** Test 13: Kehadiran pagination and topbar radius */
+    /** Test 13: Kehadiran pagination, topbar radius, and menu item */
     public function test_kehadiran_page_pagination_and_topbar()
     {
         $response = $this->actingAs($this->pk)->get('/pk/kehadiran?page=1');
@@ -318,5 +318,6 @@ class SimbaSystemTest extends TestCase
         $response->assertSee('border-bottom-left-radius: 24px', false);
         $response->assertSee('class="pagination"', false);
         $response->assertDontSee('pagination.previous');
+        $response->assertSee('Bukti Kehadiran');
     }
 }

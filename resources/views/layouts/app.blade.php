@@ -787,9 +787,13 @@
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') || request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
+                    <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-event"></i>
                         <span>Jadwal Bimbingan</span>
+                    </a>
+                    <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
+                        <i class="bi bi-person-check"></i>
+                        <span>Bukti Kehadiran</span>
                     </a>
                     <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
                         <i class="bi bi-clock"></i>
