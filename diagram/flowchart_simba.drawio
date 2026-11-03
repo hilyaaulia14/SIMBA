@@ -1,6 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="diag_flow_utama" name="1. Flowchart Utama Sistem">
+<<<<<<< HEAD
         <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="920" pageHeight="1060" math="0" shadow="0">
+=======
+        <mxGraphModel dx="1147" dy="1322" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1060" math="0" shadow="0">
+>>>>>>> 9838727e24582ba147186f4d5ff0b115dd248075
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -199,7 +203,11 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_login" name="2. Flowchart Login Sistem">
+<<<<<<< HEAD
         <mxGraphModel dx="2081" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="850" math="0" shadow="0">
+=======
+        <mxGraphModel dx="1229" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="850" math="0" shadow="0">
+>>>>>>> 9838727e24582ba147186f4d5ff0b115dd248075
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -302,7 +310,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_sm" name="3. Flowchart Surat Masuk">
-        <mxGraphModel dx="2574" dy="1111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
+        <mxGraphModel dx="2383" dy="953" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -498,7 +506,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_sk" name="4. Flowchart Surat Keluar">
-        <mxGraphModel dx="2345" dy="955" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
+        <mxGraphModel dx="2383" dy="1653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="970" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -693,7 +701,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_klien" name="5. Flowchart Data Klien">
-        <mxGraphModel dx="2384" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1020" math="0" shadow="0">
+        <mxGraphModel dx="1565" dy="744" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="1020" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -851,7 +859,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_atur_jadwal" name="6. Flowchart Atur Jadwal (PK)">
-        <mxGraphModel dx="1160" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
+        <mxGraphModel dx="1173" dy="1352" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -927,7 +935,11 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_bimbingan" name="7. Flowchart Penjadwalan Bimbingan">
+<<<<<<< HEAD
         <mxGraphModel dx="1996" dy="786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
+=======
+        <mxGraphModel dx="311" dy="358" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="810" math="0" shadow="0">
+>>>>>>> 9838727e24582ba147186f4d5ff0b115dd248075
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1003,7 +1015,11 @@
         </mxGraphModel>
     </diagram>
     <diagram id="diag_flow_presensi" name="8. Flowchart Presensi &amp; Bukti Hadir">
+<<<<<<< HEAD
         <mxGraphModel dx="2223" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="890" math="0" shadow="0">
+=======
+        <mxGraphModel dx="770" dy="888" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="890" math="0" shadow="0">
+>>>>>>> 9838727e24582ba147186f4d5ff0b115dd248075
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1013,10 +1029,10 @@
                 <mxCell id="t8_start" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=12;fontStyle=1;" value="Mulai" vertex="1">
                     <mxGeometry height="45" width="150" x="375" y="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="t8_p1" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Klien Hadir Wajib Lapor;&amp;#xa;PK Akses Menu &quot;Presensi Bimbingan&quot;" vertex="1">
+                <mxCell id="t8_p1" parent="1" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Klien Hadir Wajib Lapor;&lt;br/&gt;PK Akses Menu &quot;Catatan Kehadiran&quot;" vertex="1">
                     <mxGeometry height="45" width="230" x="335" y="145" as="geometry"/>
                 </mxCell>
-                <mxCell id="t8_out1" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Tampilkan Daftar Klien Terjadwal Hari Ini&amp;nbsp;&lt;div&gt;beserta Tombol &quot;Input Presensi&quot;&lt;/div&gt;" vertex="1">
+                <mxCell id="t8_out1" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Tampilkan Daftar Klien Terjadwal Hari Ini&amp;nbsp;&lt;div&gt;beserta Tombol &quot;Form Kehadiran&quot;&lt;/div&gt;" vertex="1">
                     <mxGeometry height="50" width="240" x="330" y="220" as="geometry"/>
                 </mxCell>
                 <mxCell id="t8_in1" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;size=18;strokeWidth=1.5;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=11;" value="Pilih Klien Hadir, Input Catatan Evaluasi,&amp;#xa;&amp;amp; Unggah Foto Bukti Fisik Kehadiran" vertex="1">
