@@ -241,9 +241,8 @@
         <div class="login-left-banner">
             <div></div>
             <div class="banner-center-content">
-                <div class="banner-logos d-flex align-items-center gap-2">
-                    <img src="{{ asset('assets/images/logo_kemenimipas.png') }}" alt="Logo Kementerian Imigrasi dan Pemasyarakatan" style="height: 64px; width: auto; object-fit: contain;">
-                    <img src="{{ asset('assets/images/logo_pemasyarakatan.png') }}" alt="Logo Pemasyarakatan" style="height: 64px; width: auto; object-fit: contain;">
+                <div class="banner-logos">
+                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi" style="height: 64px; width: auto; object-fit: contain;">
                 </div>
                 <div class="banner-divider-line"></div>
                 <div>

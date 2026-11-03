@@ -89,10 +89,10 @@
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Edit Jadwal" onclick="editAturJadwal({{ $item->id_atur_jadwal }}, '{{ $item->hari }}', '{{ substr($item->jam_mulai, 0, 5) }}')">
-                                        <i class="bi bi-pencil-square"></i>
+                                        <img src="{{ asset('assets/images/edit.png') }}" alt="Edit">
                                     </button>
                                     <button class="btn-action-square btn-delete" title="Hapus Jadwal" onclick="confirmDeleteAturJadwal({{ $item->id_atur_jadwal }})">
-                                        <i class="bi bi-trash"></i>
+                                        <img src="{{ asset('assets/images/hapus.png') }}" alt="Hapus">
                                     </button>
                                 </div>
                             </td>
@@ -163,7 +163,7 @@
         <div class="modal-content modal-content-figma text-center p-4">
             <div class="modal-body p-2">
                 <div class="delete-dialog-badge">
-                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <img src="{{ asset('assets/images/warning.png') }}" alt="Peringatan">
                 </div>
                 <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Jadwal?</h4>
                 <p class="text-dark small mb-4" style="line-height: 1.5;">

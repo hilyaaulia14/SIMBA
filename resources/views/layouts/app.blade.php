@@ -213,8 +213,21 @@
             justify-content: center;
         }
 
+        .sidebar-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            display: inline-block;
+            vertical-align: middle;
+            transition: filter 0.2s ease;
+        }
+
         .sidebar-nav-item.active i {
             color: #FFFFFF;
+        }
+
+        .sidebar-nav-item.active .sidebar-icon {
+            filter: brightness(0) invert(1);
         }
 
         .sidebar-footer {
@@ -460,6 +473,12 @@
             color: #DC2626;
         }
 
+        .btn-action-square img {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+        }
+
         /* Status Pills (Exact Figma) */
         .status-pill-hadir {
             background-color: #DCFCE7;
@@ -624,6 +643,12 @@
             margin-bottom: 1.25rem;
         }
 
+        .delete-dialog-badge img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
         /* -------------------------------------------------------------
            7. Pagination Styling (Bootstrap 5 Clean Pill/Button Match)
            ------------------------------------------------------------- */
@@ -696,9 +721,8 @@
                 <i class="bi bi-list fs-3"></i>
             </button>
             <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('pk.dashboard') }}" class="header-brand">
-                <div class="logos-container d-flex align-items-center gap-2">
-                    <img src="{{ asset('assets/images/logo_kemenimipas.png') }}" alt="Logo Kementerian Imigrasi dan Pemasyarakatan" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
-                    <img src="{{ asset('assets/images/logo_pemasyarakatan.png') }}" alt="Logo Pemasyarakatan" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
+                <div class="logos-container">
+                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
                 </div>
                 <div class="brand-divider"></div>
                 <div class="brand-titles">
@@ -767,45 +791,45 @@
                 @if(Auth::user()->isAdmin())
                     <!-- Admin Menu Items -->
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid-fill"></i>
+                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
-                        <i class="bi bi-envelope-fill"></i>
+                        <img src="{{ asset('assets/images/surat_masuk.png') }}" class="sidebar-icon" alt="Surat Masuk">
                         <span>Surat Masuk</span>
                     </a>
                     <a href="{{ route('admin.surat-keluar.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-keluar.*') ? 'active' : '' }}">
-                        <i class="bi bi-send-fill"></i>
+                        <img src="{{ asset('assets/images/surat_keluar.png') }}" class="sidebar-icon" alt="Surat Keluar">
                         <span>Surat Keluar</span>
                     </a>
                     <a href="{{ route('admin.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
-                        <i class="bi bi-person-fill"></i>
+                        <img src="{{ asset('assets/images/profil.png') }}" class="sidebar-icon" alt="Profil">
                         <span>Profil</span>
                     </a>
                 @else
                     <!-- PK Menu Items -->
                     <a href="{{ route('pk.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('pk.dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid-fill"></i>
+                        <img src="{{ asset('assets/images/dashboard.png') }}" class="sidebar-icon" alt="Dashboard">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
-                        <i class="bi bi-calendar-event"></i>
+                        <img src="{{ asset('assets/images/kalender.png') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
                         <span>Jadwal Bimbingan</span>
                     </a>
                     <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
-                        <i class="bi bi-person-check"></i>
+                        <img src="{{ asset('assets/images/kehadiran.png') }}" class="sidebar-icon" alt="Bukti Kehadiran">
                         <span>Bukti Kehadiran</span>
                     </a>
                     <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
-                        <i class="bi bi-clock"></i>
+                        <img src="{{ asset('assets/images/jam.png') }}" class="sidebar-icon" alt="Buat Jadwal">
                         <span>Buat Jadwal</span>
                     </a>
                     <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
-                        <i class="bi bi-person-vcard"></i>
+                        <img src="{{ asset('assets/images/data_klien.png') }}" class="sidebar-icon" alt="Data Klien">
                         <span>Data Klien</span>
                     </a>
                     <a href="{{ route('pk.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.profile.*') ? 'active' : '' }}">
-                        <i class="bi bi-person"></i>
+                        <img src="{{ asset('assets/images/profil.png') }}" class="sidebar-icon" alt="Profil">
                         <span>Profil</span>
                     </a>
                 @endif
@@ -816,7 +840,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="sidebar-logout-btn">
-                    <i class="bi bi-box-arrow-left"></i>
+                    <img src="{{ asset('assets/images/logout.png') }}" class="sidebar-icon" alt="Keluar">
                     <span>Keluar</span>
                 </button>
             </form>
