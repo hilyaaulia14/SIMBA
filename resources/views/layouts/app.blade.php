@@ -696,8 +696,9 @@
                 <i class="bi bi-list fs-3"></i>
             </button>
             <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('pk.dashboard') }}" class="header-brand">
-                <div class="logos-container">
-                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi" class="brand-logo">
+                <div class="logos-container d-flex align-items-center gap-2">
+                    <img src="{{ asset('assets/images/logo_kemenimipas.png') }}" alt="Logo Kementerian Imigrasi dan Pemasyarakatan" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/logo_pemasyarakatan.png') }}" alt="Logo Pemasyarakatan" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
                 </div>
                 <div class="brand-divider"></div>
                 <div class="brand-titles">

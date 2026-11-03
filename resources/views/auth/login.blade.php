@@ -241,8 +241,9 @@
         <div class="login-left-banner">
             <div></div>
             <div class="banner-center-content">
-                <div class="banner-logos">
-                    <img src="{{ asset('assets/images/figma_login_logos.png') }}" alt="Logo Resmi">
+                <div class="banner-logos d-flex align-items-center gap-2">
+                    <img src="{{ asset('assets/images/logo_kemenimipas.png') }}" alt="Logo Kementerian Imigrasi dan Pemasyarakatan" style="height: 64px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/logo_pemasyarakatan.png') }}" alt="Logo Pemasyarakatan" style="height: 64px; width: auto; object-fit: contain;">
                 </div>
                 <div class="banner-divider-line"></div>
                 <div>
@@ -290,20 +291,16 @@
                     <div class="role-selector-grid">
                         <div class="role-card-item {{ ($activeRole ?? 'admin') === 'admin' ? 'active' : '' }}" id="role-btn-admin" onclick="setRole('admin')">
                             <div class="role-icon-box">
-                                <svg width="34" height="34" viewBox="0 0 24 24" fill="var(--simba-navy)">
-                                    <path d="M12 2A5 5 0 0 1 17 7A5 5 0 0 1 12 12A5 5 0 0 1 7 7A5 5 0 0 1 12 2M12 14C14.73 14 17.5 15.11 18.57 16.5C18.23 17.7 17.47 18.78 16.37 19.57C15.26 20.36 13.92 20.88 12 21.9C10.08 20.88 8.74 20.36 7.63 19.57C6.53 18.78 5.77 17.7 5.43 16.5C6.5 15.11 9.27 14 12 14M16.5 14C15.86 14 15.25 14.12 14.67 14.34C15.91 15.27 16.79 16.63 16.97 18.22C18.17 17.42 19 16.14 19 14.5C19 14.22 18.97 13.95 18.91 13.68C18.2 13.89 17.39 14 16.5 14Z"/>
-                                </svg>
+                                <img src="{{ asset('assets/images/role_admin_card.png') }}" alt="Admin" style="height: 38px; width: auto; object-fit: contain;">
                             </div>
-                            <div class="role-card-name">Admin / Umum</div>
+                            <div class="role-card-name">Admin</div>
                         </div>
 
                         <div class="role-card-item {{ ($activeRole ?? '') === 'pk' ? 'active' : '' }}" id="role-btn-pk" onclick="setRole('pk')">
                             <div class="role-icon-box">
-                                <svg width="34" height="34" viewBox="0 0 24 24" fill="var(--simba-navy)">
-                                    <path d="M12 2A4 4 0 0 1 16 6A4 4 0 0 1 12 10A4 4 0 0 1 8 6A4 4 0 0 1 12 2M12 12C16.42 12 20 13.79 20 16V18H4V16C4 13.79 7.58 12 12 12M12 13.5L10.5 16H13.5L12 13.5M11.5 16.5L11 18H13L12.5 16.5H11.5Z"/>
-                                </svg>
+                                <img src="{{ asset('assets/images/role_pk_card.png') }}" alt="Pembimbing" style="height: 38px; width: auto; object-fit: contain;">
                             </div>
-                            <div class="role-card-name">Pembimbing (PK)</div>
+                            <div class="role-card-name">Pembimbing</div>
                         </div>
                     </div>
 

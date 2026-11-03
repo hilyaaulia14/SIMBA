@@ -38,8 +38,11 @@ class SimbaSystemTest extends TestCase
         $response = $this->get('/login');
         $response->assertStatus(200);
         $response->assertSee('SIMBA');
-        $response->assertSee('Admin / Umum');
-        $response->assertSee('Pembimbing (PK)');
+        $response->assertSee('logo_kemenimipas.png');
+        $response->assertSee('logo_pemasyarakatan.png');
+        $response->assertSee('role_admin_card.png');
+        $response->assertSee('role_pk_card.png');
+        $response->assertDontSee('<path');
     }
 
     public function test_admin_can_login_and_redirects_to_admin_dashboard()
