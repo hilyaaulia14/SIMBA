@@ -46,8 +46,8 @@
                         <th style="width: 18%;">Tanggal</th>
                         <th style="width: 14%;">Jam</th>
                         <th style="width: 32%;">Klien</th>
-                        <th style="width: 24%;">Status</th>
-                        <th style="width: 12%; text-align: center;">Aksi</th>
+                        <th class="text-center" style="width: 22%; text-align: center;">Status</th>
+                        <th style="width: 14%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +71,7 @@
                             <td>{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
                             <td>{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
                             <td>{{ $jadwal->klien->nama_klien ?? '-' }}</td>
-                            <td>
+                            <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}
                                 </span>

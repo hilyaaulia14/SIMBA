@@ -62,10 +62,10 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 18%;">Jam</th>
-                        <th style="width: 32%;">Nama Klien</th>
-                        <th style="width: 22%;">Status</th>
-                        <th style="width: 28%;">Nama Pembimbing</th>
+                        <th style="width: 16%;">Jam</th>
+                        <th style="width: 28%;">Nama Klien</th>
+                        <th class="text-center" style="width: 24%; text-align: center;">Status</th>
+                        <th style="width: 32%;">Nama Pembimbing</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,7 +88,7 @@
                         <tr>
                             <td>{{ substr($agenda->jam_mulai, 0, 5) }}</td>
                             <td>{{ $agenda->klien->nama_klien ?? '-' }}</td>
-                            <td>
+                            <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}
                                 </span>
