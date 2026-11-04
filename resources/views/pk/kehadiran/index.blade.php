@@ -19,31 +19,32 @@
         </div>
     </div>
 
-    <!-- Table Card with Filter Bar -->
+    <!-- Standalone Filter Bar (Di Luar Card Tabel Sesuai Figma) -->
+    <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+        <form action="{{ route('pk.kehadiran.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
+            <div style="max-width: 340px; width: 100%;">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border); padding-left: 1.15rem;">
+                        <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                    </span>
+                    <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Cari nama atau nomor register..." value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important; padding-left: 0.35rem;">
+                </div>
+            </div>
+
+            <div style="width: 180px;">
+                <input type="date" name="tgl_hadir" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_hadir') }}" onchange="this.form.submit()">
+            </div>
+
+            @if(request()->hasAny(['search', 'tgl_hadir']))
+                <a href="{{ route('pk.kehadiran.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
+                    Reset
+                </a>
+            @endif
+        </form>
+    </div>
+
+    <!-- Table Card -->
     <div class="table-card-figma">
-        <div class="table-filter-bar">
-            <form action="{{ route('pk.kehadiran.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
-                <div style="max-width: 340px; width: 100%;">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 8px 0 0 8px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
-                        </span>
-                        <input type="text" name="search" class="form-control form-control-sm border-start-0" placeholder="Cari nama atau nomor register..." value="{{ request('search') }}" style="border-radius: 0 8px 8px 0; border-color: var(--simba-border);">
-                    </div>
-                </div>
-
-                <div style="max-width: 180px; width: 100%;">
-                    <input type="date" name="tgl_hadir" class="form-control form-control-sm" value="{{ request('tgl_hadir') }}" style="border-radius: 8px; border-color: var(--simba-border);" onchange="this.form.submit()">
-                </div>
-
-                @if(request()->hasAny(['search', 'tgl_hadir']))
-                    <a href="{{ route('pk.kehadiran.index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 8px;">
-                        Reset
-                    </a>
-                @endif
-            </form>
-        </div>
-
         <div class="table-responsive">
             <table class="table-simba">
                 <thead>

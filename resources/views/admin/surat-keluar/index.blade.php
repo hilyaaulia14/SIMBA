@@ -13,49 +13,50 @@
         </div>
     </div>
 
-    <!-- Table Card with Filter Bar -->
-    <div class="table-card-figma">
-        <div class="table-filter-bar">
-            <form action="{{ route('admin.surat-keluar.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
-                <div style="max-width: 260px;">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
-                        </span>
-                        <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
-                    </div>
+    <!-- Standalone Filter & Action Bar (Di Luar Card Tabel Sesuai Figma) -->
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-4 flex-wrap">
+        <form action="{{ route('admin.surat-keluar.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1 flex-wrap">
+            <div style="width: 250px;">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border); padding-left: 1.15rem;">
+                        <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                    </span>
+                    <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important; padding-left: 0.35rem;">
                 </div>
-
-                <div style="max-width: 170px;">
-                    <input type="date" name="tgl_keluar" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_keluar') }}" placeholder="DD/MM/YY" onchange="this.form.submit()">
-                </div>
-
-                <div style="max-width: 190px;">
-                    <select name="id_surat" class="form-select form-select-sm filter-pill-input" onchange="this.form.submit()">
-                        <option value="">Filter</option>
-                        @foreach($klasifikasiSurat as $klas)
-                            <option value="{{ $klas->id_surat }}" {{ request('id_surat') == $klas->id_surat ? 'selected' : '' }}>
-                                {{ $klas->nama_surat }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                @if(request()->hasAny(['search', 'tgl_keluar', 'id_surat']))
-                    <a href="{{ route('admin.surat-keluar.index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 50px;">
-                        Reset
-                    </a>
-                @endif
-            </form>
-
-            <div>
-                <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahSuratKeluar">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>Tambah Surat</span>
-                </button>
             </div>
-        </div>
 
+            <div style="width: 170px;">
+                <input type="date" name="tgl_keluar" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_keluar') }}" placeholder="DD/MM/YY" onchange="this.form.submit()">
+            </div>
+
+            <div style="width: 180px;">
+                <select name="id_surat" class="form-select form-select-sm filter-pill-input" onchange="this.form.submit()">
+                    <option value="">Filter</option>
+                    @foreach($klasifikasiSurat as $klas)
+                        <option value="{{ $klas->id_surat }}" {{ request('id_surat') == $klas->id_surat ? 'selected' : '' }}>
+                            {{ $klas->nama_surat }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            @if(request()->hasAny(['search', 'tgl_keluar', 'id_surat']))
+                <a href="{{ route('admin.surat-keluar.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
+                    Reset
+                </a>
+            @endif
+        </form>
+
+        <div>
+            <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahSuratKeluar">
+                <i class="bi bi-plus-lg"></i>
+                <span>Tambah Surat</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card-figma">
         <div class="table-responsive">
             <table class="table-simba">
                 <thead>
@@ -75,12 +76,8 @@
                             <td>{{ $suratKeluarList->firstItem() + $index }}</td>
                             <td class="fw-medium">{{ $sk->no_surat }}</td>
                             <td>{{ $sk->tgl_keluar->format('d/m/Y') }}</td>
-                            <td>{{ $sk->tujuan_surat }}</td>
-                            <td>
-                                <div class="text-truncate" style="max-width: 240px;" title="{{ $sk->perihal }}">
-                                    {{ $sk->perihal }}
-                                </div>
-                            </td>
+                            <td style="white-space: normal; line-height: 1.45; min-width: 160px;">{{ $sk->tujuan_surat }}</td>
+                            <td style="white-space: normal; line-height: 1.45; min-width: 200px;">{{ $sk->perihal }}</td>
                             <td>{{ $sk->surat->nama_surat ?? 'Surat Dinas' }}</td>
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
@@ -109,7 +106,13 @@
 
         @if($suratKeluarList->hasPages() || $suratKeluarList->total() > 0)
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
-                <span>Menampilkan {{ $suratKeluarList->firstItem() ?? 0 }} sampai {{ $suratKeluarList->lastItem() ?? 0 }} dari {{ $suratKeluarList->total() }} surat</span>
+                <span>
+                    @if($suratKeluarList->total() > 0 && $suratKeluarList->total() <= $suratKeluarList->perPage())
+                        Menampilkan {{ $suratKeluarList->total() }} dari {{ $suratKeluarList->total() }} surat
+                    @else
+                        Menampilkan {{ $suratKeluarList->firstItem() ?? 0 }} sampai {{ $suratKeluarList->lastItem() ?? 0 }} dari {{ $suratKeluarList->total() }} surat
+                    @endif
+                </span>
                 <div>
                     {{ $suratKeluarList->links('pagination::bootstrap-5') }}
                 </div>

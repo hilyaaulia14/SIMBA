@@ -13,34 +13,35 @@
         </div>
     </div>
 
-    <!-- Table Card with Filter Bar -->
-    <div class="table-card-figma">
-        <div class="table-filter-bar">
-            <form action="{{ route('pk.klien.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1">
-                <div style="max-width: 280px; width: 100%;">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border);">
-                            <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
-                        </span>
-                        <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important;">
-                    </div>
+    <!-- Standalone Filter & Action Bar (Di Luar Card Tabel Sesuai Figma) -->
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-4 flex-wrap">
+        <form action="{{ route('pk.klien.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-grow-1">
+            <div style="max-width: 280px; width: 100%;">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border); padding-left: 1.15rem;">
+                        <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
+                    </span>
+                    <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri" value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important; padding-left: 0.35rem;">
                 </div>
-
-                @if(request()->has('search'))
-                    <a href="{{ route('pk.klien.index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 50px;">
-                        Reset
-                    </a>
-                @endif
-            </form>
-
-            <div>
-                <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahKlien">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>Tambah Klien</span>
-                </button>
             </div>
-        </div>
 
+            @if(request()->has('search'))
+                <a href="{{ route('pk.klien.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
+                    Reset
+                </a>
+            @endif
+        </form>
+
+        <div>
+            <button class="btn-simba-primary" data-bs-toggle="modal" data-bs-target="#modalTambahKlien">
+                <i class="bi bi-plus-lg"></i>
+                <span>Tambah Klien</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card-figma">
         <div class="table-responsive">
             <table class="table-simba">
                 <thead>
