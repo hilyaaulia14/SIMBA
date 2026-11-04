@@ -60,7 +60,7 @@
             justify-content: space-between;
             border-bottom-left-radius: 24px;
             border-bottom-right-radius: 24px;
-            box-shadow: 0 4px 20px rgba(16, 42, 69, 0.15);
+            box-shadow: none !important;
         }
 
         .header-brand {
@@ -78,29 +78,30 @@
         }
 
         .header-brand .brand-divider {
-            width: 1.5px;
-            height: 36px;
-            background-color: rgba(255, 255, 255, 0.4);
-            margin: 0 0.15rem;
+            width: 2px;
+            height: 38px;
+            background-color: #FFFFFF !important;
+            opacity: 1 !important;
+            margin: 0 0.25rem;
         }
 
         .header-brand .brand-titles {
             display: flex;
             flex-direction: column;
-            line-height: 1.2;
+            line-height: 1.25;
         }
 
         .header-brand .brand-title-main {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #FFFFFF;
+            font-size: 1.05rem;
+            font-weight: 400 !important;
+            color: #FFFFFF !important;
             letter-spacing: 0.2px;
         }
 
         .header-brand .brand-title-sub {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #FFFFFF;
+            font-size: 0.98rem;
+            font-weight: 400 !important;
+            color: #FFFFFF !important;
             letter-spacing: 0.2px;
         }
 
@@ -177,18 +178,19 @@
         }
 
         .sidebar-nav-item {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 0.85rem;
-            padding: 0.75rem 1.25rem;
+            justify-content: center;
+            padding: 0.82rem 1.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-size: 0.88rem;
             font-weight: 500;
             color: var(--simba-navy);
             background-color: #FFFFFF;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-            border: 1px solid transparent;
+            box-shadow: none !important;
+            border: none !important;
             transition: all 0.2s ease;
             white-space: nowrap;
         }
@@ -196,14 +198,14 @@
         .sidebar-nav-item:hover {
             color: var(--simba-navy);
             background-color: #F8FAFC;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: none !important;
         }
 
         .sidebar-nav-item.active {
             background-color: var(--simba-navy);
             color: #FFFFFF !important;
             font-weight: 500;
-            box-shadow: 0 4px 12px rgba(16, 42, 69, 0.25);
+            box-shadow: none !important;
         }
 
         .sidebar-nav-item i {
@@ -211,11 +213,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            padding: 16px 24px;
         }
 
         .sidebar-icon {
+            position: absolute;
+            left: 1.65rem;
             width: 20px;
             height: 20px;
             object-fit: contain;
@@ -232,31 +234,44 @@
             filter: brightness(0) invert(1);
         }
 
+        .sidebar-nav-item span {
+            text-align: center;
+        }
+
         .sidebar-footer {
             padding-top: 1rem;
         }
 
         .sidebar-logout-btn {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
             width: 100%;
-            padding: 0.75rem 1.25rem;
+            padding: 0.82rem 1.5rem;
             border-radius: 50px;
-            border: none;
+            border: none !important;
             background-color: #FFFFFF;
             color: var(--simba-navy);
             font-size: 0.88rem;
             font-weight: 500;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            box-shadow: none !important;
             transition: all 0.2s ease;
             white-space: nowrap;
+        }
+
+        .sidebar-logout-btn .sidebar-icon {
+            position: absolute;
+            left: 1.65rem;
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
         }
 
         .sidebar-logout-btn:hover {
             background-color: #FEF2F2;
             color: #DC2626;
+            box-shadow: none !important;
         }
 
         /* -------------------------------------------------------------
@@ -724,7 +739,7 @@
             </button>
             <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('pk.dashboard') }}" class="header-brand">
                 <div class="logos-container">
-                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" class="brand-logo" style="height: 42px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" class="brand-logo" width="90" height="42" style="height: 42px; width: auto; max-width: 95px; object-fit: contain;" onerror="if(!this.src.endsWith('.png')){this.src='{{ asset('assets/images/figma_login_logos.png') }}';}">
                 </div>
                 <div class="brand-divider"></div>
                 <div class="brand-titles">
@@ -745,7 +760,7 @@
             </div>
             <div class="dropdown">
                 <button class="btn p-0 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                    @if(Auth::user()->foto && file_exists(public_path('storage/' . Auth::user()->foto)))
+                    @if(Auth::user()->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists(Auth::user()->foto))
                         <img src="{{ asset('storage/' . Auth::user()->foto) }}" alt="Avatar" class="header-avatar-circle" style="object-fit: cover;">
                     @else
                         <div class="header-avatar-circle">
@@ -793,45 +808,45 @@
                 @if(Auth::user()->isAdmin())
                     <!-- Admin Menu Items -->
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard">
+                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('admin.surat-masuk.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-masuk.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/surat_masuk.svg') }}" class="sidebar-icon" alt="Surat Masuk">
+                        <img src="{{ asset('assets/images/surat_masuk.svg') }}" class="sidebar-icon" alt="Surat Masuk" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Surat Masuk</span>
                     </a>
                     <a href="{{ route('admin.surat-keluar.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.surat-keluar.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/surat_keluar.svg') }}" class="sidebar-icon" alt="Surat Keluar">
+                        <img src="{{ asset('assets/images/surat_keluar.svg') }}" class="sidebar-icon" alt="Surat Keluar" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Surat Keluar</span>
                     </a>
                     <a href="{{ route('admin.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil">
+                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Profil</span>
                     </a>
                 @else
                     <!-- PK Menu Items -->
                     <a href="{{ route('pk.dashboard') }}" class="sidebar-nav-item {{ request()->routeIs('pk.dashboard') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard">
+                        <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Dashboard</span>
                     </a>
                     <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/jadwal_bimbingan.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan">
+                        <img src="{{ asset('assets/images/jadwal_bimbingan.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Jadwal Bimbingan</span>
                     </a>
                     <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/kehadiran.svg') }}" class="sidebar-icon" alt="Bukti Kehadiran">
+                        <img src="{{ asset('assets/images/kehadiran.svg') }}" class="sidebar-icon" alt="Bukti Kehadiran" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Bukti Kehadiran</span>
                     </a>
                     <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/jam.svg') }}" class="sidebar-icon" alt="Buat Jadwal">
+                        <img src="{{ asset('assets/images/jam.svg') }}" class="sidebar-icon" alt="Buat Jadwal" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Buat Jadwal</span>
                     </a>
                     <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/data_klien.svg') }}" class="sidebar-icon" alt="Data Klien">
+                        <img src="{{ asset('assets/images/data_klien.svg') }}" class="sidebar-icon" alt="Data Klien" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Data Klien</span>
                     </a>
                     <a href="{{ route('pk.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.profile.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil">
+                        <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Profil</span>
                     </a>
                 @endif
@@ -842,7 +857,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="sidebar-logout-btn">
-                    <img src="{{ asset('assets/images/logout.svg') }}" class="sidebar-icon" alt="Keluar">
+                    <img src="{{ asset('assets/images/logout.svg') }}" class="sidebar-icon" alt="Keluar" width="20" height="20" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                     <span>Keluar</span>
                 </button>
             </form>

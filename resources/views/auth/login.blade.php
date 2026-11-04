@@ -69,20 +69,21 @@
         .banner-divider-line {
             width: 2px;
             height: 60px;
-            background-color: #FFFFFF;
+            background-color: #FFFFFF !important;
+            opacity: 1 !important;
         }
 
         .banner-text-title {
             font-size: 1.5rem;
-            font-weight: 500;
-            color: #FFFFFF;
+            font-weight: 400 !important;
+            color: #FFFFFF !important;
             line-height: 1.25;
         }
 
         .banner-text-sub {
             font-size: 1.4rem;
-            font-weight: 500;
-            color: #FFFFFF;
+            font-weight: 400 !important;
+            color: #FFFFFF !important;
             line-height: 1.25;
         }
 
@@ -147,7 +148,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             user-select: none;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: none !important;
         }
 
         .role-card-item:hover {
@@ -156,8 +157,9 @@
 
         .role-card-item.active {
             border-color: var(--simba-navy);
+            border-width: 2px;
             background-color: #FFFFFF;
-            box-shadow: 0 0 0 2px rgba(16, 42, 69, 0.15);
+            box-shadow: none !important;
         }
 
         .role-icon-box {
@@ -242,7 +244,7 @@
             <div></div>
             <div class="banner-center-content">
                 <div class="banner-logos">
-                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" style="height: 64px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('assets/images/figma_login_logos.svg') }}" alt="Logo Resmi" width="136" height="64" style="height: 64px; width: auto; max-width: 136px; object-fit: contain;" onerror="if(!this.src.endsWith('.png')){this.src='{{ asset('assets/images/figma_login_logos.png') }}';}">
                 </div>
                 <div class="banner-divider-line"></div>
                 <div>
@@ -290,14 +292,14 @@
                     <div class="role-selector-grid">
                         <div class="role-card-item {{ ($activeRole ?? 'admin') === 'admin' ? 'active' : '' }}" id="role-btn-admin" onclick="setRole('admin')">
                             <div class="role-icon-box">
-                                <img src="{{ asset('assets/images/role_admin_card.svg') }}" alt="Admin" style="height: 38px; width: auto; object-fit: contain;">
+                                <img src="{{ asset('assets/images/role_admin_card.svg') }}" alt="Admin" width="38" height="38" style="height: 38px; width: 38px; object-fit: contain;" onerror="if(!this.src.endsWith('.png')){this.src='{{ asset('assets/images/role_admin_card.png') }}';}">
                             </div>
                             <div class="role-card-name">Admin</div>
                         </div>
 
                         <div class="role-card-item {{ ($activeRole ?? '') === 'pk' ? 'active' : '' }}" id="role-btn-pk" onclick="setRole('pk')">
                             <div class="role-icon-box">
-                                <img src="{{ asset('assets/images/role_pk_card.svg') }}" alt="Pembimbing" style="height: 38px; width: auto; object-fit: contain;">
+                                <img src="{{ asset('assets/images/role_pk_card.svg') }}" alt="Pembimbing" width="38" height="38" style="height: 38px; width: 38px; object-fit: contain;" onerror="if(!this.src.endsWith('.png')){this.src='{{ asset('assets/images/role_pk_card.png') }}';}">
                             </div>
                             <div class="role-card-name">Pembimbing</div>
                         </div>
