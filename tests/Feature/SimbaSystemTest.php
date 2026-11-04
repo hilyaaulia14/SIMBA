@@ -68,6 +68,22 @@ class SimbaSystemTest extends TestCase
         $this->assertAuthenticatedAs($this->pk);
     }
 
+    public function test_login_with_invalid_credentials_shows_notification()
+    {
+        $response = $this->from('/login')->post('/login', [
+            'nip_usn' => '198501152010121001',
+            'password' => 'wrong_password_123',
+            'role_target' => 'admin',
+        ]);
+
+        $response->assertRedirect('/login');
+        $response->assertSessionHas('error');
+        $this->assertGuest();
+
+        $follow = $this->followRedirects($response);
+        $follow->assertSee('Username atau kata sandi yang Anda masukkan salah');
+    }
+
     /** Test 2: Role Isolation & Akses Terproteksi */
     public function test_pk_cannot_access_admin_panel()
     {

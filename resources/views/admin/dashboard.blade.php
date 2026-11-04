@@ -64,13 +64,13 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 60px;">No</th>
-                        <th>Nomor Surat</th>
-                        <th>Tgl Surat</th>
-                        <th>Tgl Diterima</th>
-                        <th>Tujuan</th>
-                        <th>Asal Surat</th>
-                        <th>Perihal</th>
+                        <th style="width: 6%;">No</th>
+                        <th style="width: 18%;">Nomor Surat</th>
+                        <th style="width: 12%;">Tgl Surat</th>
+                        <th style="width: 12%;">Tgl Diterima</th>
+                        <th style="width: 17%;">Tujuan</th>
+                        <th style="width: 17%;">Asal Surat</th>
+                        <th style="width: 18%;">Perihal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,9 +80,9 @@
                             <td class="fw-medium">{{ $sm->no_surat }}</td>
                             <td>{{ $sm->tgl_masuk->format('d/m/Y') }}</td>
                             <td>{{ $sm->tgl_diterima ? $sm->tgl_diterima->format('d/m/Y') : $sm->tgl_masuk->format('d/m/Y') }}</td>
-                            <td>{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Konseling') }}</td>
-                            <td>{{ $sm->asal_surat }}</td>
-                            <td>{{ $sm->perihal }}</td>
+                            <td style="white-space: normal; line-height: 1.45;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Konseling') }}</td>
+                            <td style="white-space: normal; line-height: 1.45;">{{ $sm->asal_surat }}</td>
+                            <td style="white-space: normal; line-height: 1.45;">{{ $sm->perihal }}</td>
                         </tr>
                     @empty
                         <tr>

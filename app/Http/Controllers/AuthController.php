@@ -41,14 +41,16 @@ class AuthController extends Controller
                 if ($credentials['role_target'] === 'admin' && !$user->isAdmin()) {
                     Auth::logout();
                     return back()->withErrors([
-                        'nip_usn' => 'Akun NIP ini bukan merupakan akun Admin / Bagian Umum. Silakan pilih tab Pembimbing Kemasyarakatan.',
-                    ])->withInput($request->only('nip_usn'));
+                        'nip_usn' => 'Akun NIP ini bukan merupakan akun Admin / Bagian Umum. Silakan pilih tab Pembimbing.',
+                    ])->with('error', 'Akun NIP ini bukan merupakan akun Admin / Bagian Umum. Silakan pilih tab Pembimbing.')
+                      ->withInput($request->only('nip_usn'));
                 }
                 if ($credentials['role_target'] === 'pk' && !$user->isPK()) {
                     Auth::logout();
                     return back()->withErrors([
-                        'nip_usn' => 'Akun NIP ini bukan merupakan akun Pembimbing Kemasyarakatan. Silakan pilih tab Admin / Bagian Umum.',
-                    ])->withInput($request->only('nip_usn'));
+                        'nip_usn' => 'Akun NIP ini bukan merupakan akun Pembimbing Kemasyarakatan. Silakan pilih tab Admin.',
+                    ])->with('error', 'Akun NIP ini bukan merupakan akun Pembimbing Kemasyarakatan. Silakan pilih tab Admin.')
+                      ->withInput($request->only('nip_usn'));
                 }
             }
 
@@ -60,8 +62,9 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'nip_usn' => 'NIP atau kata sandi yang Anda masukkan tidak sesuai.',
-        ])->withInput($request->only('nip_usn'));
+            'nip_usn' => 'Username atau kata sandi yang Anda masukkan salah. Silakan coba lagi.',
+        ])->with('error', 'Username atau kata sandi yang Anda masukkan salah. Silakan periksa kembali.')
+          ->withInput($request->only('nip_usn'));
     }
 
     public function logout(Request $request)

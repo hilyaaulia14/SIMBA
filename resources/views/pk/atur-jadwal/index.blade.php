@@ -66,12 +66,12 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">No</th>
-                        <th>Nomor Register</th>
-                        <th>Nama Klien</th>
-                        <th>Hari Bimbingan</th>
-                        <th>Jam Mulai</th>
-                        <th style="width: 120px; text-align: center;">Aksi</th>
+                        <th style="width: 6%;">No</th>
+                        <th style="width: 24%;">Nomor Register</th>
+                        <th style="width: 28%;">Nama Klien</th>
+                        <th style="width: 18%;">Hari Bimbingan</th>
+                        <th style="width: 12%;">Jam Mulai</th>
+                        <th style="width: 12%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

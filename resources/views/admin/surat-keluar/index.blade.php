@@ -61,13 +61,13 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 50px;">No</th>
-                        <th>Nomor Surat</th>
-                        <th>Tgl Surat</th>
-                        <th>Tujuan</th>
-                        <th>Perihal</th>
-                        <th>Jenis Surat</th>
-                        <th style="width: 130px; text-align: center;">Aksi</th>
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 20%;">Nomor Surat</th>
+                        <th style="width: 12%;">Tgl Surat</th>
+                        <th style="width: 20%;">Tujuan</th>
+                        <th style="width: 23%;">Perihal</th>
+                        <th style="width: 12%;">Jenis Surat</th>
+                        <th style="width: 8%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

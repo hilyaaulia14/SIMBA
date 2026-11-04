@@ -43,11 +43,11 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 160px;">Tanggal</th>
-                        <th style="width: 120px;">Jam</th>
-                        <th>Klien</th>
-                        <th style="width: 200px;">Status</th>
-                        <th style="width: 140px; text-align: center;">Aksi</th>
+                        <th style="width: 18%;">Tanggal</th>
+                        <th style="width: 14%;">Jam</th>
+                        <th style="width: 32%;">Klien</th>
+                        <th style="width: 24%;">Status</th>
+                        <th style="width: 12%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

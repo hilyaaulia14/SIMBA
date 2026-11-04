@@ -49,13 +49,13 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 50px;" class="text-center">No</th>
-                        <th>Tanggal & Jam Hadir</th>
-                        <th>No. Register</th>
-                        <th>Nama Klien</th>
-                        <th class="text-center">Foto Bukti</th>
-                        <th>Evaluasi Perkembangan</th>
-                        <th style="width: 140px;" class="text-center">Aksi</th>
+                        <th style="width: 5%;" class="text-center">No</th>
+                        <th style="width: 17%;">Tanggal & Jam Hadir</th>
+                        <th style="width: 16%;">No. Register</th>
+                        <th style="width: 18%;">Nama Klien</th>
+                        <th style="width: 12%;" class="text-center">Foto Bukti</th>
+                        <th style="width: 22%;">Evaluasi Perkembangan</th>
+                        <th style="width: 10%;" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

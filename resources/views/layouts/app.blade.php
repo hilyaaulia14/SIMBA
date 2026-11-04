@@ -403,11 +403,11 @@
             border: none;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
             overflow: hidden;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .table-card-header {
-            padding: 1.5rem 2rem;
+            padding: 1.6rem 2.25rem 1.4rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -459,15 +459,26 @@
         .table-simba thead th {
             background-color: var(--simba-navy) !important;
             color: #FFFFFF !important;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 500;
             padding: 1.15rem 1.5rem;
             border: none;
             vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .table-simba thead th:first-child,
+        .table-simba tbody td:first-child {
+            padding-left: 2.25rem !important;
+        }
+
+        .table-simba thead th:last-child,
+        .table-simba tbody td:last-child {
+            padding-right: 2.25rem !important;
         }
 
         .table-simba tbody td {
-            padding: 1.15rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             font-size: 0.88rem;
             color: #1E293B;
             border-top: 1px solid #F1F5F9;

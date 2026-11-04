@@ -96,7 +96,7 @@
         .banner-quote {
             color: rgba(255, 255, 255, 0.9);
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: normal;
             text-align: center;
             letter-spacing: 0.2px;
         }
@@ -272,20 +272,22 @@
                 <!-- Hidden markers for test compatibility: SIMBA, Admin / Umum, Pembimbing (PK) -->
                 <span class="d-none">SIMBA</span>
 
-                <!-- Flash Alerts -->
-                @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show small d-flex align-items-center gap-2 mb-3 py-2" role="alert" style="border-radius: 8px;">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                        <div>{{ session('error') }}</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <!-- Flash Alerts / Notifikasi Error Login -->
+                @if(session('error') || $errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 mb-3 py-2 px-3" role="alert" style="border-radius: 8px; font-size: 0.85rem; background-color: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5;">
+                        <i class="bi bi-exclamation-triangle-fill fs-5 flex-shrink-0"></i>
+                        <div>
+                            {{ session('error') ?? $errors->first() }}
+                        </div>
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close" style="font-size: 0.75rem;"></button>
                     </div>
                 @endif
 
                 @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show small d-flex align-items-center gap-2 mb-3 py-2" role="alert" style="border-radius: 8px;">
-                        <i class="bi bi-check-circle-fill"></i>
+                    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 mb-3 py-2 px-3" role="alert" style="border-radius: 8px; font-size: 0.85rem; background-color: #DCFCE7; color: #16A34A; border: 1px solid #86EFAC;">
+                        <i class="bi bi-check-circle-fill fs-5 flex-shrink-0"></i>
                         <div>{{ session('success') }}</div>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close" style="font-size: 0.75rem;"></button>
                     </div>
                 @endif
 
@@ -317,7 +319,7 @@
                         <input type="text" 
                                name="nip_usn" 
                                id="nip_usn" 
-                               class="form-control form-control-figma" 
+                               class="form-control form-control-figma {{ ($errors->has('nip_usn') || session('error')) ? 'is-invalid' : '' }}" 
                                placeholder="Masukkan Username" 
                                value="{{ old('nip_usn', ($activeRole ?? 'admin') === 'admin' ? '198501152010121001' : '199003202015031002') }}" 
                                required>
@@ -329,9 +331,9 @@
                         <input type="password" 
                                name="password" 
                                id="password" 
-                               class="form-control form-control-figma" 
+                               class="form-control form-control-figma {{ ($errors->has('nip_usn') || $errors->has('password') || session('error')) ? 'is-invalid' : '' }}" 
                                placeholder="Masukkan Kata Sandi" 
-                               value="admin123"
+                               value="admin123" 
                                required>
                     </div>
 

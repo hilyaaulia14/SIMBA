@@ -62,10 +62,10 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 120px;">Jam</th>
-                        <th>Nama Klien</th>
-                        <th style="width: 200px;">Status</th>
-                        <th>Nama Pembimbing</th>
+                        <th style="width: 18%;">Jam</th>
+                        <th style="width: 32%;">Nama Klien</th>
+                        <th style="width: 22%;">Status</th>
+                        <th style="width: 28%;">Nama Pembimbing</th>
                     </tr>
                 </thead>
                 <tbody>
