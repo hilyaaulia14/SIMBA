@@ -221,6 +221,38 @@
             color: #FFFFFF;
         }
 
+        .btn-toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #64748B;
+            padding: 4px 8px;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: color 0.15s ease;
+        }
+
+        .btn-toggle-password:hover {
+            color: var(--simba-navy);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--simba-navy) !important;
+            border-color: var(--simba-navy) !important;
+        }
+
+        .form-check-input:focus {
+            border-color: var(--simba-navy) !important;
+            box-shadow: 0 0 0 2px rgba(16, 42, 69, 0.15) !important;
+        }
+
         .login-footer-text {
             text-align: center;
             font-size: 0.76rem;
@@ -326,15 +358,36 @@
                     </div>
 
                     <!-- Kata Sandi Input -->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label for="password" class="form-label-figma">Kata Sandi</label>
-                        <input type="password" 
-                               name="password" 
-                               id="password" 
-                               class="form-control form-control-figma {{ ($errors->has('nip_usn') || $errors->has('password') || session('error')) ? 'is-invalid' : '' }}" 
-                               placeholder="Masukkan Kata Sandi" 
-                               value="admin123" 
-                               required>
+                        <div class="position-relative">
+                            <input type="password" 
+                                   name="password" 
+                                   id="password" 
+                                   class="form-control form-control-figma {{ ($errors->has('nip_usn') || $errors->has('password') || session('error')) ? 'is-invalid' : '' }}" 
+                                   placeholder="Masukkan Kata Sandi" 
+                                   value="admin123" 
+                                   style="padding-right: 44px !important;"
+                                   required>
+                            <button type="button" 
+                                    class="btn-toggle-password" 
+                                    id="togglePasswordBtn" 
+                                    title="Lihat kata sandi" 
+                                    aria-label="Lihat kata sandi"
+                                    onclick="togglePasswordVisibility()">
+                                <i class="bi bi-eye" id="togglePasswordIcon" style="font-size: 1.15rem;"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Ingat Saya Checkbox -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="form-check d-flex align-items-center gap-2 mb-0">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" value="1" style="cursor: pointer; border-color: var(--simba-border); border-radius: 4px; width: 17px; height: 17px; margin-top: 0;">
+                            <label class="form-check-label text-muted" for="remember" style="cursor: pointer; font-size: 0.86rem; user-select: none;">
+                                Ingat saya
+                            </label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-simba-login">
@@ -366,6 +419,27 @@
                 document.getElementById('role-btn-admin').classList.remove('active');
                 document.getElementById('nip_usn').value = '199003202015031002';
                 document.getElementById('password').value = 'pk123';
+            }
+        }
+
+        // Fitur Lihat / Sembunyikan Password
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+                toggleIcon.style.color = 'var(--simba-navy)';
+                toggleBtn.title = 'Sembunyikan kata sandi';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+                toggleIcon.style.color = '#64748B';
+                toggleBtn.title = 'Lihat kata sandi';
             }
         }
 

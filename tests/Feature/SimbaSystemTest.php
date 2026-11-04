@@ -41,7 +41,22 @@ class SimbaSystemTest extends TestCase
         $response->assertSee('figma_login_logos.svg');
         $response->assertSee('role_admin_card.svg');
         $response->assertSee('role_pk_card.svg');
+        $response->assertSee('Ingat saya');
+        $response->assertSee('togglePasswordVisibility');
         $response->assertDontSee('<path');
+    }
+
+    public function test_admin_can_login_with_remember_me()
+    {
+        $response = $this->post('/login', [
+            'nip_usn' => '198501152010121001',
+            'password' => 'admin123',
+            'role_target' => 'admin',
+            'remember' => '1',
+        ]);
+
+        $response->assertRedirect(route('admin.dashboard'));
+        $this->assertAuthenticatedAs($this->admin);
     }
 
     public function test_admin_can_login_and_redirects_to_admin_dashboard()
