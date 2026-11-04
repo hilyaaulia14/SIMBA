@@ -69,8 +69,8 @@
                         @endphp
                         <tr>
                             <td>{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
-                            <td class="fw-medium">{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
-                            <td class="fw-medium">{{ $jadwal->klien->nama_klien ?? '-' }}</td>
+                            <td>{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
+                            <td>{{ $jadwal->klien->nama_klien ?? '-' }}</td>
                             <td>
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}

@@ -40,11 +40,16 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        /* Selain judul, semua tulisan menggunakan medium (500) */
-        p, span, a, label, input, select, textarea, button, td, th, li, small, .badge, .form-control {
+        /* Tulisan umum menggunakan Poppins Reguler (400) */
+        p, span, a, label, input, select, textarea, button, td, li, small, .badge, .form-control {
+            font-weight: 400;
+        }
+
+        /* Header / Navbar / Nav item / Table header menggunakan medium (500) */
+        .sidebar-nav-item, .sidebar-section-label, .btn-simba-primary, .table-simba thead th {
             font-weight: 500;
         }
 
@@ -480,6 +485,7 @@
         .table-simba tbody td {
             padding: 1.2rem 1.5rem;
             font-size: 0.88rem;
+            font-weight: 400 !important;
             color: #1E293B;
             border-top: 1px solid #F1F5F9;
             border-bottom: 1px solid #F1F5F9;
@@ -931,6 +937,30 @@
                 sidebar.classList.toggle('show');
             });
         }
+
+        // Auto-dismiss Alerts otomatis menghilang sendiri setelah 3.5 detik (tidak perlu menunggu ditutup manual)
+        document.addEventListener('DOMContentLoaded', function () {
+            const autoAlerts = document.querySelectorAll('.alert-dismissible');
+            autoAlerts.forEach(function (alertEl) {
+                setTimeout(function () {
+                    alertEl.style.transition = 'opacity 0.6s ease, transform 0.6s ease, margin 0.6s ease, padding 0.6s ease';
+                    alertEl.style.opacity = '0';
+                    alertEl.style.transform = 'translateY(-10px)';
+                    setTimeout(function () {
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+                            const bsAlert = bootstrap.Alert.getOrCreateInstance(alertEl);
+                            if (bsAlert) {
+                                bsAlert.close();
+                            } else {
+                                alertEl.remove();
+                            }
+                        } else {
+                            alertEl.remove();
+                        }
+                    }, 600);
+                }, 3500);
+            });
+        });
     </script>
     @yield('scripts')
 </body>

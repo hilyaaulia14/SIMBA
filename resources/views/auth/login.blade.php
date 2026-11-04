@@ -368,6 +368,30 @@
                 document.getElementById('password').value = 'pk123';
             }
         }
+
+        // Auto-dismiss Alerts otomatis menghilang sendiri setelah 3.5 detik
+        document.addEventListener('DOMContentLoaded', function () {
+            const autoAlerts = document.querySelectorAll('.alert-dismissible');
+            autoAlerts.forEach(function (alertEl) {
+                setTimeout(function () {
+                    alertEl.style.transition = 'opacity 0.6s ease, transform 0.6s ease, margin 0.6s ease, padding 0.6s ease';
+                    alertEl.style.opacity = '0';
+                    alertEl.style.transform = 'translateY(-10px)';
+                    setTimeout(function () {
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+                            const bsAlert = bootstrap.Alert.getOrCreateInstance(alertEl);
+                            if (bsAlert) {
+                                bsAlert.close();
+                            } else {
+                                alertEl.remove();
+                            }
+                        } else {
+                            alertEl.remove();
+                        }
+                    }, 600);
+                }, 3500);
+            });
+        });
     </script>
 </body>
 </html>

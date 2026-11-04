@@ -74,7 +74,7 @@
                     @forelse($suratKeluarList as $index => $sk)
                         <tr>
                             <td>{{ $suratKeluarList->firstItem() + $index }}</td>
-                            <td class="fw-medium">{{ $sk->no_surat }}</td>
+                            <td>{{ $sk->no_surat }}</td>
                             <td>{{ $sk->tgl_keluar->format('d/m/Y') }}</td>
                             <td style="white-space: normal; line-height: 1.45; min-width: 160px;">{{ $sk->tujuan_surat }}</td>
                             <td style="white-space: normal; line-height: 1.45; min-width: 200px;">{{ $sk->perihal }}</td>

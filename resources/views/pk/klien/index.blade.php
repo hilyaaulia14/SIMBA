@@ -58,8 +58,8 @@
                     @forelse($klienList as $index => $klien)
                         <tr>
                             <td>{{ $klienList->firstItem() + $index }}</td>
-                            <td class="fw-medium">{{ $klien->no_register }}</td>
-                            <td class="fw-medium">{{ $klien->nama_klien }}</td>
+                            <td>{{ $klien->no_register }}</td>
+                            <td>{{ $klien->nama_klien }}</td>
                             <td>{{ Auth::user()->nama_pegawai ?? 'Budi Santoso, S.Sos.' }}</td>
                             <td>{{ $klien->telepon ?? '0812-3456-7890' }}</td>
                             <td style="text-align: center;">

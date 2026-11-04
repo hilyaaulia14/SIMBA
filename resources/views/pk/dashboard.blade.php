@@ -86,8 +86,8 @@
                             };
                         @endphp
                         <tr>
-                            <td class="fw-medium">{{ substr($agenda->jam_mulai, 0, 5) }}</td>
-                            <td class="fw-medium">{{ $agenda->klien->nama_klien ?? '-' }}</td>
+                            <td>{{ substr($agenda->jam_mulai, 0, 5) }}</td>
+                            <td>{{ $agenda->klien->nama_klien ?? '-' }}</td>
                             <td>
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}

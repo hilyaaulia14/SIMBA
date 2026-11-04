@@ -77,7 +77,7 @@
                     @forelse($recentSuratMasuk as $index => $sm)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td class="fw-medium">{{ $sm->no_surat }}</td>
+                            <td>{{ $sm->no_surat }}</td>
                             <td>{{ $sm->tgl_masuk->format('d/m/Y') }}</td>
                             <td>{{ $sm->tgl_diterima ? $sm->tgl_diterima->format('d/m/Y') : $sm->tgl_masuk->format('d/m/Y') }}</td>
                             <td style="white-space: normal; line-height: 1.45;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Konseling') }}</td>
