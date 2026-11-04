@@ -44,7 +44,7 @@
                 <thead>
                     <tr>
                         <th style="width: 18%;">Tanggal</th>
-                        <th style="width: 14%;">Jam</th>
+                        <th class="text-center" style="width: 14%; text-align: center;">Jam</th>
                         <th style="width: 32%;">Klien</th>
                         <th class="text-center" style="width: 22%; text-align: center;">Status</th>
                         <th style="width: 14%; text-align: center;">Aksi</th>
@@ -69,7 +69,7 @@
                         @endphp
                         <tr>
                             <td>{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
-                            <td>{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
+                            <td class="text-center" style="text-align: center;">{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
                             <td>{{ $jadwal->klien->nama_klien ?? '-' }}</td>
                             <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">

@@ -545,6 +545,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         .status-pill-terjadwal {
@@ -557,6 +558,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         .status-pill-tidak-hadir {
@@ -569,6 +571,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         .status-pill-dijadwalkan-ulang {
@@ -581,6 +584,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
         }
 
         /* -------------------------------------------------------------

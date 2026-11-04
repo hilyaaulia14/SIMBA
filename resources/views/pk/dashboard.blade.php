@@ -62,10 +62,10 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 16%;">Jam</th>
-                        <th style="width: 28%;">Nama Klien</th>
+                        <th class="text-center" style="width: 24%; text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">Jam</th>
+                        <th style="width: 22%; padding-left: 2rem;">Nama Klien</th>
                         <th class="text-center" style="width: 24%; text-align: center;">Status</th>
-                        <th style="width: 32%;">Nama Pembimbing</th>
+                        <th style="width: 30%; padding-left: 2rem;">Nama Pembimbing</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,14 +86,14 @@
                             };
                         @endphp
                         <tr>
-                            <td>{{ substr($agenda->jam_mulai, 0, 5) }}</td>
-                            <td>{{ $agenda->klien->nama_klien ?? '-' }}</td>
+                            <td class="text-center" style="text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">{{ substr($agenda->jam_mulai, 0, 5) }}</td>
+                            <td style="padding-left: 2rem;">{{ $agenda->klien->nama_klien ?? '-' }}</td>
                             <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}
                                 </span>
                             </td>
-                            <td>{{ $agenda->pegawai->nama_pegawai ?? 'Ahmad Fauzan, S.H.' }}</td>
+                            <td style="padding-left: 2rem;">{{ $agenda->pegawai->nama_pegawai ?? 'Ahmad Fauzan, S.H.' }}</td>
                         </tr>
                     @empty
                         <tr>
