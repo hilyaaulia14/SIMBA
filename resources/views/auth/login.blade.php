@@ -32,6 +32,12 @@
             padding: 0;
             background-color: var(--simba-bg);
             min-height: 100vh;
+            font-weight: 500;
+        }
+
+        /* Selain judul, semua tulisan menggunakan medium (500) */
+        p, span, a, label, input, select, textarea, button, small, .badge, .form-control {
+            font-weight: 500;
         }
 
         .login-split-container {
@@ -90,7 +96,7 @@
         .banner-quote {
             color: rgba(255, 255, 255, 0.9);
             font-size: 0.95rem;
-            font-weight: 400;
+            font-weight: 500;
             text-align: center;
             letter-spacing: 0.2px;
         }
@@ -127,7 +133,7 @@
 
         .role-section-label {
             font-size: 0.92rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--simba-navy);
             margin-bottom: 0.75rem;
         }
@@ -172,7 +178,7 @@
 
         .role-card-name {
             font-size: 0.82rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--simba-navy);
         }
 
@@ -201,7 +207,7 @@
             background-color: var(--simba-navy);
             color: #FFFFFF;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 500;
             padding: 0.85rem 1.5rem;
             border-radius: 8px;
             border: none;
