@@ -713,36 +713,51 @@
            ------------------------------------------------------------- */
         .pagination {
             margin-bottom: 0;
-            gap: 4px;
+            gap: 6px;
             display: inline-flex;
             align-items: center;
         }
         .page-item .page-link {
             color: var(--simba-navy);
             border-radius: 8px !important;
-            border: 1px solid #CBD5E1;
-            font-size: 0.82rem;
+            border: 1px solid #E2E8F0;
+            font-size: 0.85rem;
             font-weight: 500;
-            padding: 0.38rem 0.75rem;
+            min-width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 0.5rem;
             background-color: #FFFFFF;
             transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            text-decoration: none;
         }
         .page-item .page-link:hover {
-            background-color: #F1F5F9;
+            background-color: #F8FAFC;
             color: var(--simba-navy);
-            border-color: #94A3B8;
+            border-color: #CBD5E1;
         }
         .page-item.active .page-link {
             background-color: var(--simba-navy) !important;
             border-color: var(--simba-navy) !important;
             color: #FFFFFF !important;
             box-shadow: 0 2px 6px rgba(16, 42, 69, 0.25);
+            font-weight: 600;
         }
         .page-item.disabled .page-link {
             color: #94A3B8 !important;
-            background-color: #F8FAFC !important;
+            background-color: #FFFFFF !important;
             border-color: #E2E8F0 !important;
+            opacity: 0.5;
             cursor: not-allowed;
+            box-shadow: none;
+        }
+        .page-item .page-link i {
+            font-size: 0.75rem;
+            font-weight: bold;
+            -webkit-text-stroke: 0.4px;
         }
         /* Strict constraint on any SVGs inside pagination to prevent giant icons */
         nav svg,

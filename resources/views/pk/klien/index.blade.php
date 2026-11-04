@@ -89,7 +89,13 @@
 
         @if($klienList->hasPages() || $klienList->total() > 0)
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
-                <span>Menampilkan {{ $klienList->firstItem() ?? 0 }} sampai {{ $klienList->lastItem() ?? 0 }} dari {{ $klienList->total() }} klien</span>
+                <span>
+                    @if($klienList->total() > 0 && $klienList->total() <= $klienList->perPage())
+                        Menampilkan {{ $klienList->total() }} dari {{ $klienList->total() }} klien
+                    @else
+                        Menampilkan {{ $klienList->firstItem() ?? 0 }} sampai {{ $klienList->lastItem() ?? 0 }} dari {{ $klienList->total() }} klien
+                    @endif
+                </span>
                 <div>
                     {{ $klienList->links('pagination::bootstrap-5') }}
                 </div>

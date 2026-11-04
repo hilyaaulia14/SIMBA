@@ -102,10 +102,14 @@
             </table>
         </div>
 
-        @if($kehadiranList->hasPages())
-            <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2" style="font-size: 0.82rem;">
-                <span class="text-muted">
-                    Menampilkan {{ $kehadiranList->firstItem() }} - {{ $kehadiranList->lastItem() }} dari {{ $kehadiranList->total() }} presensi
+        @if($kehadiranList->hasPages() || $kehadiranList->total() > 0)
+            <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center flex-wrap gap-2" style="font-size: 0.84rem; color: #64748B;">
+                <span>
+                    @if($kehadiranList->total() > 0 && $kehadiranList->total() <= $kehadiranList->perPage())
+                        Menampilkan {{ $kehadiranList->total() }} dari {{ $kehadiranList->total() }} presensi
+                    @else
+                        Menampilkan {{ $kehadiranList->firstItem() ?? 0 }} sampai {{ $kehadiranList->lastItem() ?? 0 }} dari {{ $kehadiranList->total() }} presensi
+                    @endif
                 </span>
                 <div>
                     {{ $kehadiranList->links('pagination::bootstrap-5') }}

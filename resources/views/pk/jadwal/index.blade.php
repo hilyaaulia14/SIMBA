@@ -43,11 +43,11 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 18%;">Tanggal</th>
-                        <th class="text-center" style="width: 14%; text-align: center;">Jam</th>
-                        <th style="width: 32%;">Klien</th>
-                        <th class="text-center" style="width: 22%; text-align: center;">Status</th>
-                        <th style="width: 14%; text-align: center;">Aksi</th>
+                        <th class="text-center" style="width: 16%; text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">Tanggal</th>
+                        <th class="text-center" style="width: 18%; text-align: center;">Jam</th>
+                        <th style="width: 24%; padding-left: 2rem;">Klien</th>
+                        <th class="text-center" style="width: 24%; text-align: center;">Status</th>
+                        <th class="text-center" style="width: 18%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,15 +68,15 @@
                             };
                         @endphp
                         <tr>
-                            <td>{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
+                            <td class="text-center" style="text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
                             <td class="text-center" style="text-align: center;">{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
-                            <td>{{ $jadwal->klien->nama_klien ?? '-' }}</td>
+                            <td style="padding-left: 2rem;">{{ $jadwal->klien->nama_klien ?? '-' }}</td>
                             <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}
                                 </span>
                             </td>
-                            <td style="text-align: center;">
+                            <td class="text-center" style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Jadwal" onclick="showDetailJadwal({{ $jadwal->id_jadwal_bimbingan }})">
                                         <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
@@ -103,7 +103,13 @@
 
         @if($jadwalList->hasPages() || $jadwalList->total() > 0)
             <div class="p-3 px-4 border-top d-flex justify-content-between align-items-center" style="font-size: 0.84rem; color: #64748B;">
-                <span>Menampilkan {{ $jadwalList->firstItem() ?? 0 }} sampai {{ $jadwalList->lastItem() ?? 0 }} dari {{ $jadwalList->total() }} jadwal</span>
+                <span>
+                    @if($jadwalList->total() > 0 && $jadwalList->total() <= $jadwalList->perPage())
+                        Menampilkan {{ $jadwalList->total() }} dari {{ $jadwalList->total() }} jadwal
+                    @else
+                        Menampilkan {{ $jadwalList->firstItem() ?? 0 }} sampai {{ $jadwalList->lastItem() ?? 0 }} dari {{ $jadwalList->total() }} jadwal
+                    @endif
+                </span>
                 <div>
                     {{ $jadwalList->links('pagination::bootstrap-5') }}
                 </div>
