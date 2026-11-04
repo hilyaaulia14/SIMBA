@@ -8,7 +8,7 @@
     <!-- Page Header -->
     <div class="mb-4">
         <h3 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.75rem;">Profil Saya</h3>
-        <p class="text-muted mb-0" style="font-size: 0.95rem;">Kelola informasi akun Anda</p>
+        <p class="mb-0" style="font-size: 0.95rem; font-weight: 500; color: #0F2A4A !important;">Kelola informasi akun Anda</p>
     </div>
 
     <form action="{{ route('pk.profile.update') }}" method="POST" enctype="multipart/form-data">
@@ -21,7 +21,9 @@
                 <div class="card border-0 shadow-sm p-4 text-center d-flex flex-column align-items-center justify-content-center" style="border-radius: 16px; min-height: 260px;">
                     <div class="position-relative d-inline-block mx-auto mb-3">
                         @if($pk->foto)
-                            <img id="avatar-preview-img" src="{{ $pk->foto_url }}" alt="{{ $pk->nama_pegawai }}" class="rounded-circle shadow-sm" style="width: 88px; height: 88px; object-fit: cover;">
+                            <img id="avatar-preview-img" src="{{ $pk->foto_url }}" alt="{{ $pk->nama_pegawai }}" 
+                            class="rounded-circle shadow-sm" 
+                            style="width: 88px; height: 88px; object-fit: cover;">
                         @else
                             <div id="avatar-preview-circle" class="d-flex align-items-center justify-content-center rounded-circle mx-auto text-white fw-bold shadow-sm" style="width: 88px; height: 88px; background-color: var(--simba-navy); font-size: 1.85rem; letter-spacing: 1px;">
                                 {{ $pk->initials }}
@@ -44,7 +46,7 @@
                 <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
                     <div class="border-bottom pb-3 mb-4">
                         <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.25rem;">Informasi Akun</h5>
-                        <p class="text-muted small mb-0">Perbarui data profil Anda</p>
+                        <p class="small mb-0" style="font-size: 0.88rem; font-weight: 500; color: #0F2A4A !important;">Perbarui data profil Anda</p>
                     </div>
 
                     <div class="row g-3">

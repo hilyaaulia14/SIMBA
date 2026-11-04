@@ -19,11 +19,11 @@
 
     <style>
         :root {
-            --simba-navy: #102A45;
+            --simba-navy: #0F2A4A;
             --simba-navy-hover: #193D64;
             --simba-bg: #EEF2F6;
             --simba-border: #E2E8F0;
-            --simba-text: #102A45;
+            --simba-text: #0F2A4A;
             --simba-muted: #64748B;
             --topbar-height: 84px;
             --sidebar-width: 320px;
@@ -182,7 +182,7 @@
 
         .sidebar-section-label {
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: bold;
             color: var(--simba-navy);
             margin-bottom: 1.25rem;
             padding-left: 0.5rem;
@@ -199,8 +199,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 54px;
-            padding: 0.92rem 1.75rem;
+            min-height: 30px;
+            padding: 1rem 1.75rem;
             border-radius: 50px;
             text-decoration: none;
             font-size: 0.92rem;
@@ -323,7 +323,8 @@
 
         .page-subtitle-main {
             font-size: 0.92rem;
-            color: #334155;
+            font-weight: normal;
+            color: #0F2A4A;
             margin-bottom: 0;
         }
 

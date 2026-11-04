@@ -8,7 +8,7 @@
     <!-- Page Header -->
     <div class="mb-4">
         <h3 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.75rem;">Profil Saya</h3>
-        <p class="text-muted mb-0" style="font-size: 0.95rem;">Kelola informasi akun Anda</p>
+        <p class="mb-0" style="font-size: 0.95rem; font-weight: 500; color: #0F2A4A !important;">Kelola informasi akun Anda</p>
     </div>
 
     <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
                 <div class="card border-0 shadow-sm p-4" style="border-radius: 16px;">
                     <div class="border-bottom pb-3 mb-4">
                         <h5 class="fw-bold mb-1" style="color: var(--simba-navy); font-size: 1.25rem;">Informasi Akun</h5>
-                        <p class="text-muted small mb-0">Perbarui data profil Anda</p>
+                        <p class="small mb-0" style="font-size: 0.88rem; font-weight: 500; color: #0F2A4A !important;">Perbarui data profil Anda</p>
                     </div>
 
                     <div class="row g-3">
