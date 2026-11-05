@@ -18,6 +18,7 @@ class KehadiranKlien extends Model
         'tgl_hadir',
         'jam_hadir',
         'foto_kehadiran',
+        'status_kehadiran',
         'catatan',
     ];
 

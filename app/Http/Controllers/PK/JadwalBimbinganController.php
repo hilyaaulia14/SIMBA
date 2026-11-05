@@ -80,6 +80,7 @@ class JadwalBimbinganController extends Controller
                 'status' => $jadwal->statusBimbingan,
                 'pegawai' => $jadwal->pegawai,
                 'kehadiran' => $jadwal->kehadiran,
+                'foto_url' => $jadwal->kehadiran ? $jadwal->kehadiran->foto_url : null,
             ]);
         }
 

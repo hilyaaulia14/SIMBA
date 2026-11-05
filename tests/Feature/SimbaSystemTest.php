@@ -262,7 +262,7 @@ class SimbaSystemTest extends TestCase
 
         $response = $this->actingAs($this->pk)->post('/pk/jadwal', [
             'id_klien' => $klien->id_klien,
-            'id_status_bimbingan' => 4, // Dijadwalkan
+            'id_status_bimbingan' => 4, // Terjadwal
             'tgl_bimbingan' => Carbon::tomorrow()->toDateString(),
             'jam_mulai' => '10:00',
             'keterangan' => 'Sesi Bimbingan Kepribadian Khusus',
@@ -272,6 +272,38 @@ class SimbaSystemTest extends TestCase
         $this->assertDatabaseHas('jadwal_bimbingan', [
             'id_klien' => $klien->id_klien,
             'keterangan' => 'Sesi Bimbingan Kepribadian Khusus',
+            'id_status_bimbingan' => 4,
+        ]);
+
+        $jadwal = JadwalBimbingan::where('keterangan', 'Sesi Bimbingan Kepribadian Khusus')->first();
+
+        // Test Edit Status Bimbingan directly through update
+        $updateResponse = $this->actingAs($this->pk)->put("/pk/jadwal/{$jadwal->id_jadwal_bimbingan}", [
+            'id_klien' => $klien->id_klien,
+            'id_status_bimbingan' => 2, // Ubah status jadi Hadir
+            'tgl_bimbingan' => Carbon::tomorrow()->toDateString(),
+            'jam_mulai' => '10:00',
+            'keterangan' => 'Sesi Bimbingan Sudah Hadir',
+        ]);
+        $updateResponse->assertRedirect(route('pk.jadwal.index'));
+        $this->assertDatabaseHas('jadwal_bimbingan', [
+            'id_jadwal_bimbingan' => $jadwal->id_jadwal_bimbingan,
+            'id_status_bimbingan' => 2,
+            'keterangan' => 'Sesi Bimbingan Sudah Hadir',
+        ]);
+
+        // Test Show Detail returns JSON with foto_url
+        $detailResponse = $this->actingAs($this->pk)->getJson("/pk/jadwal/{$jadwal->id_jadwal_bimbingan}");
+        $detailResponse->assertStatus(200);
+        $detailResponse->assertJsonStructure([
+            'success',
+            'jadwal',
+            'formatted_date',
+            'klien',
+            'status',
+            'pegawai',
+            'kehadiran',
+            'foto_url',
         ]);
     }
 
@@ -352,5 +384,6 @@ class SimbaSystemTest extends TestCase
         $response->assertSee('class="pagination"', false);
         $response->assertDontSee('pagination.previous');
         $response->assertSee('Bukti Kehadiran');
+        $response->assertSee('Status Kehadiran');
     }
 }

@@ -187,7 +187,16 @@
                             <input type="time" name="jam_mulai" id="edit_jadwal_jam" class="form-control form-control-figma" required>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Status Bimbingan <span class="text-danger">*</span></label>
+                            <select name="id_status_bimbingan" id="edit_jadwal_id_status" class="form-select form-control-figma" required>
+                                @foreach($allStatus as $st)
+                                    <option value="{{ $st->id_status_bimbingan }}">{{ $st->nama_status }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
                             <label class="form-label-figma">Keterangan</label>
                             <input type="text" name="keterangan" id="edit_jadwal_keterangan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)">
                         </div>
@@ -297,7 +306,39 @@
         .then(res => res.json())
         .then(res => {
             const data = res.jadwal;
+            const fotoUrl = res.foto_url || (data.kehadiran ? (data.kehadiran.foto_url || (data.kehadiran.foto_kehadiran ? '/storage/' + data.kehadiran.foto_kehadiran : null)) : null);
             document.getElementById('detail_jadwal_klien_title').innerText = data.klien ? data.klien.nama_klien : '-';
+
+            let fotoBuktiHtml = '';
+            if (fotoUrl) {
+                fotoBuktiHtml = `
+                    <div class="col-12 mt-3 pt-3 border-top">
+                        <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">Foto Bukti Kehadiran</div>
+                        <div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                            <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+                                <a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                                    <img src="${fotoUrl}" alt="Bukti Kehadiran" class="rounded-3 shadow-sm" style="max-height: 140px; max-width: 220px; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
+                                </a>
+                                <div class="small" style="color: #475569;">
+                                    <div class="mb-1"><strong class="text-dark">Waktu Kehadiran:</strong> ${data.kehadiran && data.kehadiran.jam_hadir ? data.kehadiran.jam_hadir.substring(0, 5) : '-'} WITA</div>
+                                    <div class="mb-1"><strong class="text-dark">Tanggal Kehadiran:</strong> ${data.kehadiran && data.kehadiran.tgl_hadir ? data.kehadiran.tgl_hadir.substring(0, 10) : '-'}</div>
+                                    ${data.kehadiran && data.kehadiran.catatan ? `<div class="mt-1"><strong class="text-dark">Keterangan:</strong> ${data.kehadiran.catatan}</div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                fotoBuktiHtml = `
+                    <div class="col-12 mt-3 pt-3 border-top">
+                        <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">Foto Bukti Kehadiran</div>
+                        <div class="p-3 text-center rounded-3 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1;">
+                            <i class="bi bi-camera me-1"></i> Belum ada foto bukti kehadiran untuk sesi bimbingan ini.
+                        </div>
+                    </div>
+                `;
+            }
+
             document.getElementById('detailJadwalContent').innerHTML = `
                 <div class="row g-4 text-start">
                     <div class="col-md-6">
@@ -324,6 +365,7 @@
                         <div class="form-label-figma">Status</div>
                         <div class="fw-medium text-dark">${data.status_bimbingan ? data.status_bimbingan.nama_status : 'Terjadwal'}</div>
                     </div>
+                    ${fotoBuktiHtml}
                 </div>
             `;
 
@@ -350,6 +392,7 @@
             document.getElementById('edit_jadwal_id_klien').value = data.id_klien;
             document.getElementById('edit_jadwal_tgl').value = data.tgl_bimbingan ? data.tgl_bimbingan.substring(0, 10) : '';
             document.getElementById('edit_jadwal_jam').value = data.jam_mulai ? data.jam_mulai.substring(0, 5) : '09:00';
+            document.getElementById('edit_jadwal_id_status').value = data.id_status_bimbingan || 4;
             document.getElementById('edit_jadwal_keterangan').value = data.keterangan || '';
 
             const modal = new bootstrap.Modal(document.getElementById('modalEditJadwal'));

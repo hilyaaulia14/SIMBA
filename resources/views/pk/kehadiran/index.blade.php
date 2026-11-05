@@ -49,35 +49,56 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 5%;" class="text-center">No</th>
-                        <th style="width: 12%;">Tanggal</th>
-                        <th style="width: 10%;">Jam</th>
-                        <th style="width: 16%;">No. Register</th>
-                        <th style="width: 17%;">Nama Klien</th>
-                        <th style="width: 10%;" class="text-center">Foto Bukti</th>
-                        <th style="width: 20%;">Evaluasi Perkembangan</th>
-                        <th style="width: 10%;" class="text-center">Aksi</th>
+                        <th style="width: 5%; text-align: center;" class="text-center">No</th>
+                        <th style="width: 10%; text-align: center;" class="text-center">Tanggal</th>
+                        <th style="width: 8%; text-align: center;" class="text-center">Jam</th>
+                        <th style="width: 14%;">No. Register</th>
+                        <th style="width: 16%;">Nama Klien</th>
+                        <th style="width: 13%; text-align: center;" class="text-center">Status Kehadiran</th>
+                        <th style="width: 9%; text-align: center;" class="text-center">Foto Bukti</th>
+                        <th style="width: 15%;">Evaluasi Perkembangan</th>
+                        <th style="width: 10%; text-align: center;" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($kehadiranList as $index => $kh)
+                        @php
+                            $stName = strtolower($kh->status_kehadiran ?? ($kh->jadwalBimbingan->statusBimbingan->nama_status ?? 'Hadir'));
+                            $statusClass = match(true) {
+                                str_contains($stName, 'hadir') && !str_contains($stName, 'tidak') => 'status-pill-hadir',
+                                str_contains($stName, 'ulang') => 'status-pill-dijadwalkan-ulang',
+                                str_contains($stName, 'tidak') || str_contains($stName, 'absen') => 'status-pill-tidak-hadir',
+                                default => 'status-pill-terjadwal'
+                            };
+                            $displayStatus = match(true) {
+                                str_contains($stName, 'hadir') && !str_contains($stName, 'tidak') => 'Hadir',
+                                str_contains($stName, 'ulang') => 'Dijadwalkan Ulang',
+                                str_contains($stName, 'tidak') || str_contains($stName, 'absen') => 'Tidak Hadir',
+                                default => 'Terjadwal'
+                            };
+                        @endphp
                         <tr>
-                            <td class="text-center text-muted">{{ $kehadiranList->firstItem() + $index }}</td>
-                            <td>{{ $kh->tgl_hadir->format('d/m/Y') }}</td>
-                            <td>{{ substr($kh->jam_hadir, 0, 5) }} WITA</td>
+                            <td class="text-center text-muted" style="text-align: center;">{{ $kehadiranList->firstItem() + $index }}</td>
+                            <td class="text-center" style="text-align: center;">{{ $kh->tgl_hadir->format('d/m/Y') }}</td>
+                            <td class="text-center" style="text-align: center;">{{ substr($kh->jam_hadir, 0, 5) }}</td>
                             <td>{{ $kh->klien->no_register ?? '-' }}</td>
-                            <td>{{ $kh->klien->nama_klien ?? 'Klien Dihapus' }}</td>
-                            <td class="text-center">
+                            <td style="font-weight: 500;">{{ $kh->klien->nama_klien ?? 'Klien Dihapus' }}</td>
+                            <td class="text-center" style="text-align: center;">
+                                <span class="{{ $statusClass }}">
+                                    ● {{ $displayStatus }}
+                                </span>
+                            </td>
+                            <td class="text-center" style="text-align: center;">
                                 @if($kh->foto_url)
-                                    <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 44px; height: 44px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'badge bg-light text-muted border\'>Tanpa Foto</span>';">
+                                    <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'badge bg-light text-muted border\'>Tanpa Foto</span>';">
                                 @else
                                     <span class="badge" style="background-color: #F1F5F9; color: #64748B; font-size: 0.75rem; border-radius: 6px; padding: 0.35rem 0.6rem; font-weight: 400;">Tanpa Foto</span>
                                 @endif
                             </td>
-                            <td style="white-space: normal; line-height: 1.5; min-width: 180px;">
+                            <td style="white-space: normal; line-height: 1.5;">
                                 {{ $kh->catatan }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Kehadiran" onclick="showDetailKehadiran({{ $kh->id_kehadiran }})">
                                         <img src="{{ asset('assets/images/detail.svg') }}" alt="Detail">
@@ -93,7 +114,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-5 text-muted">
+                            <td colspan="9" class="text-center py-5 text-muted">
                                 Tidak ada data bukti kehadiran yang ditemukan.
                             </td>
                         </tr>
@@ -120,7 +141,7 @@
 
 </div>
 
-<!-- Modal Catat Bukti Kehadiran Klien -->
+<!-- Modal Catatan Kehadiran (Disinkronkan dengan modal aksi catatan kehadiran di jadwal) -->
 <div class="modal fade" id="modalTambahKehadiran" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-content-figma">
@@ -128,65 +149,53 @@
                 @csrf
                 <div class="modal-header-figma">
                     <div>
-                        <h5 class="modal-title-figma">Input Bukti Kehadiran Klien</h5>
-                        <p class="modal-subtitle-figma">Catat kehadiran fisik, upload foto dokumentasi dan evaluasi sikap klien</p>
+                        <h4 class="modal-title-figma">Catatan Kehadiran</h4>
+                        <p class="modal-subtitle-figma">Dokumentasikan kehadiran fisik dan bukti foto wajib lapor klien.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Pilih Klien <span class="text-danger">*</span></label>
-                            <select name="id_klien" class="form-select form-control-figma" required>
-                                <option value="">Pilih Klien</option>
+                        <div class="col-12">
+                            <label class="form-label-figma">Nama Klien <span class="text-danger">*</span></label>
+                            <select name="id_klien" id="tambah_kehadiran_id_klien" class="form-select form-control-figma" required>
+                                <option value="">Pilih Klien Binaan</option>
                                 @foreach($allKlien as $k)
-                                    <option value="{{ $k->id_klien }}">{{ $k->no_register }} - {{ $k->nama_klien }}</option>
+                                    <option value="{{ $k->id_klien }}">{{ $k->nama_klien }} ({{ $k->no_register }})</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Kaitkan Jadwal Bimbingan (Opsional)</label>
-                            <select name="id_jadwal_bimbingan" class="form-select form-control-figma">
-                                <option value="">-- Tanpa Kaitan Jadwal --</option>
-                                @foreach($recentJadwal as $rj)
-                                    <option value="{{ $rj->id_jadwal_bimbingan }}">
-                                        {{ $rj->tgl_bimbingan->format('d/m/Y') }} - {{ $rj->klien->nama_klien ?? '' }} ({{ substr($rj->jam_mulai, 0, 5) }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Tanggal Hadir <span class="text-danger">*</span></label>
-                            <input type="date" name="tgl_hadir" class="form-control form-control-figma" value="{{ date('Y-m-d') }}" required>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Jam Kedatangan <span class="text-danger">*</span></label>
-                            <input type="time" name="jam_hadir" class="form-control form-control-figma" value="{{ date('H:i') }}" required>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Foto Bukti Fisik / Dokumentasi (Opsional)</label>
-                            <div class="upload-dropzone p-3 text-center" style="border: 2px dashed #93C5FD; border-radius: 12px; background: #F8FAFC; cursor: pointer;" onclick="document.getElementById('input_foto_kehadiran').click()">
+                            <label class="form-label-figma">Status Kehadiran <span class="text-danger">*</span></label>
+                            <select name="status_kehadiran" class="form-select form-control-figma" required>
+                                <option value="Hadir" selected>Hadir</option>
+                                <option value="Tidak Hadir">Tidak Hadir</option>
+                                <option value="Dijadwalkan Ulang">Dijadwalkan Ulang</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Bukti Dokumentasi <span class="text-danger">*</span></label>
+                            <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file_kehadiran').click()">
                                 <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
-                                <span class="fw-semibold text-dark d-block" style="font-size: 0.84rem;">Klik untuk mengunggah foto kehadiran</span>
-                                <div class="text-muted" style="font-size: 0.75rem;">Format JPG, svg, WEBP (Maksimal 5MB)</div>
-                                <input type="file" id="input_foto_kehadiran" name="foto_kehadiran" class="d-none" accept="image/jpeg,image/svg,image/jpg,image/webp" onchange="previewUploadName(this, 'tambah_foto_label')">
-                                <div id="tambah_foto_label" class="mt-2 text-primary fw-semibold small"></div>
+                                <span class="small text-muted d-block" id="presensi_filename_kehadiran">Klik untuk mengunggah bukti</span>
+                                <input type="file" name="foto_kehadiran" id="upload_presensi_file_kehadiran" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename_kehadiran')">
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Catatan Evaluasi Perkembangan Kepribadian / Kemandirian <span class="text-danger">*</span></label>
-                            <textarea name="catatan" class="form-control form-control-figma" rows="3" placeholder="Tuliskan catatan observasi, evaluasi sikap kepribadian, kedisiplinan, atau kegiatan positif klien..." required></textarea>
+                            <label class="form-label-figma">Keterangan</label>
+                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal." required>
                         </div>
+
+                        <input type="hidden" name="tgl_hadir" value="{{ date('Y-m-d') }}">
+                        <input type="hidden" name="jam_hadir" value="{{ date('H:i') }}">
                     </div>
                 </div>
                 <div class="modal-footer-figma">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn-simba-primary px-4">Simpan Rekaman</button>
+                    <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-figma-save">Simpan</button>
                 </div>
             </form>
         </div>
@@ -199,8 +208,8 @@
         <div class="modal-content modal-content-figma">
             <div class="modal-header-figma">
                 <div>
-                    <h5 class="modal-title-figma">Rincian Bukti Kehadiran</h5>
-                    <p class="modal-subtitle-figma">Detail dokumentasi presensi dan catatan observasi klien</p>
+                    <h4 class="modal-title-figma">Detail Catatan Kehadiran</h4>
+                    <p class="modal-subtitle-figma" id="detail_kehadiran_subtitle">Rincian bukti kehadiran klien.</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -210,7 +219,7 @@
                 </div>
             </div>
             <div class="modal-footer-figma">
-                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Tutup</button>
+                <button type="button" class="btn btn-figma-cancel px-4" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
@@ -240,54 +249,61 @@
                 @method('PUT')
                 <div class="modal-header-figma">
                     <div>
-                        <h5 class="modal-title-figma">Edit Data Presensi Kehadiran</h5>
-                        <p class="modal-subtitle-figma">Perbarui data bukti kehadiran dan catatan evaluasi</p>
+                        <h4 class="modal-title-figma">Edit Catatan Kehadiran</h4>
+                        <p class="modal-subtitle-figma">Perbarui data catatan dan bukti kehadiran klien.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Klien Pemasyarakatan <span class="text-danger">*</span></label>
+                        <div class="col-12">
+                            <label class="form-label-figma">Nama Klien <span class="text-danger">*</span></label>
                             <select name="id_klien" id="edit_kehadiran_id_klien" class="form-select form-control-figma" required>
                                 @foreach($allKlien as $k)
-                                    <option value="{{ $k->id_klien }}">{{ $k->no_register }} - {{ $k->nama_klien }}</option>
+                                    <option value="{{ $k->id_klien }}">{{ $k->nama_klien }} ({{ $k->no_register }})</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Kaitkan Jadwal Bimbingan</label>
-                            <select name="id_jadwal_bimbingan" id="edit_kehadiran_id_jadwal" class="form-select form-control-figma">
-                                <option value="">-- Tanpa Kaitan Jadwal --</option>
-                                @foreach($recentJadwal as $rj)
-                                    <option value="{{ $rj->id_jadwal_bimbingan }}">
-                                        {{ $rj->tgl_bimbingan->format('d/m/Y') }} - {{ $rj->klien->nama_klien ?? '' }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+
                         <div class="col-12 col-md-6">
                             <label class="form-label-figma">Tanggal Hadir <span class="text-danger">*</span></label>
                             <input type="date" name="tgl_hadir" id="edit_kehadiran_tgl_hadir" class="form-control form-control-figma" required>
                         </div>
+
                         <div class="col-12 col-md-6">
                             <label class="form-label-figma">Jam Hadir <span class="text-danger">*</span></label>
                             <input type="time" name="jam_hadir" id="edit_kehadiran_jam_hadir" class="form-control form-control-figma" required>
                         </div>
+
                         <div class="col-12">
-                            <label class="form-label-figma">Ganti Foto Bukti (Opsional)</label>
-                            <input type="file" name="foto_kehadiran" class="form-control form-control-figma" accept="image/jpeg,image/svg,image/jpg,image/webp">
-                            <div class="text-muted" style="font-size: 0.75rem;">Biarkan kosong jika tidak ingin mengubah foto dokumentasi.</div>
+                            <label class="form-label-figma">Status Kehadiran <span class="text-danger">*</span></label>
+                            <select name="status_kehadiran" id="edit_kehadiran_status" class="form-select form-control-figma" required>
+                                <option value="Hadir">Hadir</option>
+                                <option value="Tidak Hadir">Tidak Hadir</option>
+                                <option value="Dijadwalkan Ulang">Dijadwalkan Ulang</option>
+                            </select>
                         </div>
+
                         <div class="col-12">
-                            <label class="form-label-figma">Catatan Evaluasi Perkembangan <span class="text-danger">*</span></label>
-                            <textarea name="catatan" id="edit_kehadiran_catatan" class="form-control form-control-figma" rows="3" required></textarea>
+                            <label class="form-label-figma">Bukti Dokumentasi</label>
+                            <div class="upload-dropzone-figma" onclick="document.getElementById('edit_upload_presensi_file').click()">
+                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                <span class="small text-muted d-block" id="edit_presensi_filename">Klik untuk mengganti foto dokumentasi (Opsional)</span>
+                                <input type="file" name="foto_kehadiran" id="edit_upload_presensi_file" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'edit_presensi_filename')">
+                            </div>
                         </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Keterangan</label>
+                            <input type="text" name="catatan" id="edit_kehadiran_catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" required>
+                        </div>
+
+                        <input type="hidden" name="id_jadwal_bimbingan" id="edit_kehadiran_id_jadwal">
                     </div>
                 </div>
                 <div class="modal-footer-figma">
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn-simba-primary px-4">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-figma-save">Simpan</button>
                 </div>
             </form>
         </div>
@@ -296,22 +312,21 @@
 
 <!-- Modal Konfirmasi Hapus Kehadiran -->
 <div class="modal fade" id="modalDeleteKehadiran" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
-        <div class="modal-content modal-content-figma text-center p-3">
-            <div class="modal-body p-3">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
+        <div class="modal-content modal-content-figma text-center p-4">
+            <div class="modal-body p-2">
                 <div class="delete-dialog-badge mx-auto">
                     <img src="{{ asset('assets/images/warning.svg') }}" alt="Peringatan">
                 </div>
-                <h5 class="fw-bold mb-2" style="color: #1E293B;">Hapus Presensi?</h5>
-                <p class="text-muted small mb-2">
-                    Apakah Anda yakin ingin menghapus catatan bukti kehadiran klien <strong id="deleteKehadiranKlien" class="text-dark"></strong>?
+                <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Presensi?</h4>
+                <p class="text-dark small mb-4" style="line-height: 1.5;">
+                    Catatan kehadiran klien <strong id="deleteKehadiranKlien"></strong> akan dihapus permanen dari sistem.<br>Tindakan ini tidak dapat dibatalkan.
                 </p>
-                <div class="text-muted small mb-4" id="deleteKehadiranTgl" style="font-size: 0.78rem;"></div>
-                <form id="formDeleteKehadiran" method="POST" class="d-flex justify-content-center gap-2">
+                <form id="formDeleteKehadiran" method="POST" class="d-flex justify-content-center gap-3">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal" style="border-radius: 8px; font-size: 0.84rem;">Batal</button>
-                    <button type="submit" class="btn btn-danger px-4" style="border-radius: 8px; font-size: 0.84rem; background-color: #EF4444; border-color: #EF4444;">Hapus</button>
+                    <button type="button" class="btn btn-figma-cancel px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger px-4" style="background-color: #EF4444; border-color: #EF4444; border-radius: 8px; font-weight: 500;">Hapus</button>
                 </form>
             </div>
         </div>
@@ -321,9 +336,9 @@
 
 @section('scripts')
 <script>
-    function previewUploadName(input, labelId) {
+    function updateFilename(input, targetId) {
         if (input.files && input.files[0]) {
-            document.getElementById(labelId).innerText = "File terpilih: " + input.files[0].name;
+            document.getElementById(targetId).innerText = input.files[0].name;
         }
     }
 
@@ -345,29 +360,56 @@
         .then(res => {
             const kh = res.kehadiran;
             const klien = res.klien;
-            let fotoSection = res.foto_url 
-                ? `<div class="mt-2 text-center">
-                        <img src="${res.foto_url}" class="img-fluid rounded shadow-sm" style="max-height: 240px; border: 2px solid #E2E8F0;">
-                   </div>`
-                : `<span class="badge-simba" style="background-color: #F1F5F9; color: #94A3B8;">Tidak ada unggahan foto fisik</span>`;
+            const fotoUrl = res.foto_url || (kh.foto_kehadiran ? '/storage/' + kh.foto_kehadiran : null);
+            const statusNama = res.status_kehadiran || kh.status_kehadiran || (res.jadwal && res.jadwal.status_bimbingan ? res.jadwal.status_bimbingan.nama_status : 'Hadir');
 
+            let statusClass = 'status-pill-hadir';
+            const sLower = statusNama.toLowerCase();
+            if (sLower.includes('tidak') || sLower.includes('absen')) statusClass = 'status-pill-tidak-hadir';
+            else if (sLower.includes('ulang')) statusClass = 'status-pill-dijadwalkan-ulang';
+            else if (sLower.includes('terjadwal')) statusClass = 'status-pill-terjadwal';
+
+            let fotoSection = fotoUrl 
+                ? `<div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                        <a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                            <img src="${fotoUrl}" class="rounded-3 shadow-sm" style="max-height: 180px; max-width: 100%; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
+                        </a>
+                   </div>`
+                : `<div class="p-3 text-center rounded-3 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1;">
+                        <i class="bi bi-camera me-1"></i> Tidak ada unggahan foto fisik dokumentasi.
+                   </div>`;
+
+            document.getElementById('detail_kehadiran_subtitle').innerText = (klien ? klien.nama_klien : 'Klien') + ' - ' + res.formatted_tgl;
             document.getElementById('detailKehadiranContent').innerHTML = `
-                <div class="row g-3">
+                <div class="row g-4 text-start">
                     <div class="col-md-6">
-                        <div class="text-muted small">Nama Klien Pemasyarakatan:</div>
-                        <div class="fw-bold fs-6" style="color: var(--simba-navy);">${klien ? klien.nama_klien : '-'}</div>
-                        <small class="text-muted font-monospace">${klien ? klien.no_register : ''}</small>
+                        <div class="form-label-figma">Nama Klien</div>
+                        <div class="fw-medium text-dark">${klien ? klien.nama_klien : '-'}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="text-muted small">Waktu Kehadiran:</div>
-                        <div class="fw-semibold text-dark">${res.formatted_tgl} &bull; ${kh.jam_hadir.substring(0, 5)} WITA</div>
+                        <div class="form-label-figma">No. Register</div>
+                        <div class="fw-medium text-dark">${klien ? klien.no_register : '-'}</div>
                     </div>
-                    <div class="col-12">
-                        <div class="text-muted small">Catatan Observasi / Perkembangan PK:</div>
-                        <div class="p-3 rounded-3 mt-1 text-dark" style="background-color: var(--simba-bg);">${kh.catatan}</div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma">Tanggal Hadir</div>
+                        <div class="fw-medium text-dark">${kh.tgl_hadir ? kh.tgl_hadir.substring(0, 10) : '-'}</div>
                     </div>
-                    <div class="col-12">
-                        <div class="text-muted small">Foto Bukti Kehadiran Wajib Lapor:</div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma">Jam Kedatangan</div>
+                        <div class="fw-medium text-dark">${kh.jam_hadir ? kh.jam_hadir.substring(0, 5) : '-'} WITA</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma">Status Kehadiran</div>
+                        <div>
+                            <span class="${statusClass}">● ${statusNama}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma">Keterangan / Catatan</div>
+                        <div class="fw-medium text-dark">${kh.catatan || '-'}</div>
+                    </div>
+                    <div class="col-12 mt-3 pt-3 border-top">
+                        <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">Foto Bukti Kehadiran</div>
                         ${fotoSection}
                     </div>
                 </div>
@@ -390,6 +432,7 @@
             document.getElementById('edit_kehadiran_id_jadwal').value = kh.id_jadwal_bimbingan || '';
             document.getElementById('edit_kehadiran_tgl_hadir').value = kh.tgl_hadir.substring(0, 10);
             document.getElementById('edit_kehadiran_jam_hadir').value = kh.jam_hadir.substring(0, 5);
+            document.getElementById('edit_kehadiran_status').value = res.status_kehadiran || kh.status_kehadiran || (res.jadwal && res.jadwal.status_bimbingan ? res.jadwal.status_bimbingan.nama_status : 'Hadir');
             document.getElementById('edit_kehadiran_catatan').value = kh.catatan;
 
             const modal = new bootstrap.Modal(document.getElementById('modalEditKehadiran'));
@@ -400,7 +443,6 @@
     function confirmDeleteKehadiran(id, namaKlien, tgl) {
         document.getElementById('formDeleteKehadiran').action = `/pk/kehadiran/${id}`;
         document.getElementById('deleteKehadiranKlien').innerText = namaKlien;
-        document.getElementById('deleteKehadiranTgl').innerText = `Tanggal Hadir: ${tgl}`;
 
         const modal = new bootstrap.Modal(document.getElementById('modalDeleteKehadiran'));
         modal.show();

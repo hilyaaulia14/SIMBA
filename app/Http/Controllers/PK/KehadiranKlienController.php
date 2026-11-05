@@ -31,8 +31,9 @@ class KehadiranKlienController extends Controller
         $kehadiranList = $query->paginate(10)->withQueryString();
         $allKlien = Klien::orderBy('nama_klien')->get();
         $recentJadwal = JadwalBimbingan::with('klien')->latest('tgl_bimbingan')->take(20)->get();
+        $allStatus = \App\Models\StatusBimbingan::all();
 
-        return view('pk.kehadiran.index', compact('kehadiranList', 'allKlien', 'recentJadwal'));
+        return view('pk.kehadiran.index', compact('kehadiranList', 'allKlien', 'recentJadwal', 'allStatus'));
     }
 
     public function store(Request $request)
@@ -42,16 +43,21 @@ class KehadiranKlienController extends Controller
             'id_jadwal_bimbingan' => 'nullable|exists:jadwal_bimbingan,id_jadwal_bimbingan',
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
+            'status_kehadiran' => 'nullable|string|max:50',
             'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
             'catatan' => 'required|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
             'tgl_hadir.required' => 'Tanggal hadir wajib diisi.',
             'jam_hadir.required' => 'Jam kedatangan wajib diisi.',
-            'catatan.required' => 'Catatan perkembangan kepribadian/kemandirian wajib diisi.',
+            'catatan.required' => 'Catatan keterangan / evaluasi kehadiran wajib diisi.',
             'foto_kehadiran.image' => 'Berkas bukti kehadiran harus berupa foto gambar.',
             'foto_kehadiran.max' => 'Ukuran foto maksimal 5MB.',
         ]);
+
+        if (empty($validated['status_kehadiran'])) {
+            $validated['status_kehadiran'] = 'Hadir';
+        }
 
         if ($request->hasFile('foto_kehadiran')) {
             $file = $request->file('foto_kehadiran');
@@ -60,12 +66,29 @@ class KehadiranKlienController extends Controller
             $validated['foto_kehadiran'] = $path;
         }
 
+        // Auto link schedule if not provided
+        if (empty($validated['id_jadwal_bimbingan'])) {
+            $matchingJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
+                ->whereDate('tgl_bimbingan', $validated['tgl_hadir'])
+                ->first();
+            if ($matchingJadwal) {
+                $validated['id_jadwal_bimbingan'] = $matchingJadwal->id_jadwal_bimbingan;
+            }
+        }
+
         $kehadiran = KehadiranKlien::create($validated);
 
-        // If linked to a scheduled session, mark status as 'Terlaksana' (id = 2)
+        // Map and update status in jadwal_bimbingan if linked
         if (!empty($validated['id_jadwal_bimbingan'])) {
+            $statusMap = [
+                'Hadir' => 2,
+                'Dijadwalkan Ulang' => 1,
+                'Tidak Hadir' => 3,
+                'Terjadwal' => 4,
+            ];
+            $statusId = $statusMap[$validated['status_kehadiran']] ?? 2;
             JadwalBimbingan::where('id_jadwal_bimbingan', $validated['id_jadwal_bimbingan'])
-                ->update(['id_status_bimbingan' => 2]);
+                ->update(['id_status_bimbingan' => $statusId]);
         }
 
         return redirect()->route('pk.kehadiran.index')->with('success', 'Bukti kehadiran wajib lapor klien berhasil dicatat.');
@@ -73,13 +96,14 @@ class KehadiranKlienController extends Controller
 
     public function show($id)
     {
-        $kehadiran = KehadiranKlien::with(['klien', 'jadwalBimbingan'])->findOrFail($id);
+        $kehadiran = KehadiranKlien::with(['klien', 'jadwalBimbingan.statusBimbingan'])->findOrFail($id);
 
         if (request()->ajax() || request()->wantsJson()) {
             return response()->json([
                 'success' => true,
                 'kehadiran' => $kehadiran,
                 'foto_url' => $kehadiran->foto_url,
+                'status_kehadiran' => $kehadiran->status_kehadiran ?? ($kehadiran->jadwalBimbingan->statusBimbingan->nama_status ?? 'Hadir'),
                 'formatted_tgl' => $kehadiran->tgl_hadir->translatedFormat('l, d F Y'),
                 'klien' => $kehadiran->klien,
                 'jadwal' => $kehadiran->jadwalBimbingan,
@@ -98,9 +122,14 @@ class KehadiranKlienController extends Controller
             'id_jadwal_bimbingan' => 'nullable|exists:jadwal_bimbingan,id_jadwal_bimbingan',
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
+            'status_kehadiran' => 'nullable|string|max:50',
             'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
             'catatan' => 'required|string|max:255',
         ]);
+
+        if (empty($validated['status_kehadiran'])) {
+            $validated['status_kehadiran'] = $kehadiran->status_kehadiran ?? 'Hadir';
+        }
 
         if ($request->hasFile('foto_kehadiran')) {
             if ($kehadiran->foto_kehadiran && Storage::disk('public')->exists($kehadiran->foto_kehadiran)) {
@@ -114,6 +143,18 @@ class KehadiranKlienController extends Controller
         }
 
         $kehadiran->update($validated);
+
+        if (!empty($validated['id_jadwal_bimbingan'])) {
+            $statusMap = [
+                'Hadir' => 2,
+                'Dijadwalkan Ulang' => 1,
+                'Tidak Hadir' => 3,
+                'Terjadwal' => 4,
+            ];
+            $statusId = $statusMap[$validated['status_kehadiran']] ?? 2;
+            JadwalBimbingan::where('id_jadwal_bimbingan', $validated['id_jadwal_bimbingan'])
+                ->update(['id_status_bimbingan' => $statusId]);
+        }
 
         return redirect()->route('pk.kehadiran.index')->with('success', 'Data presensi kehadiran klien berhasil diperbarui.');
     }
