@@ -135,12 +135,16 @@ class SimbaSystemTest extends TestCase
             'no_surat' => 'TEST-SM-999',
             'asal_surat' => 'Kementerian Hukum dan HAM Kalsel',
             'tgl_masuk' => '2026-11-01',
+            'tujuan' => 'Kasubag TU - Urusan Kepegawaian',
             'perihal' => 'Pengujian Otomatis Surat Masuk SIMBA',
             'upload_dokumen' => $file,
         ]);
 
         $response->assertRedirect(route('admin.surat-masuk.index'));
-        $this->assertDatabaseHas('surat_masuk', ['no_surat' => 'TEST-SM-999']);
+        $this->assertDatabaseHas('surat_masuk', [
+            'no_surat' => 'TEST-SM-999',
+            'tujuan' => 'Kasubag TU - Urusan Kepegawaian',
+        ]);
 
         $sm = SuratMasuk::where('no_surat', 'TEST-SM-999')->first();
         $this->assertNotNull($sm);
@@ -189,14 +193,17 @@ class SimbaSystemTest extends TestCase
         $response = $this->actingAs($this->admin)->post('/admin/surat-keluar', [
             'id_surat' => 2,
             'no_surat' => 'TEST-SK-888',
-            'tujuan_surat' => 'Kejaksaan Negeri Banjarmasin',
+            'tujuan_surat' => 'Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas',
             'tgl_keluar' => '2026-11-02',
             'perihal' => 'Penyampaian Laporan Litmas Terpadu',
             'upload_dokumen' => $file,
         ]);
 
         $response->assertRedirect(route('admin.surat-keluar.index'));
-        $this->assertDatabaseHas('surat_keluar', ['no_surat' => 'TEST-SK-888']);
+        $this->assertDatabaseHas('surat_keluar', [
+            'no_surat' => 'TEST-SK-888',
+            'tujuan_surat' => 'Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas',
+        ]);
 
         $sk = SuratKeluar::where('no_surat', 'TEST-SK-888')->first();
         $this->assertNotNull($sk);

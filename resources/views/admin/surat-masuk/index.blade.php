@@ -78,7 +78,7 @@
                             <td>{{ $sm->no_surat }}</td>
                             <td>{{ $sm->tgl_masuk->format('d/m/Y') }}</td>
                             <td>{{ $sm->tgl_diterima ? $sm->tgl_diterima->format('d/m/Y') : $sm->tgl_masuk->format('d/m/Y') }}</td>
-                            <td style="white-space: normal; line-height: 1.45; min-width: 160px;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Konseling') }}</td>
+                            <td style="white-space: normal; line-height: 1.45; min-width: 160px;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Klien Dewasa') }}</td>
                             <td style="white-space: normal; line-height: 1.45; min-width: 160px;">{{ $sm->asal_surat }}</td>
                             <td style="white-space: normal; line-height: 1.45; min-width: 200px;">{{ $sm->perihal }}</td>
                             <td style="text-align: center;">
@@ -161,7 +161,27 @@
 
                         <div class="col-12 col-md-6">
                             <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
-                            <input type="text" name="tujuan" class="form-control form-control-figma" placeholder="Pilih tujuan / Bimbingan Konseling Dewasa" value="Bimbingan Konseling Dewasa">
+                            <select name="tujuan" class="form-select form-control-figma" required>
+                                <option value="" selected disabled>Pilih Tujuan</option>
+                                <optgroup label="1. Kasubag TU">
+                                    <option value="Kasubag TU">Kasubag TU</option>
+                                    <option value="Kasubag TU - Urusan Kepegawaian">Kasubag TU - Urusan Kepegawaian</option>
+                                    <option value="Kasubag TU - Urusan Keuangan">Kasubag TU - Urusan Keuangan</option>
+                                    <option value="Kasubag TU - Urusan Umum">Kasubag TU - Urusan Umum</option>
+                                </optgroup>
+                                <optgroup label="2. Kasi Bimbingan Klien Anak">
+                                    <option value="Kasi Bimbingan Klien Anak">Kasi Bimbingan Klien Anak</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Registrasi">Kasi Bimbingan Klien Anak - Sub Seksi Registrasi</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas">Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimker">Kasi Bimbingan Klien Anak - Sub Seksi Bimker</option>
+                                </optgroup>
+                                <optgroup label="3. Kasi Bimbingan Klien Dewasa">
+                                    <option value="Kasi Bimbingan Klien Dewasa">Kasi Bimbingan Klien Dewasa</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi">Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker</option>
+                                </optgroup>
+                            </select>
                         </div>
 
                         <div class="col-12 col-md-6">
@@ -270,7 +290,27 @@
 
                         <div class="col-12 col-md-6">
                             <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
-                            <input type="text" name="tujuan" id="edit_tujuan" class="form-control form-control-figma">
+                            <select name="tujuan" id="edit_tujuan" class="form-select form-control-figma" required>
+                                <option value="" disabled>Pilih Tujuan</option>
+                                <optgroup label="1. Kasubag TU">
+                                    <option value="Kasubag TU">Kasubag TU</option>
+                                    <option value="Kasubag TU - Urusan Kepegawaian">Kasubag TU - Urusan Kepegawaian</option>
+                                    <option value="Kasubag TU - Urusan Keuangan">Kasubag TU - Urusan Keuangan</option>
+                                    <option value="Kasubag TU - Urusan Umum">Kasubag TU - Urusan Umum</option>
+                                </optgroup>
+                                <optgroup label="2. Kasi Bimbingan Klien Anak">
+                                    <option value="Kasi Bimbingan Klien Anak">Kasi Bimbingan Klien Anak</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Registrasi">Kasi Bimbingan Klien Anak - Sub Seksi Registrasi</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas">Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas</option>
+                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimker">Kasi Bimbingan Klien Anak - Sub Seksi Bimker</option>
+                                </optgroup>
+                                <optgroup label="3. Kasi Bimbingan Klien Dewasa">
+                                    <option value="Kasi Bimbingan Klien Dewasa">Kasi Bimbingan Klien Dewasa</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi">Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas</option>
+                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker</option>
+                                </optgroup>
+                            </select>
                         </div>
 
                         <div class="col-12 col-md-6">
@@ -552,7 +592,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Tujuan *</div>
-                        <div class="fw-medium text-dark">${data.tujuan || 'Bimbingan Konseling Anak'}</div>
+                        <div class="fw-medium text-dark">${(data.tujuan || '-').replace(/Bimbingan Konseling/g, 'Bimbingan Klien')}</div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Perihal *</div>
@@ -595,7 +635,19 @@
             document.getElementById('edit_tgl_masuk').value = data.tgl_masuk ? data.tgl_masuk.substring(0, 10) : '';
             document.getElementById('edit_tgl_diterima').value = data.tgl_diterima ? data.tgl_diterima.substring(0, 10) : (data.tgl_masuk ? data.tgl_masuk.substring(0, 10) : '');
             document.getElementById('edit_no_surat').value = data.no_surat;
-            document.getElementById('edit_tujuan').value = data.tujuan || 'Bimbingan Konseling Dewasa';
+            
+            let valTujuan = (data.tujuan || '').replace(/Bimbingan Konseling/g, 'Bimbingan Klien');
+            const selectTujuan = document.getElementById('edit_tujuan');
+            if (valTujuan) {
+                let exists = Array.from(selectTujuan.options).some(opt => opt.value === valTujuan);
+                if (!exists) {
+                    selectTujuan.add(new Option(valTujuan, valTujuan, true, true));
+                }
+                selectTujuan.value = valTujuan;
+            } else {
+                selectTujuan.selectedIndex = 0;
+            }
+
             document.getElementById('edit_perihal').value = data.perihal;
             document.getElementById('edit_lampiran').value = data.lampiran || '';
             document.getElementById('edit_keterangan').value = data.keterangan || '';

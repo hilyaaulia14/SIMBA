@@ -80,7 +80,7 @@
                             <td>{{ $sm->no_surat }}</td>
                             <td>{{ $sm->tgl_masuk->format('d/m/Y') }}</td>
                             <td>{{ $sm->tgl_diterima ? $sm->tgl_diterima->format('d/m/Y') : $sm->tgl_masuk->format('d/m/Y') }}</td>
-                            <td style="white-space: normal; line-height: 1.45;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Konseling') }}</td>
+                            <td style="white-space: normal; line-height: 1.45;">{{ $sm->tujuan ?? ($sm->surat->nama_surat ?? 'Bimbingan Klien Dewasa') }}</td>
                             <td style="white-space: normal; line-height: 1.45;">{{ $sm->asal_surat }}</td>
                             <td style="white-space: normal; line-height: 1.45;">{{ $sm->perihal }}</td>
                         </tr>
