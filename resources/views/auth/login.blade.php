@@ -353,7 +353,8 @@
                                id="nip_usn" 
                                class="form-control form-control-figma {{ ($errors->has('nip_usn') || session('error')) ? 'is-invalid' : '' }}" 
                                placeholder="Masukkan Username" 
-                               value="{{ old('nip_usn', ($activeRole ?? 'admin') === 'admin' ? '198501152010121001' : '199003202015031002') }}" 
+                               value="{{ old('nip_usn') }}" 
+                               autocomplete="username"
                                required>
                     </div>
 
@@ -366,7 +367,7 @@
                                    id="password" 
                                    class="form-control form-control-figma {{ ($errors->has('nip_usn') || $errors->has('password') || session('error')) ? 'is-invalid' : '' }}" 
                                    placeholder="Masukkan Kata Sandi" 
-                                   value="admin123" 
+                                   autocomplete="current-password"
                                    style="padding-right: 44px !important;"
                                    required>
                             <button type="button" 
@@ -412,13 +413,9 @@
             if (role === 'admin') {
                 document.getElementById('role-btn-admin').classList.add('active');
                 document.getElementById('role-btn-pk').classList.remove('active');
-                document.getElementById('nip_usn').value = '198501152010121001';
-                document.getElementById('password').value = 'admin123';
             } else {
                 document.getElementById('role-btn-pk').classList.add('active');
                 document.getElementById('role-btn-admin').classList.remove('active');
-                document.getElementById('nip_usn').value = '199003202015031002';
-                document.getElementById('password').value = 'pk123';
             }
         }
 
