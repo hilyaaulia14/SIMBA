@@ -80,10 +80,17 @@ class SuratMasukController extends Controller
         $suratMasuk = SuratMasuk::with('surat')->findOrFail($id);
         
         if (request()->ajax() || request()->wantsJson()) {
+            $dokumenUrl = $suratMasuk->dokumen_url;
+            $fileName = $suratMasuk->upload_dokumen ? basename($suratMasuk->upload_dokumen) : null;
+            $fileExt = $suratMasuk->upload_dokumen ? strtolower(pathinfo($suratMasuk->upload_dokumen, PATHINFO_EXTENSION)) : null;
+
             return response()->json([
                 'success' => true,
                 'data' => $suratMasuk,
-                'dokumen_url' => $suratMasuk->dokumen_url,
+                'dokumen_url' => $dokumenUrl,
+                'file_name' => $fileName,
+                'file_ext' => $fileExt,
+                'download_url' => route('admin.surat-masuk.download', $suratMasuk->id_surat_masuk),
                 'formatted_date' => $suratMasuk->tgl_masuk->translatedFormat('d F Y'),
             ]);
         }

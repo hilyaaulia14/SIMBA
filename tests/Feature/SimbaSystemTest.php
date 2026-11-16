@@ -144,6 +144,25 @@ class SimbaSystemTest extends TestCase
 
         $sm = SuratMasuk::where('no_surat', 'TEST-SM-999')->first();
         $this->assertNotNull($sm);
+        $this->assertNotNull($sm->upload_dokumen);
+
+        // Test show endpoint returns document preview metadata
+        $showJson = $this->actingAs($this->admin)->getJson('/admin/surat-masuk/' . $sm->id_surat_masuk);
+        $showJson->assertStatus(200);
+        $showJson->assertJsonStructure([
+            'success',
+            'data',
+            'dokumen_url',
+            'file_name',
+            'file_ext',
+            'download_url',
+        ]);
+        $this->assertEquals('pdf', $showJson->json('file_ext'));
+        $this->assertNotNull($showJson->json('dokumen_url'));
+
+        // Test download route
+        $downloadResponse = $this->actingAs($this->admin)->get('/admin/surat-masuk/' . $sm->id_surat_masuk . '/download');
+        $downloadResponse->assertStatus(200);
 
         // Update
         $updateResponse = $this->actingAs($this->admin)->put('/admin/surat-masuk/' . $sm->id_surat_masuk, [
@@ -165,12 +184,15 @@ class SimbaSystemTest extends TestCase
     /** Test 5: CRUD Surat Keluar */
     public function test_admin_crud_surat_keluar()
     {
+        $file = UploadedFile::fake()->image('nota_dinas.jpg', 600, 600);
+
         $response = $this->actingAs($this->admin)->post('/admin/surat-keluar', [
             'id_surat' => 2,
             'no_surat' => 'TEST-SK-888',
             'tujuan_surat' => 'Kejaksaan Negeri Banjarmasin',
             'tgl_keluar' => '2026-11-02',
             'perihal' => 'Penyampaian Laporan Litmas Terpadu',
+            'upload_dokumen' => $file,
         ]);
 
         $response->assertRedirect(route('admin.surat-keluar.index'));
@@ -178,6 +200,25 @@ class SimbaSystemTest extends TestCase
 
         $sk = SuratKeluar::where('no_surat', 'TEST-SK-888')->first();
         $this->assertNotNull($sk);
+        $this->assertNotNull($sk->upload_dokumen);
+
+        // Test show endpoint returns document preview metadata
+        $showJson = $this->actingAs($this->admin)->getJson('/admin/surat-keluar/' . $sk->id_surat_keluar);
+        $showJson->assertStatus(200);
+        $showJson->assertJsonStructure([
+            'success',
+            'data',
+            'dokumen_url',
+            'file_name',
+            'file_ext',
+            'download_url',
+        ]);
+        $this->assertEquals('jpg', $showJson->json('file_ext'));
+        $this->assertNotNull($showJson->json('dokumen_url'));
+
+        // Test download route
+        $downloadResponse = $this->actingAs($this->admin)->get('/admin/surat-keluar/' . $sk->id_surat_keluar . '/download');
+        $downloadResponse->assertStatus(200);
 
         // Delete
         $deleteResponse = $this->actingAs($this->admin)->delete('/admin/surat-keluar/' . $sk->id_surat_keluar);

@@ -181,10 +181,11 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">File Surat</label>
+                            <div id="sm_add_preview_box" class="mb-2"></div>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sm_add').click()">
                                 <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="small text-muted d-block" id="sm_add_filename">Unggah file PDF/Word</span>
-                                <input type="file" name="upload_dokumen" id="upload_sm_add" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="updateFilename(this, 'sm_add_filename')">
+                                <input type="file" name="upload_dokumen" id="upload_sm_add" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="handleEditFileChange(this, 'sm_add_filename', 'sm_add_preview_box')">
                             </div>
                         </div>
                     </div>
@@ -289,10 +290,11 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">File Surat</label>
+                            <div id="edit_sm_file_preview_box" class="mb-2"></div>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_sm_edit').click()">
                                 <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
                                 <span class="small text-muted d-block" id="sm_edit_filename">Unggah file PDF/Word</span>
-                                <input type="file" name="upload_dokumen" id="upload_sm_edit" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="updateFilename(this, 'sm_edit_filename')">
+                                <input type="file" name="upload_dokumen" id="upload_sm_edit" class="d-none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.svg" onchange="handleEditFileChange(this, 'sm_edit_filename', 'edit_sm_file_preview_box')">
                             </div>
                         </div>
                     </div>
@@ -338,6 +340,185 @@
         }
     }
 
+    function handleEditFileChange(input, labelId, previewBoxId) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            document.getElementById(labelId).innerText = "File baru dipilih: " + file.name;
+            
+            const existingNewPreview = document.getElementById(previewBoxId + '_new');
+            if (existingNewPreview) existingNewPreview.remove();
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newBox = document.createElement('div');
+                    newBox.id = previewBoxId + '_new';
+                    newBox.className = 'mt-2 p-2 bg-white rounded border text-center';
+                    newBox.innerHTML = `
+                        <div class="small fw-semibold text-primary mb-1">Pratinjau File Baru Terpilih:</div>
+                        <img src="${e.target.result}" alt="Preview Baru" class="rounded shadow-sm" style="max-height: 140px; max-width: 100%; object-fit: contain;">
+                    `;
+                    input.closest('.upload-dropzone-figma').before(newBox);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+
+    function renderDokumenDetailHtml(dokumenUrl, fileName, fileExt, downloadUrl) {
+        if (!dokumenUrl) {
+            return `
+                <div class="col-12 mt-3 pt-3 border-top">
+                    <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">File Arsip Dokumen</div>
+                    <div class="p-3 text-center rounded-3 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1;">
+                        <i class="bi bi-file-earmark-x me-1"></i> Belum ada file arsip dokumen yang diunggah untuk surat ini.
+                    </div>
+                </div>
+            `;
+        }
+
+        const ext = (fileExt || (fileName ? fileName.split('.').pop() : '')).toLowerCase();
+        const isImage = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif'].includes(ext);
+        const isPdf = ext === 'pdf';
+        const isWord = ['doc', 'docx'].includes(ext);
+
+        let iconClass = 'bi-file-earmark-text text-secondary';
+        let typeBadge = '<span class="badge" style="background-color: #F1F5F9; color: #475569; font-size: 0.72rem;">Dokumen</span>';
+
+        if (isPdf) {
+            iconClass = 'bi-file-earmark-pdf-fill text-danger';
+            typeBadge = '<span class="badge" style="background-color: #FEE2E2; color: #DC2626; font-size: 0.72rem;">PDF</span>';
+        } else if (isImage) {
+            iconClass = 'bi-file-earmark-image-fill text-primary';
+            typeBadge = '<span class="badge" style="background-color: #E0F2FE; color: #0284C7; font-size: 0.72rem;">Gambar</span>';
+        } else if (isWord) {
+            iconClass = 'bi-file-earmark-word-fill text-primary';
+            typeBadge = '<span class="badge" style="background-color: #DBEAFE; color: #2563EB; font-size: 0.72rem;">Word</span>';
+        }
+
+        let previewBody = '';
+        if (isPdf) {
+            previewBody = `
+                <div class="rounded-3 overflow-hidden border mt-2 shadow-sm" style="height: 380px; background-color: #525659;">
+                    <iframe src="${dokumenUrl}#toolbar=0" width="100%" height="100%" style="border: none;"></iframe>
+                </div>
+            `;
+        } else if (isImage) {
+            previewBody = `
+                <div class="p-2 text-center rounded-3 border bg-white mt-2">
+                    <a href="${dokumenUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                        <img src="${dokumenUrl}" alt="Arsip Surat" class="img-fluid rounded-2 shadow-sm" style="max-height: 340px; object-fit: contain; cursor: pointer;">
+                    </a>
+                </div>
+            `;
+        } else {
+            previewBody = `
+                <div class="p-3 rounded-3 border bg-white mt-2 d-flex align-items-center gap-3">
+                    <i class="bi bi-file-earmark-arrow-down-fill text-primary fs-3"></i>
+                    <div class="small text-muted">
+                        Pratinjau langsung tidak tersedia untuk format berkas ini di peramban. Silakan buka atau unduh berkas menggunakan tombol di atas.
+                    </div>
+                </div>
+            `;
+        }
+
+        return `
+            <div class="col-12 mt-3 pt-3 border-top">
+                <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">File Arsip Dokumen</div>
+                <div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi ${iconClass} fs-3"></i>
+                            <div>
+                                <div class="fw-semibold text-dark text-truncate" style="max-width: 320px;" title="${fileName || 'Berkas Dokumen'}">${fileName || 'Berkas Dokumen'}</div>
+                                <div>${typeBadge}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="${dokumenUrl}" target="_blank" class="btn btn-sm btn-outline-primary" style="border-radius: 6px; font-weight: 500;">
+                                <i class="bi bi-box-arrow-up-right me-1"></i> Buka File
+                            </a>
+                            <a href="${downloadUrl}" class="btn btn-sm btn-figma-save" style="border-radius: 6px; font-weight: 500;">
+                                <i class="bi bi-download me-1"></i> Unduh
+                            </a>
+                        </div>
+                    </div>
+                    ${previewBody}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderEditFilePreview(previewContainerId, labelId, dokumenUrl, fileName, fileExt, downloadUrl) {
+        const previewBox = document.getElementById(previewContainerId);
+        const existingNewPreview = document.getElementById(previewContainerId + '_new');
+        if (existingNewPreview) existingNewPreview.remove();
+
+        if (dokumenUrl) {
+            const ext = (fileExt || (fileName ? fileName.split('.').pop() : '')).toLowerCase();
+            const isImage = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif'].includes(ext);
+            const isPdf = ext === 'pdf';
+            
+            let iconClass = 'bi-file-earmark-text text-secondary';
+            if (isPdf) iconClass = 'bi-file-earmark-pdf-fill text-danger';
+            else if (isImage) iconClass = 'bi-file-earmark-image-fill text-primary';
+            else if (['doc', 'docx'].includes(ext)) iconClass = 'bi-file-earmark-word-fill text-primary';
+
+            let compactPreview = '';
+            if (isImage) {
+                compactPreview = `
+                    <div class="mt-2 text-center bg-white p-2 rounded border">
+                        <a href="${dokumenUrl}" target="_blank" title="Klik untuk membuka foto/gambar">
+                            <img src="${dokumenUrl}" alt="Pratinjau" class="rounded shadow-sm" style="max-height: 140px; max-width: 100%; object-fit: contain; cursor: pointer;">
+                        </a>
+                    </div>
+                `;
+            } else if (isPdf) {
+                compactPreview = `
+                    <div class="mt-2 rounded overflow-hidden border shadow-sm" style="height: 180px; background-color: #525659;">
+                        <iframe src="${dokumenUrl}#toolbar=0" width="100%" height="100%" style="border: none;"></iframe>
+                    </div>
+                `;
+            }
+
+            previewBox.innerHTML = `
+                <div class="p-3 rounded-3 border" style="background-color: #F8FAFC; border-color: #CBD5E1 !important;">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi ${iconClass} fs-3"></i>
+                            <div>
+                                <div class="fw-semibold text-dark text-truncate" style="max-width: 260px;" title="${fileName}">${fileName}</div>
+                                <span class="badge" style="background-color: #DCFCE7; color: #16A34A; font-size: 0.72rem; font-weight: 500;">
+                                    <i class="bi bi-check-circle me-1"></i> File Tersimpan
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="${dokumenUrl}" target="_blank" class="btn btn-sm btn-outline-primary" style="border-radius: 6px; font-weight: 500;">
+                                <i class="bi bi-eye me-1"></i> Preview
+                            </a>
+                            <a href="${downloadUrl}" class="btn btn-sm btn-outline-secondary" style="border-radius: 6px; font-weight: 500;">
+                                <i class="bi bi-download me-1"></i> Unduh
+                            </a>
+                        </div>
+                    </div>
+                    ${compactPreview}
+                    <div class="text-muted mt-2" style="font-size: 0.75rem;">
+                        <i class="bi bi-info-circle me-1"></i> Gunakan area di bawah jika ingin mengganti file arsip ini dengan file baru.
+                    </div>
+                </div>
+            `;
+            document.getElementById(labelId).innerText = "Ganti file dengan berkas baru (Opsional)";
+        } else {
+            previewBox.innerHTML = `
+                <div class="p-2 mb-1 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 8px;">
+                    <i class="bi bi-info-circle me-1"></i> Belum ada file arsip yang diunggah untuk surat ini.
+                </div>
+            `;
+            document.getElementById(labelId).innerText = "Unggah file PDF/Word";
+        }
+    }
+
     function showDetailSurat(id) {
         const modal = new bootstrap.Modal(document.getElementById('modalDetailSuratMasuk'));
         modal.show();
@@ -349,6 +530,8 @@
         .then(res => {
             const data = res.data;
             document.getElementById('detail_no_surat_title').innerText = data.no_surat;
+            const dokumenSection = renderDokumenDetailHtml(res.dokumen_url, res.file_name, res.file_ext, res.download_url);
+
             document.getElementById('detailSuratContent').innerHTML = `
                 <div class="row g-4 text-start">
                     <div class="col-12">
@@ -379,6 +562,12 @@
                         <div class="form-label-figma">Lampiran</div>
                         <div class="fw-medium text-dark">${data.lampiran || '-'}</div>
                     </div>
+                    ${data.keterangan ? `
+                    <div class="col-12">
+                        <div class="form-label-figma">Keterangan</div>
+                        <div class="fw-medium text-dark">${data.keterangan}</div>
+                    </div>` : ''}
+                    ${dokumenSection}
                 </div>
             `;
 
@@ -410,6 +599,8 @@
             document.getElementById('edit_perihal').value = data.perihal;
             document.getElementById('edit_lampiran').value = data.lampiran || '';
             document.getElementById('edit_keterangan').value = data.keterangan || '';
+
+            renderEditFilePreview('edit_sm_file_preview_box', 'sm_edit_filename', res.dokumen_url, res.file_name, res.file_ext, res.download_url);
 
             const modal = new bootstrap.Modal(document.getElementById('modalEditSuratMasuk'));
             modal.show();

@@ -74,10 +74,17 @@ class SuratKeluarController extends Controller
         $suratKeluar = SuratKeluar::with('surat')->findOrFail($id);
         
         if (request()->ajax() || request()->wantsJson()) {
+            $dokumenUrl = $suratKeluar->dokumen_url;
+            $fileName = $suratKeluar->upload_dokumen ? basename($suratKeluar->upload_dokumen) : null;
+            $fileExt = $suratKeluar->upload_dokumen ? strtolower(pathinfo($suratKeluar->upload_dokumen, PATHINFO_EXTENSION)) : null;
+
             return response()->json([
                 'success' => true,
                 'data' => $suratKeluar,
-                'dokumen_url' => $suratKeluar->dokumen_url,
+                'dokumen_url' => $dokumenUrl,
+                'file_name' => $fileName,
+                'file_ext' => $fileExt,
+                'download_url' => route('admin.surat-keluar.download', $suratKeluar->id_surat_keluar),
                 'formatted_date' => $suratKeluar->tgl_keluar->translatedFormat('d F Y'),
             ]);
         }
