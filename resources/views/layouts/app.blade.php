@@ -688,6 +688,51 @@
             color: #FFFFFF;
         }
 
+        /* Tombol Preview & Unduh Berkas Sesuai Figma (PreviewDanUnduh.png) */
+        .btn-preview-figma {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            background-color: #FFFFFF;
+            border: 1.5px solid #CBD5E1;
+            color: #0F2A4A;
+            border-radius: 8px;
+            padding: 0.45rem 1.15rem;
+            font-size: 0.86rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: none;
+        }
+        .btn-preview-figma:hover {
+            background-color: #F8FAFC;
+            border-color: #94A3B8;
+            color: #0F2A4A;
+        }
+
+        .btn-unduh-figma {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            background-color: #0F2A4A;
+            border: 1.5px solid #0F2A4A;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 0.45rem 1.15rem;
+            font-size: 0.86rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: none;
+        }
+        .btn-unduh-figma:hover {
+            background-color: #193D64;
+            border-color: #193D64;
+            color: #FFFFFF;
+        }
+
         /* Delete Confirmation Dialog */
         .delete-dialog-badge {
             width: 76px;

@@ -412,12 +412,12 @@
                                 <div>${typeBadge}</div>
                             </div>
                         </div>
-                        <div class="d-flex gap-2">
-                            <a href="${dokumenUrl}" target="_blank" class="btn btn-sm btn-outline-primary" style="border-radius: 6px; font-weight: 500;">
-                                <i class="bi bi-box-arrow-up-right me-1"></i> Buka File
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="${dokumenUrl}" target="_blank" class="btn-preview-figma">
+                                <i class="bi bi-eye"></i> Preview
                             </a>
-                            <a href="${downloadUrl}" class="btn btn-sm btn-figma-save" style="border-radius: 6px; font-weight: 500;">
-                                <i class="bi bi-download me-1"></i> Unduh
+                            <a href="${downloadUrl}" class="btn-unduh-figma">
+                                <i class="bi bi-download"></i> Unduh
                             </a>
                         </div>
                     </div>
@@ -471,12 +471,12 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="d-flex gap-2">
-                            <a href="${dokumenUrl}" target="_blank" class="btn btn-sm btn-outline-primary" style="border-radius: 6px; font-weight: 500;">
-                                <i class="bi bi-eye me-1"></i> Preview
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="${dokumenUrl}" target="_blank" class="btn-preview-figma">
+                                <i class="bi bi-eye"></i> Preview
                             </a>
-                            <a href="${downloadUrl}" class="btn btn-sm btn-outline-secondary" style="border-radius: 6px; font-weight: 500;">
-                                <i class="bi bi-download me-1"></i> Unduh
+                            <a href="${downloadUrl}" class="btn-unduh-figma">
+                                <i class="bi bi-download"></i> Unduh
                             </a>
                         </div>
                     </div>
