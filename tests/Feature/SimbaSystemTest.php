@@ -168,6 +168,15 @@ class SimbaSystemTest extends TestCase
         $downloadResponse = $this->actingAs($this->admin)->get('/admin/surat-masuk/' . $sm->id_surat_masuk . '/download');
         $downloadResponse->assertStatus(200);
 
+        // Test filter by date
+        $filterDateResponse = $this->actingAs($this->admin)->get('/admin/surat-masuk?tgl_masuk=2026-11-01');
+        $filterDateResponse->assertStatus(200);
+        $filterDateResponse->assertSee('TEST-SM-999');
+
+        $filterWrongDateResponse = $this->actingAs($this->admin)->get('/admin/surat-masuk?tgl_masuk=2025-01-01');
+        $filterWrongDateResponse->assertStatus(200);
+        $filterWrongDateResponse->assertDontSee('TEST-SM-999');
+
         // Update
         $updateResponse = $this->actingAs($this->admin)->put('/admin/surat-masuk/' . $sm->id_surat_masuk, [
             'id_surat' => 1,
@@ -226,6 +235,15 @@ class SimbaSystemTest extends TestCase
         // Test download route
         $downloadResponse = $this->actingAs($this->admin)->get('/admin/surat-keluar/' . $sk->id_surat_keluar . '/download');
         $downloadResponse->assertStatus(200);
+
+        // Test filter by date
+        $filterDateResponse = $this->actingAs($this->admin)->get('/admin/surat-keluar?tgl_keluar=2026-11-02');
+        $filterDateResponse->assertStatus(200);
+        $filterDateResponse->assertSee('TEST-SK-888');
+
+        $filterWrongDateResponse = $this->actingAs($this->admin)->get('/admin/surat-keluar?tgl_keluar=2025-01-01');
+        $filterWrongDateResponse->assertStatus(200);
+        $filterWrongDateResponse->assertDontSee('TEST-SK-888');
 
         // Delete
         $deleteResponse = $this->actingAs($this->admin)->delete('/admin/surat-keluar/' . $sk->id_surat_keluar);

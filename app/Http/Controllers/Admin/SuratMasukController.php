@@ -15,11 +15,32 @@ class SuratMasukController extends Controller
         $query = SuratMasuk::with('surat')->latest('tgl_masuk');
 
         if ($request->filled('search')) {
-            $search = $request->search;
+            $search = trim($request->search);
             $query->where(function($q) use ($search) {
                 $q->where('no_surat', 'like', "%{$search}%")
                   ->orWhere('asal_surat', 'like', "%{$search}%")
-                  ->orWhere('perihal', 'like', "%{$search}%");
+                  ->orWhere('perihal', 'like', "%{$search}%")
+                  ->orWhere('tujuan', 'like', "%{$search}%");
+
+                // Dukung pencarian tanggal langsung pada kotak telusuri (format: DD/MM/YYYY, DD-MM-YYYY, YYYY-MM-DD)
+                if (preg_match('/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/', $search, $matches)) {
+                    $dateFormatted = sprintf('%04d-%02d-%02d', $matches[3], $matches[2], $matches[1]);
+                    $q->orWhereDate('tgl_masuk', $dateFormatted)
+                      ->orWhereDate('tgl_diterima', $dateFormatted);
+                } elseif (preg_match('/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/', $search)) {
+                    $dateFormatted = date('Y-m-d', strtotime($search));
+                    $q->orWhereDate('tgl_masuk', $dateFormatted)
+                      ->orWhereDate('tgl_diterima', $dateFormatted);
+                }
+            });
+        }
+
+        // Filter tanggal dari input date picker (tgl_masuk / tanggal)
+        $tglFilter = $request->input('tgl_masuk') ?: $request->input('tanggal');
+        if (!empty($tglFilter)) {
+            $query->where(function($q) use ($tglFilter) {
+                $q->whereDate('tgl_masuk', $tglFilter)
+                  ->orWhereDate('tgl_diterima', $tglFilter);
             });
         }
 
