@@ -274,6 +274,7 @@ class SimbaSystemTest extends TestCase
         $createResponse = $this->actingAs($this->pk)->post('/pk/klien', [
             'no_register' => 'TEST/REG/2026/999',
             'nama_klien' => 'Klien Percobaan Unit Test',
+            'telepon' => '0812-9999-8888',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '1997-03-15',
             'jam_mulai' => '09:30',
@@ -281,9 +282,33 @@ class SimbaSystemTest extends TestCase
         ]);
 
         $createResponse->assertRedirect(route('pk.klien.index'));
-        $this->assertDatabaseHas('klien', ['no_register' => 'TEST/REG/2026/999']);
+        $this->assertDatabaseHas('klien', ['no_register' => 'TEST/REG/2026/999', 'telepon' => '0812-9999-8888']);
 
         $klien = Klien::where('no_register', 'TEST/REG/2026/999')->first();
+
+        // Test search by nomor registrasi
+        $searchRegResponse = $this->actingAs($this->pk)->get('/pk/klien?search=TEST/REG/2026/999');
+        $searchRegResponse->assertStatus(200);
+        $searchRegResponse->assertSee('Klien Percobaan Unit Test');
+
+        // Test search by nama klien
+        $searchNamaResponse = $this->actingAs($this->pk)->get('/pk/klien?search=Klien Percobaan');
+        $searchNamaResponse->assertStatus(200);
+        $searchNamaResponse->assertSee('TEST/REG/2026/999');
+
+        // Test search by nomor telepon (format tanda hubung & angka saja)
+        $searchTelpResponse = $this->actingAs($this->pk)->get('/pk/klien?search=0812-9999-8888');
+        $searchTelpResponse->assertStatus(200);
+        $searchTelpResponse->assertSee('Klien Percobaan Unit Test');
+
+        $searchTelpCleanResponse = $this->actingAs($this->pk)->get('/pk/klien?search=081299998888');
+        $searchTelpCleanResponse->assertStatus(200);
+        $searchTelpCleanResponse->assertSee('Klien Percobaan Unit Test');
+
+        // Test search by nama pembimbing
+        $searchPembimbingResponse = $this->actingAs($this->pk)->get('/pk/klien?search=' . $this->pk->nama_pegawai);
+        $searchPembimbingResponse->assertStatus(200);
+        $searchPembimbingResponse->assertSee('TEST/REG/2026/999');
 
         // Update
         $updateResponse = $this->actingAs($this->pk)->put('/pk/klien/' . $klien->id_klien, [

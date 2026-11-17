@@ -10,14 +10,37 @@ class KlienController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Klien::with('aturJadwal')->latest();
+        $query = Klien::with(['aturJadwal', 'jadwalBimbingan.pegawai'])->latest();
 
         if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $search = trim($request->search);
+            $cleanPhone = preg_replace('/[^0-9]/', '', $search);
+            $currentUser = auth()->user();
+            $matchesCurrentPK = $currentUser && !empty($currentUser->nama_pegawai) && (stripos($currentUser->nama_pegawai, $search) !== false);
+
+            $query->where(function($q) use ($search, $cleanPhone, $matchesCurrentPK) {
+                // 1. Nomor Registrasi
                 $q->where('no_register', 'like', "%{$search}%")
+                // 2. Nama Klien
                   ->orWhere('nama_klien', 'like', "%{$search}%")
+                // 3. Nomor Telepon (format teks biasa maupun angka saja)
+                  ->orWhere('telepon', 'like', "%{$search}%")
+                // 4. Tindak Pidana
                   ->orWhere('tindak_pidana', 'like', "%{$search}%");
+
+                if (!empty($cleanPhone)) {
+                    $q->orWhereRaw("REPLACE(REPLACE(REPLACE(COALESCE(telepon, ''), '-', ''), ' ', ''), '.', '') LIKE ?", ["%{$cleanPhone}%"]);
+                }
+
+                // 5. Nama Pembimbing (dari relasi jadwal bimbingan)
+                $q->orWhereHas('jadwalBimbingan.pegawai', function($pq) use ($search) {
+                    $pq->where('nama_pegawai', 'like', "%{$search}%");
+                });
+
+                // Jika nama pembimbing yang sedang login cocok dengan kata kunci pencarian
+                if ($matchesCurrentPK) {
+                    $q->orWhereRaw('1 = 1');
+                }
             });
         }
 

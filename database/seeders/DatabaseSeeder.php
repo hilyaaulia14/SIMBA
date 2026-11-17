@@ -123,6 +123,7 @@ class DatabaseSeeder extends Seeder
         $klien1 = Klien::create([
             'no_register' => 'REG/2026/BPS/001',
             'nama_klien' => 'Ahmad Supriyadi',
+            'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '1995-04-12',
             'jam_mulai' => '09:00:00',
@@ -132,6 +133,7 @@ class DatabaseSeeder extends Seeder
         $klien2 = Klien::create([
             'no_register' => 'REG/2026/BPS/002',
             'nama_klien' => 'Siti Rahmawati',
+            'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Perempuan',
             'tgl_lahir' => '1998-08-25',
             'jam_mulai' => '10:00:00',
@@ -141,6 +143,7 @@ class DatabaseSeeder extends Seeder
         $klien3 = Klien::create([
             'no_register' => 'REG/2026/BPS/003',
             'nama_klien' => 'Muhammad Rizki Pratama',
+            'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '2001-11-03',
             'jam_mulai' => '10:30:00',
@@ -150,6 +153,7 @@ class DatabaseSeeder extends Seeder
         $klien4 = Klien::create([
             'no_register' => 'REG/2026/BPS/004',
             'nama_klien' => 'Hendro Gunawan',
+            'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '1989-02-18',
             'jam_mulai' => '13:30:00',
@@ -159,6 +163,7 @@ class DatabaseSeeder extends Seeder
         $klien5 = Klien::create([
             'no_register' => 'REG/2026/BPS/005',
             'nama_klien' => 'Dewi Lestari',
+            'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Perempuan',
             'tgl_lahir' => '1996-07-09',
             'jam_mulai' => '14:00:00',

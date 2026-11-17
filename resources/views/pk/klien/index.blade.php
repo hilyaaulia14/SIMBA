@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            @if(request()->has('search'))
+            @if(request()->filled('search'))
                 <a href="{{ route('pk.klien.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
                     Reset
                 </a>
@@ -46,11 +46,11 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 6%;">No</th>
+                        <th style="width: 5%;">No</th>
                         <th style="width: 22%;">Nomor Registrasi</th>
-                        <th style="width: 26%;">Nama Klien</th>
+                        <th style="width: 23%;">Nama Klien</th>
                         <th style="width: 24%;">Nama Pembimbing</th>
-                        <th style="width: 12%;">Telepon</th>
+                        <th style="width: 16%; white-space: nowrap;">Telepon</th>
                         <th style="width: 10%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
@@ -60,8 +60,8 @@
                             <td>{{ $klienList->firstItem() + $index }}</td>
                             <td>{{ $klien->no_register }}</td>
                             <td>{{ $klien->nama_klien }}</td>
-                            <td>{{ Auth::user()->nama_pegawai ?? 'Budi Santoso, S.Sos.' }}</td>
-                            <td>{{ $klien->telepon ?? '0812-3456-7890' }}</td>
+                            <td>{{ $klien->jadwalBimbingan->first()?->pegawai?->nama_pegawai ?? (Auth::user()->nama_pegawai ?? 'Budi Santoso, S.Sos.') }}</td>
+                            <td style="white-space: nowrap;">{{ $klien->telepon ?? '0812-3456-7890' }}</td>
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Klien" onclick="showDetailKlien({{ $klien->id_klien }})">
@@ -289,7 +289,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Telepon *</div>
-                        <div class="fw-medium text-dark">${data.telepon || '0812-5000-1141'}</div>
+                        <div class="fw-medium text-dark">${data.telepon || '-'}</div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Keterangan</div>
@@ -319,7 +319,7 @@
             document.getElementById('formEditKlien').action = `/pk/klien/${data.id_klien}`;
             document.getElementById('edit_nama_klien').value = data.nama_klien;
             document.getElementById('edit_no_register').value = data.no_register;
-            document.getElementById('edit_telepon').value = data.telepon || '0812-5000-1141';
+            document.getElementById('edit_telepon').value = data.telepon || '';
             document.getElementById('edit_tindak_pidana').value = data.tindak_pidana;
             document.getElementById('edit_alamat').value = data.alamat || 'Jl. Kelayan B No. 12, Banjarmasin Selatan.';
             document.getElementById('edit_keterangan').value = data.keterangan || 'Bimbingan rutin';
