@@ -931,6 +931,14 @@
                         <img src="{{ asset('assets/images/dashboard.svg') }}" class="sidebar-icon" alt="Dashboard" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Dashboard</span>
                     </a>
+                    <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
+                        <img src="{{ asset('assets/images/data_klien.svg') }}" class="sidebar-icon" alt="Data Klien" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
+                        <span>Data Klien</span>
+                    </a>
+                    <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
+                        <img src="{{ asset('assets/images/jam.svg') }}" class="sidebar-icon" alt="Buat Jadwal" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
+                        <span>Buat Jadwal</span>
+                    </a>
                     <a href="{{ route('pk.jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.jadwal.*') ? 'active' : '' }}">
                         <img src="{{ asset('assets/images/jadwal_bimbingan.svg') }}" class="sidebar-icon" alt="Jadwal Bimbingan" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Jadwal Bimbingan</span>
@@ -938,14 +946,6 @@
                     <a href="{{ route('pk.kehadiran.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.kehadiran.*') ? 'active' : '' }}">
                         <img src="{{ asset('assets/images/kehadiran.svg') }}" class="sidebar-icon" alt="Bukti Kehadiran" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
                         <span>Bukti Kehadiran</span>
-                    </a>
-                    <a href="{{ route('pk.atur-jadwal.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.atur-jadwal.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/jam.svg') }}" class="sidebar-icon" alt="Buat Jadwal" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
-                        <span>Buat Jadwal</span>
-                    </a>
-                    <a href="{{ route('pk.klien.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.klien.*') ? 'active' : '' }}">
-                        <img src="{{ asset('assets/images/data_klien.svg') }}" class="sidebar-icon" alt="Data Klien" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
-                        <span>Data Klien</span>
                     </a>
                     <a href="{{ route('pk.profile.index') }}" class="sidebar-nav-item {{ request()->routeIs('pk.profile.*') ? 'active' : '' }}">
                         <img src="{{ asset('assets/images/profil.svg') }}" class="sidebar-icon" alt="Profil" width="22" height="22" onerror="if(!this.src.endsWith('.png')){this.src=this.src.replace('.svg', '.png');}">
