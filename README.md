@@ -1,4 +1,4 @@
-# SIMBA (Sistem Informasi Balai Pemasyarakatan)
+# SIMBA (Sistem Informasi Monitoring Bimbingan dan Arsip pada Balai Pemasyarakatan Kelas I Banjarmasin)
 **Balai Pemasyarakatan (Bapas) Kelas I Banjarmasin**
 
 Sistem informasi berbasis website untuk digitalisasi tata kelola administrasi perkantoran dan pembimbingan klien pemasyarakatan:
