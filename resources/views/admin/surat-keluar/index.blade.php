@@ -165,27 +165,7 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
-                            <select name="tujuan_surat" class="form-select form-control-figma" required>
-                                <option value="" selected disabled>Pilih Tujuan</option>
-                                <optgroup label="1. Kasubag TU">
-                                    <option value="Kasubag TU">Kasubag TU</option>
-                                    <option value="Kasubag TU - Urusan Kepegawaian">Kasubag TU - Urusan Kepegawaian</option>
-                                    <option value="Kasubag TU - Urusan Keuangan">Kasubag TU - Urusan Keuangan</option>
-                                    <option value="Kasubag TU - Urusan Umum">Kasubag TU - Urusan Umum</option>
-                                </optgroup>
-                                <optgroup label="2. Kasi Bimbingan Klien Anak">
-                                    <option value="Kasi Bimbingan Klien Anak">Kasi Bimbingan Klien Anak</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Registrasi">Kasi Bimbingan Klien Anak - Sub Seksi Registrasi</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas">Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimker">Kasi Bimbingan Klien Anak - Sub Seksi Bimker</option>
-                                </optgroup>
-                                <optgroup label="3. Kasi Bimbingan Klien Dewasa">
-                                    <option value="Kasi Bimbingan Klien Dewasa">Kasi Bimbingan Klien Dewasa</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi">Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker</option>
-                                </optgroup>
-                            </select>
+                            <input type="text" name="tujuan_surat" class="form-control form-control-figma" placeholder="Masukkan tujuan surat" required>
                         </div>
 
                         <div class="col-12">
@@ -283,27 +263,7 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">Tujuan <span class="text-danger">*</span></label>
-                            <select name="tujuan_surat" id="edit_sk_tujuan" class="form-select form-control-figma" required>
-                                <option value="" disabled>Pilih Tujuan</option>
-                                <optgroup label="1. Kasubag TU">
-                                    <option value="Kasubag TU">Kasubag TU</option>
-                                    <option value="Kasubag TU - Urusan Kepegawaian">Kasubag TU - Urusan Kepegawaian</option>
-                                    <option value="Kasubag TU - Urusan Keuangan">Kasubag TU - Urusan Keuangan</option>
-                                    <option value="Kasubag TU - Urusan Umum">Kasubag TU - Urusan Umum</option>
-                                </optgroup>
-                                <optgroup label="2. Kasi Bimbingan Klien Anak">
-                                    <option value="Kasi Bimbingan Klien Anak">Kasi Bimbingan Klien Anak</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Registrasi">Kasi Bimbingan Klien Anak - Sub Seksi Registrasi</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas">Kasi Bimbingan Klien Anak - Sub Seksi Bimkemas</option>
-                                    <option value="Kasi Bimbingan Klien Anak - Sub Seksi Bimker">Kasi Bimbingan Klien Anak - Sub Seksi Bimker</option>
-                                </optgroup>
-                                <optgroup label="3. Kasi Bimbingan Klien Dewasa">
-                                    <option value="Kasi Bimbingan Klien Dewasa">Kasi Bimbingan Klien Dewasa</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi">Kasi Bimbingan Klien Dewasa - Sub Seksi Registrasi</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimkemas</option>
-                                    <option value="Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker">Kasi Bimbingan Klien Dewasa - Sub Seksi Bimker</option>
-                                </optgroup>
-                            </select>
+                            <input type="text" name="tujuan_surat" id="edit_sk_tujuan" class="form-control form-control-figma" placeholder="Masukkan tujuan surat" required>
                         </div>
 
                         <div class="col-12">
@@ -600,18 +560,7 @@
             document.getElementById('edit_sk_tgl_keluar').value = data.tgl_keluar ? data.tgl_keluar.substring(0, 10) : '';
             document.getElementById('edit_sk_no_surat').value = data.no_surat;
             document.getElementById('edit_sk_perihal').value = data.perihal;
-            
-            let valTujuan = (data.tujuan_surat || '').replace(/Bimbingan Konseling/g, 'Bimbingan Klien');
-            const selectTujuan = document.getElementById('edit_sk_tujuan');
-            if (valTujuan) {
-                let exists = Array.from(selectTujuan.options).some(opt => opt.value === valTujuan);
-                if (!exists) {
-                    selectTujuan.add(new Option(valTujuan, valTujuan, true, true));
-                }
-                selectTujuan.value = valTujuan;
-            } else {
-                selectTujuan.selectedIndex = 0;
-            }
+            document.getElementById('edit_sk_tujuan').value = (data.tujuan_surat || '').replace(/Bimbingan Konseling/g, 'Bimbingan Klien');
 
             renderEditFilePreview('edit_sk_file_preview_box', 'sk_edit_filename', res.dokumen_url, res.file_name, res.file_ext, res.download_url);
 
