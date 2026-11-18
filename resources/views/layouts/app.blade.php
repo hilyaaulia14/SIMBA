@@ -854,10 +854,10 @@
         <div class="header-user-info">
             <div class="header-user-details d-none d-sm-block">
                 <div class="header-user-name">
-                    {{ Auth::user()->isAdmin() ? 'Admin Bapas' : 'Pembimbing Kemasyarakatan' }}
+                    {{ Auth::user()->nama_pegawai }}
                 </div>
                 <div class="header-user-role">
-                    {{ Auth::user()->email ?? (Auth::user()->isAdmin() ? 'Bapasbjm@gmail.com' : 'pembimbingkemasyarakatan@gmail.com') }}
+                    {{ Auth::user()->role->nama_role ?? (Auth::user()->isAdmin() ? 'Admin' : 'Pembimbing Kemasyarakatan') }}
                 </div>
             </div>
             <div class="dropdown">
@@ -866,7 +866,7 @@
                         <img src="{{ asset('storage/' . Auth::user()->foto) }}" alt="Avatar" class="header-avatar-circle" style="object-fit: cover;">
                     @else
                         <div class="header-avatar-circle">
-                            {{ Auth::user()->isAdmin() ? 'AB' : 'PK' }}
+                            {{ Auth::user()->initials }}
                         </div>
                     @endif
                 </button>

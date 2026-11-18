@@ -102,7 +102,7 @@
                                 @endif
                             </td>
                             <td style="white-space: normal; line-height: 1.5;">
-                                {{ $kh->catatan }}
+                                {{ $kh->catatan ?: '-' }}
                             </td>
                             <td class="text-center" style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
@@ -450,7 +450,13 @@
             document.getElementById('edit_kehadiran_tgl_hadir').value = res.tgl_hadir_ymd || kh.tgl_hadir.substring(0, 10);
             document.getElementById('edit_kehadiran_jam_hadir').value = kh.jam_hadir.substring(0, 5);
             document.getElementById('edit_kehadiran_status').value = res.status_kehadiran || kh.status_kehadiran || (res.jadwal && res.jadwal.status_bimbingan ? res.jadwal.status_bimbingan.nama_status : 'Hadir');
-            document.getElementById('edit_kehadiran_catatan').value = kh.catatan;
+            document.getElementById('edit_kehadiran_catatan').value = '';
+
+            const editFileInput = document.getElementById('edit_upload_presensi_file');
+            if (editFileInput) {
+                editFileInput.value = '';
+            }
+            document.getElementById('edit_presensi_filename').innerText = 'Klik untuk mengganti foto dokumentasi (Opsional)';
 
             const modal = new bootstrap.Modal(document.getElementById('modalEditKehadiran'));
             modal.show();
