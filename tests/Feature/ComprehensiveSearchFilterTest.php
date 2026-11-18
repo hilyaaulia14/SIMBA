@@ -94,22 +94,22 @@ class ComprehensiveSearchFilterTest extends TestCase
         // 10. Cari "laki laki" dan pastikan tidak ada perempuan
         $resLaki = $this->actingAs($this->pk)->get('/pk/klien?search=laki laki');
         $resLaki->assertStatus(200);
-        $resLaki->assertSee('Ahmad Supriyadi');
-        $resLaki->assertDontSee('Siti Rahmawati');
-        $resLaki->assertDontSee('Dewi Lestari');
+        $resLaki->assertSee('Salman BIN Bahtiar');
+        $resLaki->assertDontSee('Putri Agustina BINTI Dikansyah');
+        $resLaki->assertDontSee('Sifa Rahayu BINTI Mardani (ALM)');
 
         // 11. Cari "perempuan" dan pastikan tidak ada laki-laki
         $resPerempuan = $this->actingAs($this->pk)->get('/pk/klien?search=perempuan');
         $resPerempuan->assertStatus(200);
-        $resPerempuan->assertSee('Siti Rahmawati');
-        $resPerempuan->assertDontSee('Ahmad Supriyadi');
-        $resPerempuan->assertDontSee('Hendro Gunawan');
+        $resPerempuan->assertSee('Putri Agustina BINTI Dikansyah');
+        $resPerempuan->assertDontSee('Salman BIN Bahtiar');
+        $resPerempuan->assertDontSee('Darma BIN Imansyah');
 
-        // 12. Cari nama "ahmad" - hanya Ahmad Supriyadi yang muncul, Dewi Lestari TIDAK boleh muncul
+        // 12. Cari nama "ahmad" - hanya Rachmat Sandi BIN Ahmad Al Kusasi yang muncul, Putri Agustina TIDAK boleh muncul
         $resAhmad = $this->actingAs($this->pk)->get('/pk/klien?search=ahmad');
         $resAhmad->assertStatus(200);
-        $resAhmad->assertSee('Ahmad Supriyadi');
-        $resAhmad->assertDontSee('Dewi Lestari');
+        $resAhmad->assertSee('Rachmat Sandi BIN Ahmad Al Kusasi (ALM)');
+        $resAhmad->assertDontSee('Putri Agustina BINTI Dikansyah');
 
         $klien->delete();
     }

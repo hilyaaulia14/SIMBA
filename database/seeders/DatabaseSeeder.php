@@ -121,68 +121,103 @@ class DatabaseSeeder extends Seeder
 
         // 7. Klien
         $klien1 = Klien::create([
-            'no_register' => 'REG/2026/BPS/001',
-            'nama_klien' => 'Ahmad Supriyadi',
-            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
-            'telepon' => '0812-3456-7890',
+            'no_register' => '1976/DW/XI/2026',
+            'nama_klien' => 'Mokhammad Anhar Sugiarto BIN Harimotohar (ALM)',
+            'asal_upt' => 'LAPAS KELAS IIB BANJARBARU',
             'jenis_kelamin' => 'Laki-laki',
-            'tgl_lahir' => '1995-04-12',
-            'jam_mulai' => '09:00:00',
-            'tindak_pidana' => 'Pencurian (Pasal 363 KUHP)',
+            'tindak_pidana' => 'Narkotika',
             'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
-            'alamat' => 'Jl. Kelayan B No. 12, Banjarmasin Selatan',
+            'alamat' => 'Jl. A. Yani Km. 57,800 Gg. Balu Rt. 002 Rw. 001 Desa Bawahan Selan Kec. Mataraman Kab. Banjar Kalsel',
         ]);
 
         $klien2 = Klien::create([
-            'no_register' => 'REG/2026/BPS/002',
-            'nama_klien' => 'Siti Rahmawati',
-            'asal_upt' => 'Lapas Perempuan Kelas IIA Martapura',
-            'telepon' => '0812-3456-7890',
-            'jenis_kelamin' => 'Perempuan',
-            'tgl_lahir' => '1998-08-25',
-            'jam_mulai' => '10:00:00',
-            'tindak_pidana' => 'Penipuan / Penggelapan (Pasal 378 KUHP)',
-            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
-            'alamat' => 'Jl. Veteran No. 45, Banjarmasin Timur',
+            'no_register' => '1977/DW/XI/2026',
+            'nama_klien' => 'Salman BIN Bahtiar',
+            'asal_upt' => 'LAPAS KELAS IIB BANJARBARU',
+            'jenis_kelamin' => 'Laki-laki',
+            'tindak_pidana' => 'Narkotika',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'alamat' => 'Jl. Pekapuran Raya A Rt. 030 Rw. 002 Kel. Karang Mekar Kec. Banjarmasin Timur Kota Banjarmasin Kalsel',
         ]);
 
         $klien3 = Klien::create([
-            'no_register' => 'REG/2026/BPS/003',
-            'nama_klien' => 'Muhammad Rizki Pratama',
-            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
-            'telepon' => '0812-3456-7890',
+            'no_register' => '1978/DW/XI/2026',
+            'nama_klien' => 'Darma BIN Imansyah',
+            'asal_upt' => 'RUTAN KELAS IIB MARABAHAN',
             'jenis_kelamin' => 'Laki-laki',
-            'tgl_lahir' => '2001-11-03',
-            'jam_mulai' => '10:30:00',
-            'tindak_pidana' => 'Narkotika (UU No. 35/2009)',
+            'tindak_pidana' => 'Korupsi',
             'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
-            'alamat' => 'Jl. Belitung Darat No. 88, Banjarmasin Barat',
+            'alamat' => 'Jl.Perintis Rt 003/001 Desa Pulau Karya Kecamatan Tabukan Kabupaten Barito Kuala',
         ]);
 
         $klien4 = Klien::create([
-            'no_register' => 'REG/2026/BPS/004',
-            'nama_klien' => 'Hendro Gunawan',
-            'asal_upt' => 'Lapas Narkotika Kelas IIA Karang Intan',
-            'telepon' => '0812-3456-7890',
+            'no_register' => '1979/DW/XI/2026',
+            'nama_klien' => 'Suhaimi ALS Imi BIN Suliyadi (Alm)',
+            'asal_upt' => 'RUTAN KELAS IIB MARABAHAN',
             'jenis_kelamin' => 'Laki-laki',
-            'tgl_lahir' => '1989-02-18',
-            'jam_mulai' => '13:30:00',
-            'tindak_pidana' => 'Penganiayaan (Pasal 351 KUHP)',
+            'tindak_pidana' => 'Narkotika',
             'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
-            'alamat' => 'Jl. Sungai Andai No. 10, Banjarmasin Utara',
+            'alamat' => 'Komp. Handil Bakti Jalur Lii No. 08 Rt 018 Rw 002 Kelurahan Berangas Timur Kecamatan Alalak Kabupaten Barito Kuala',
         ]);
 
         $klien5 = Klien::create([
-            'no_register' => 'REG/2026/BPS/005',
-            'nama_klien' => 'Dewi Lestari',
-            'asal_upt' => 'Lapas Perempuan Kelas IIA Martapura',
-            'telepon' => '0812-3456-7890',
-            'jenis_kelamin' => 'Perempuan',
-            'tgl_lahir' => '1996-07-09',
-            'jam_mulai' => '14:00:00',
-            'tindak_pidana' => 'ITE / Transaksi Elektronik',
+            'no_register' => '1980/DW/XI/2026',
+            'nama_klien' => 'Heriansyah ALS Heri BIN Riduansyah (ALM)',
+            'asal_upt' => 'LAPAS TANJUNG',
+            'jenis_kelamin' => 'Laki-laki',
+            'tindak_pidana' => 'Narkotika',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'alamat' => 'Jl. Kelayan B Tengah Gg. Gembira Rt. 016 Rw. 002 Kel. Kelayan Tengah Kec. Banjarmasin Selatan Kota Banjarmasin',
+        ]);
+
+        Klien::create([
+            'no_register' => '1800/DW/XI/2026',
+            'nama_klien' => 'Zaenal Abidin BIN Koderi (ALM)',
+            'asal_upt' => 'LAPAS KELAS IIB BANJARBARU',
+            'jenis_kelamin' => 'Laki-laki',
+            'tindak_pidana' => 'Narkotika',
             'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
-            'alamat' => 'Jl. Pangeran Hidayatullah No. 21, Banjarmasin',
+            'alamat' => 'Jln. Sidomulyo Raya III Komp.Astp Blok B NO.16 RT.07 RW.09 Kel. Landasan Ulin Kota Banjarbaru',
+        ]);
+
+        Klien::create([
+            'no_register' => '1070/DW/VIII/2026',
+            'nama_klien' => 'Rachmat Sandi BIN Ahmad Al Kusasi (ALM)',
+            'asal_upt' => 'RUTAN KELAS IIB PELAIHARI',
+            'jenis_kelamin' => 'Laki-laki',
+            'tindak_pidana' => 'Narkotika',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Komplek Griya Indah E No. 07 Rt. 004 Rw. 001 Kel. Sungai Paring Kec. Martapura Kab. Banjar Prov. Kalimantan Selatan',
+        ]);
+
+        Klien::create([
+            'no_register' => '1972/DW/XI/2026',
+            'nama_klien' => 'Supi Yadi BIN Syah Yani',
+            'asal_upt' => 'RUTAN KELAS IIB PELAIHARI',
+            'jenis_kelamin' => 'Laki-laki',
+            'tindak_pidana' => 'Pencurian',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Jl. A. Yani Rt. 005 Rw. 002 Desa Jorong Kec.jorong Kab. Tanah Laut Prov. Kalimantan Selatan',
+        ]);
+
+        Klien::create([
+            'no_register' => '1135/DW/IX/2026',
+            'nama_klien' => 'Putri Agustina BINTI Dikansyah',
+            'asal_upt' => 'RUTAN KELAS IIB MARABAHAN',
+            'jenis_kelamin' => 'Perempuan',
+            'tindak_pidana' => 'Penggelapan',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Jl. Aes. Nasution Rt 004 Rw 001 Kelurahan Marabahan Kota Kecamatan Marabahan Kabupaten Barito Kuala Provinsi Kalimantan Selatan',
+        ]);
+
+        Klien::create([
+            'no_register' => '1136/DW/IX/2026',
+            'nama_klien' => 'Sifa Rahayu BINTI Mardani (ALM)',
+            'asal_upt' => 'RUTAN KELAS IIB MARABAHAN',
+            'jenis_kelamin' => 'Perempuan',
+            'tindak_pidana' => 'Penggelapan',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Jl. Jendral Sudirman Rt 015 Rw 001 Kelurahan Marabahan Kota Kecamatan Marabahan Kabupaten Barito Kuala Provinsi Kalimantan Selatan',
         ]);
 
         // 8. Atur Jadwal
@@ -220,7 +255,7 @@ class DatabaseSeeder extends Seeder
         $jadwal1 = JadwalBimbingan::create([
             'id_pegawai' => $pk1->id_pegawai,
             'id_klien' => $klien1->id_klien,
-            'id_status_bimbingan' => $statusTerlaksana->id_status_bimbingan,
+            'id_status_bimbingan' => $statusHadir->id_status_bimbingan,
             'tgl_bimbingan' => Carbon::now()->subDays(7)->toDateString(),
             'jam_mulai' => '09:00:00',
             'keterangan' => 'Bimbingan Tahap Awal: Penjelasan hak, kewajiban, dan tata tertib wajib lapor klien pemasyarakatan.',
@@ -229,7 +264,7 @@ class DatabaseSeeder extends Seeder
         $jadwal2 = JadwalBimbingan::create([
             'id_pegawai' => $pk1->id_pegawai,
             'id_klien' => $klien2->id_klien,
-            'id_status_bimbingan' => $statusTerlaksana->id_status_bimbingan,
+            'id_status_bimbingan' => $statusHadir->id_status_bimbingan,
             'tgl_bimbingan' => Carbon::now()->subDays(3)->toDateString(),
             'jam_mulai' => '10:00:00',
             'keterangan' => 'Bimbingan Kemandirian: Evaluasi pelatihan keterampilan kerja dan aktivitas wirausaha rumahan.',
@@ -238,7 +273,7 @@ class DatabaseSeeder extends Seeder
         $jadwal3 = JadwalBimbingan::create([
             'id_pegawai' => $pk1->id_pegawai,
             'id_klien' => $klien3->id_klien,
-            'id_status_bimbingan' => $statusDijadwalkan->id_status_bimbingan,
+            'id_status_bimbingan' => $statusTerjadwal->id_status_bimbingan,
             'tgl_bimbingan' => Carbon::today()->toDateString(),
             'jam_mulai' => '10:30:00',
             'keterangan' => 'Bimbingan Kepribadian: Konseling pencegahan relaps dan penguatan ketahanan mental bersama keluarga.',
@@ -247,7 +282,7 @@ class DatabaseSeeder extends Seeder
         $jadwal4 = JadwalBimbingan::create([
             'id_pegawai' => $pk1->id_pegawai,
             'id_klien' => $klien4->id_klien,
-            'id_status_bimbingan' => $statusDijadwalkan->id_status_bimbingan,
+            'id_status_bimbingan' => $statusTerjadwal->id_status_bimbingan,
             'tgl_bimbingan' => Carbon::today()->addDays(2)->toDateString(),
             'jam_mulai' => '13:30:00',
             'keterangan' => 'Bimbingan Kesadaran Hukum dan Pengendalian Emosi.',
@@ -256,7 +291,7 @@ class DatabaseSeeder extends Seeder
         $jadwal5 = JadwalBimbingan::create([
             'id_pegawai' => $pk2->id_pegawai,
             'id_klien' => $klien5->id_klien,
-            'id_status_bimbingan' => $statusMenunggu->id_status_bimbingan,
+            'id_status_bimbingan' => $statusDijadwalkanUlang->id_status_bimbingan,
             'tgl_bimbingan' => Carbon::today()->addDays(4)->toDateString(),
             'jam_mulai' => '14:00:00',
             'keterangan' => 'Sesi Evaluasi Bimbingan Berkala Bulanan.',
