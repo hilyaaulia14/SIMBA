@@ -162,7 +162,7 @@ class ComprehensiveSearchFilterTest extends TestCase
             'id_klien' => $klien->nama_klien,
             'tgl_bimbingan' => '2026-11-21',
             'jam_mulai' => '10:00',
-            'keterangan' => 'Jadwal via ketik nama',
+            'keterangan' => '',
         ]);
         $res2->assertRedirect(route('pk.atur-jadwal.index'));
 

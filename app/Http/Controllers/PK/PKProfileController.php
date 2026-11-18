@@ -26,13 +26,14 @@ class PKProfileController extends Controller
             'nip_usn' => 'required|string|max:30|unique:pegawai,nip_usn,' . $pk->id_pegawai . ',id_pegawai',
             'jabatan' => 'required|string|max:50',
             'alamat' => 'nullable|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
         ], [
             'nama_pegawai.required' => 'Nama lengkap beserta gelar wajib diisi.',
             'nip_usn.required' => 'NIP (Username) wajib diisi.',
             'nip_usn.unique' => 'NIP sudah digunakan oleh pegawai lain.',
             'jabatan.required' => 'Jabatan fungsional PK wajib diisi.',
             'foto.image' => 'Berkas foto harus berupa gambar.',
+            'foto.mimes' => 'Format foto harus JPG, JPEG, PNG, WEBP, atau GIF.',
             'foto.max' => 'Ukuran foto maksimal 2MB.',
         ]);
 

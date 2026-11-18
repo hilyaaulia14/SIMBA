@@ -84,7 +84,7 @@
                                     <button class="btn-action-square" title="Edit Jadwal" onclick="showEditJadwal({{ $jadwal->id_jadwal_bimbingan }})">
                                         <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
-                                    <button class="btn-action-square" title="Catatan Kehadiran" onclick="openCatatanKehadiran({{ $jadwal->id_jadwal_bimbingan }}, '{{ addslashes($jadwal->klien->nama_klien ?? '') }}', '{{ $jadwal->tgl_bimbingan->translatedFormat('d F Y') }}', '{{ substr($jadwal->jam_mulai, 0, 5) }}')">
+                                    <button class="btn-action-square" title="Catatan Kehadiran" onclick="openCatatanKehadiran({{ $jadwal->id_jadwal_bimbingan }}, {{ $jadwal->id_klien }}, '{{ addslashes($jadwal->klien->nama_klien ?? '') }}', '{{ $jadwal->tgl_bimbingan->translatedFormat('d F Y') }}', '{{ substr($jadwal->jam_mulai, 0, 5) }}')">
                                         <img src="{{ asset('assets/images/kehadiran.svg') }}" alt="Catatan Kehadiran">
                                     </button>
                                 </div>
@@ -241,17 +241,17 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Bukti Dokumentasi <span class="text-danger">*</span></label>
+                            <label class="form-label-figma">Bukti Dokumentasi</label>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file').click()">
                                 <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
-                                <span class="small text-muted d-block" id="presensi_filename">Klik untuk mengunggah bukti</span>
+                                <span class="small text-muted d-block" id="presensi_filename">Klik untuk mengunggah bukti (JPG, PNG, WEBP, atau PDF)</span>
                                 <input type="file" name="foto_kehadiran" id="upload_presensi_file" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename')">
                             </div>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label-figma">Keterangan</label>
-                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal." required>
+                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal.">
                         </div>
                     </div>
                 </div>
@@ -311,17 +311,25 @@
 
             let fotoBuktiHtml = '';
             if (fotoUrl) {
+                const isPdf = fotoUrl.toLowerCase().endsWith('.pdf');
+                const mediaPreview = isPdf
+                    ? `<a href="${fotoUrl}" target="_blank" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2 px-3 py-2" style="border-radius: 8px;">
+                            <i class="bi bi-file-earmark-pdf-fill fs-5"></i>
+                            <span>Buka Dokumen PDF</span>
+                       </a>`
+                    : `<a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                            <img src="${fotoUrl}" alt="Bukti Kehadiran" class="rounded-3 shadow-sm" style="max-height: 140px; max-width: 220px; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
+                       </a>`;
+
                 fotoBuktiHtml = `
                     <div class="col-12 mt-3 pt-3 border-top">
-                        <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">Foto Bukti Kehadiran</div>
+                        <div class="form-label-figma mb-2" style="font-weight: 600; color: #102A45; font-size: 0.88rem;">Bukti Dokumentasi Kehadiran</div>
                         <div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
                             <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
-                                <a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
-                                    <img src="${fotoUrl}" alt="Bukti Kehadiran" class="rounded-3 shadow-sm" style="max-height: 140px; max-width: 220px; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
-                                </a>
+                                ${mediaPreview}
                                 <div class="small" style="color: #475569;">
                                     <div class="mb-1"><strong class="text-dark">Waktu Kehadiran:</strong> ${data.kehadiran && data.kehadiran.jam_hadir ? data.kehadiran.jam_hadir.substring(0, 5) : '-'} WITA</div>
-                                    <div class="mb-1"><strong class="text-dark">Tanggal Kehadiran:</strong> ${data.kehadiran && data.kehadiran.tgl_hadir ? data.kehadiran.tgl_hadir.substring(0, 10) : '-'}</div>
+                                    <div class="mb-1"><strong class="text-dark">Tanggal Kehadiran:</strong> ${res.tgl_hadir_ymd || (data.kehadiran && data.kehadiran.tgl_hadir ? data.kehadiran.tgl_hadir.substring(0, 10) : '-')}</div>
                                     ${data.kehadiran && data.kehadiran.catatan ? `<div class="mt-1"><strong class="text-dark">Keterangan:</strong> ${data.kehadiran.catatan}</div>` : ''}
                                 </div>
                             </div>
@@ -351,7 +359,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Tanggal</div>
-                        <div class="fw-medium text-dark">${data.tgl_bimbingan ? data.tgl_bimbingan.substring(0, 10) : '-'}</div>
+                        <div class="fw-medium text-dark">${res.tgl_bimbingan_ymd || (data.tgl_bimbingan ? data.tgl_bimbingan.substring(0, 10) : '-')}</div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Waktu</div>
@@ -390,7 +398,7 @@
             const data = res.jadwal;
             document.getElementById('formEditJadwal').action = `/pk/jadwal/${data.id_jadwal_bimbingan}`;
             document.getElementById('edit_jadwal_id_klien').value = data.id_klien;
-            document.getElementById('edit_jadwal_tgl').value = data.tgl_bimbingan ? data.tgl_bimbingan.substring(0, 10) : '';
+            document.getElementById('edit_jadwal_tgl').value = res.tgl_bimbingan_ymd || (data.tgl_bimbingan ? data.tgl_bimbingan.substring(0, 10) : '');
             document.getElementById('edit_jadwal_jam').value = data.jam_mulai ? data.jam_mulai.substring(0, 5) : '09:00';
             document.getElementById('edit_jadwal_id_status').value = data.id_status_bimbingan || 4;
             document.getElementById('edit_jadwal_keterangan').value = data.keterangan || '';
@@ -400,15 +408,17 @@
         });
     }
 
-    function openCatatanKehadiran(id, namaKlien, tgl, jam) {
+    function openCatatanKehadiran(id, idKlien, namaKlien, tgl, jam) {
         document.getElementById('kehadiran_id_jadwal').value = id;
+        document.getElementById('kehadiran_id_klien').value = idKlien;
+        document.getElementById('kehadiran_jam_hadir').value = jam;
         document.getElementById('kehadiran_subtitle').innerText = `${namaKlien} - ${tgl}, ${jam}`;
-        
-        fetch(`/pk/jadwal/${id}`, { headers: { 'Accept': 'application/json' } })
-            .then(res => res.json())
-            .then(res => {
-                document.getElementById('kehadiran_id_klien').value = res.jadwal.id_klien;
-            });
+
+        const fileInput = document.getElementById('upload_presensi_file');
+        if (fileInput) {
+            fileInput.value = '';
+        }
+        document.getElementById('presensi_filename').innerText = 'Klik untuk mengunggah bukti (JPG, PNG, WEBP, atau PDF)';
 
         const modal = new bootstrap.Modal(document.getElementById('modalCatatanKehadiran'));
         modal.show();

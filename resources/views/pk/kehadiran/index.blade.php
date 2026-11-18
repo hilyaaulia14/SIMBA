@@ -90,7 +90,13 @@
                             </td>
                             <td class="text-center" style="text-align: center;">
                                 @if($kh->foto_url)
-                                    <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'badge bg-light text-muted border\'>Tanpa Foto</span>';">
+                                    @if(str_ends_with(strtolower($kh->foto_kehadiran ?? ''), '.pdf'))
+                                        <a href="{{ $kh->foto_url }}" target="_blank" class="badge text-decoration-none" style="background-color: #FEE2E2; color: #DC2626; font-size: 0.75rem; border-radius: 6px; padding: 0.35rem 0.6rem; font-weight: 500;" title="Buka Dokumen PDF">
+                                            <i class="bi bi-file-earmark-pdf-fill me-1"></i>PDF
+                                        </a>
+                                    @else
+                                        <img src="{{ $kh->foto_url }}" alt="Bukti Hadir" class="rounded shadow-sm" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer; border: 2px solid #E2E8F0;" onclick="previewFoto('{{ $kh->foto_url }}', '{{ addslashes($kh->klien->nama_klien ?? '') }}', '{{ $kh->tgl_hadir->format('d/m/Y') }}')" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'badge bg-light text-muted border\'>Tanpa Foto</span>';">
+                                    @endif
                                 @else
                                     <span class="badge" style="background-color: #F1F5F9; color: #64748B; font-size: 0.75rem; border-radius: 6px; padding: 0.35rem 0.6rem; font-weight: 400;">Tanpa Foto</span>
                                 @endif
@@ -176,17 +182,17 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Bukti Dokumentasi <span class="text-danger">*</span></label>
+                            <label class="form-label-figma">Bukti Dokumentasi</label>
                             <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file_kehadiran').click()">
                                 <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
-                                <span class="small text-muted d-block" id="presensi_filename_kehadiran">Klik untuk mengunggah bukti</span>
+                                <span class="small text-muted d-block" id="presensi_filename_kehadiran">Klik untuk mengunggah bukti (JPG, PNG, WEBP, atau PDF)</span>
                                 <input type="file" name="foto_kehadiran" id="upload_presensi_file_kehadiran" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename_kehadiran')">
                             </div>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label-figma">Keterangan</label>
-                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal." required>
+                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal.">
                         </div>
 
                         <input type="hidden" name="tgl_hadir" value="{{ date('Y-m-d') }}">
@@ -295,7 +301,7 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">Keterangan</label>
-                            <input type="text" name="catatan" id="edit_kehadiran_catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" required>
+                            <input type="text" name="catatan" id="edit_kehadiran_catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)">
                         </div>
 
                         <input type="hidden" name="id_jadwal_bimbingan" id="edit_kehadiran_id_jadwal">
@@ -320,7 +326,7 @@
                 </div>
                 <h4 class="fw-bold mb-2" style="color: #102A45; font-size: 1.5rem;">Hapus Presensi?</h4>
                 <p class="text-dark small mb-4" style="line-height: 1.5;">
-                    Catatan kehadiran klien <strong id="deleteKehadiranKlien"></strong> akan dihapus permanen dari sistem.<br>Tindakan ini tidak dapat dibatalkan.
+                    Catatan kehadiran klien <strong id="deleteKehadiranKlien"></strong> beserta jadwal bimbingan terkait akan dihapus permanen dari sistem.<br>Tindakan ini tidak dapat dibatalkan.
                 </p>
                 <form id="formDeleteKehadiran" method="POST" class="d-flex justify-content-center gap-3">
                     @csrf
@@ -369,15 +375,26 @@
             else if (sLower.includes('ulang')) statusClass = 'status-pill-dijadwalkan-ulang';
             else if (sLower.includes('terjadwal')) statusClass = 'status-pill-terjadwal';
 
-            let fotoSection = fotoUrl 
-                ? `<div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
-                        <a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
-                            <img src="${fotoUrl}" class="rounded-3 shadow-sm" style="max-height: 180px; max-width: 100%; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
-                        </a>
-                   </div>`
-                : `<div class="p-3 text-center rounded-3 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1;">
-                        <i class="bi bi-camera me-1"></i> Tidak ada unggahan foto fisik dokumentasi.
+            let fotoSection = '';
+            if (fotoUrl) {
+                const isPdf = fotoUrl.toLowerCase().endsWith('.pdf');
+                fotoSection = isPdf
+                    ? `<div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                            <a href="${fotoUrl}" target="_blank" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center gap-2 px-3 py-2" style="border-radius: 8px;">
+                                <i class="bi bi-file-earmark-pdf-fill fs-5"></i>
+                                <span>Buka Dokumen PDF</span>
+                            </a>
+                       </div>`
+                    : `<div class="p-3 rounded-3" style="background-color: #F8FAFC; border: 1px solid #E2E8F0;">
+                            <a href="${fotoUrl}" target="_blank" title="Klik untuk membuka ukuran penuh">
+                                <img src="${fotoUrl}" class="rounded-3 shadow-sm" style="max-height: 180px; max-width: 100%; object-fit: contain; cursor: pointer; border: 2px solid #CBD5E1;">
+                            </a>
+                       </div>`;
+            } else {
+                fotoSection = `<div class="p-3 text-center rounded-3 text-muted small" style="background-color: #F8FAFC; border: 1px dashed #CBD5E1;">
+                        <i class="bi bi-camera me-1"></i> Tidak ada unggahan bukti dokumentasi.
                    </div>`;
+            }
 
             document.getElementById('detail_kehadiran_subtitle').innerText = (klien ? klien.nama_klien : 'Klien') + ' - ' + res.formatted_tgl;
             document.getElementById('detailKehadiranContent').innerHTML = `
@@ -392,10 +409,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-label-figma">Tanggal Hadir</div>
-                        <div class="fw-medium text-dark">${kh.tgl_hadir ? kh.tgl_hadir.substring(0, 10) : '-'}</div>
+                        <div class="fw-medium text-dark">${res.tgl_hadir_ymd || (kh.tgl_hadir ? kh.tgl_hadir.substring(0, 10) : '-')}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-label-figma">Jam Kedatangan</div>
+                        <div class="form-label-figma">Jam</div>
                         <div class="fw-medium text-dark">${kh.jam_hadir ? kh.jam_hadir.substring(0, 5) : '-'} WITA</div>
                     </div>
                     <div class="col-md-6">
@@ -430,7 +447,7 @@
             document.getElementById('formEditKehadiran').action = `/pk/kehadiran/${kh.id_kehadiran}`;
             document.getElementById('edit_kehadiran_id_klien').value = kh.id_klien;
             document.getElementById('edit_kehadiran_id_jadwal').value = kh.id_jadwal_bimbingan || '';
-            document.getElementById('edit_kehadiran_tgl_hadir').value = kh.tgl_hadir.substring(0, 10);
+            document.getElementById('edit_kehadiran_tgl_hadir').value = res.tgl_hadir_ymd || kh.tgl_hadir.substring(0, 10);
             document.getElementById('edit_kehadiran_jam_hadir').value = kh.jam_hadir.substring(0, 5);
             document.getElementById('edit_kehadiran_status').value = res.status_kehadiran || kh.status_kehadiran || (res.jadwal && res.jadwal.status_bimbingan ? res.jadwal.status_bimbingan.nama_status : 'Hadir');
             document.getElementById('edit_kehadiran_catatan').value = kh.catatan;

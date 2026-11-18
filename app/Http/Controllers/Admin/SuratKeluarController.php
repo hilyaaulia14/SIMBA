@@ -57,14 +57,14 @@ class SuratKeluarController extends Controller
             'perihal' => 'required|string|max:255',
             'lampiran' => 'nullable|string|max:100',
             'keterangan' => 'nullable|string|max:255',
-            'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,svg|max:10240',
+            'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,webp,svg|max:10240',
         ], [
             'no_surat.required' => 'Nomor agenda / surat wajib diisi.',
             'tujuan_surat.required' => 'Tujuan / penerima surat wajib diisi.',
             'tgl_keluar.required' => 'Tanggal keluar wajib diisi.',
             'perihal.required' => 'Perihal surat wajib diisi.',
             'upload_dokumen.max' => 'Ukuran berkas tidak boleh melebihi 10MB.',
-            'upload_dokumen.mimes' => 'Format berkas harus PDF, DOC, DOCX, JPG, atau svg.',
+            'upload_dokumen.mimes' => 'Format berkas harus PDF, DOC, DOCX, JPG, JPEG, PNG, atau WEBP.',
         ]);
 
         if (empty($validated['id_surat'])) {
@@ -118,13 +118,14 @@ class SuratKeluarController extends Controller
             'perihal' => 'required|string|max:255',
             'lampiran' => 'nullable|string|max:100',
             'keterangan' => 'nullable|string|max:255',
-            'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,svg|max:10240',
+            'upload_dokumen' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png,webp,svg|max:10240',
         ], [
             'no_surat.required' => 'Nomor agenda / surat wajib diisi.',
             'tujuan_surat.required' => 'Tujuan / penerima surat wajib diisi.',
             'tgl_keluar.required' => 'Tanggal keluar wajib diisi.',
             'perihal.required' => 'Perihal surat wajib diisi.',
             'upload_dokumen.max' => 'Ukuran berkas tidak boleh melebihi 10MB.',
+            'upload_dokumen.mimes' => 'Format berkas harus PDF, DOC, DOCX, JPG, JPEG, PNG, atau WEBP.',
         ]);
 
         if (empty($validated['id_surat'])) {

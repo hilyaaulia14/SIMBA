@@ -71,15 +71,16 @@ class KehadiranKlienController extends Controller
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
             'status_kehadiran' => 'nullable|string|max:50',
-            'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
-            'catatan' => 'required|string|max:255',
+            'foto_kehadiran' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,bmp,svg,pdf|max:10240',
+            'catatan' => 'nullable|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
+            'id_klien.exists' => 'Data klien tidak ditemukan.',
             'tgl_hadir.required' => 'Tanggal hadir wajib diisi.',
             'jam_hadir.required' => 'Jam kedatangan wajib diisi.',
-            'catatan.required' => 'Catatan keterangan / evaluasi kehadiran wajib diisi.',
-            'foto_kehadiran.image' => 'Berkas bukti kehadiran harus berupa foto gambar.',
-            'foto_kehadiran.max' => 'Ukuran foto maksimal 5MB.',
+            'foto_kehadiran.file' => 'Berkas bukti kehadiran tidak valid.',
+            'foto_kehadiran.mimes' => 'Format bukti dokumentasi harus berupa gambar (JPG, JPEG, PNG, WEBP, GIF, BMP, SVG) atau PDF.',
+            'foto_kehadiran.max' => 'Ukuran berkas bukti dokumentasi maksimal 10MB.',
         ]);
 
         if (empty($validated['status_kehadiran'])) {
@@ -94,12 +95,32 @@ class KehadiranKlienController extends Controller
         }
 
         // Auto link schedule if not provided
-        if (empty($validated['id_jadwal_bimbingan'])) {
-            $matchingJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
+        $linkedJadwal = null;
+        if (!empty($validated['id_jadwal_bimbingan'])) {
+            $linkedJadwal = JadwalBimbingan::find($validated['id_jadwal_bimbingan']);
+        } else {
+            $linkedJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
                 ->whereDate('tgl_bimbingan', $validated['tgl_hadir'])
                 ->first();
-            if ($matchingJadwal) {
-                $validated['id_jadwal_bimbingan'] = $matchingJadwal->id_jadwal_bimbingan;
+            if ($linkedJadwal) {
+                $validated['id_jadwal_bimbingan'] = $linkedJadwal->id_jadwal_bimbingan;
+            }
+        }
+
+        // Sesuaikan jam kedatangan dengan jam mulai pada saat pembuatan jadwal
+        if ($linkedJadwal && !empty($linkedJadwal->jam_mulai)) {
+            $validated['jam_hadir'] = substr($linkedJadwal->jam_mulai, 0, 5);
+        } else {
+            $latestJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
+                ->latest('id_jadwal_bimbingan')
+                ->first();
+            if ($latestJadwal && !empty($latestJadwal->jam_mulai)) {
+                $validated['jam_hadir'] = substr($latestJadwal->jam_mulai, 0, 5);
+            } else {
+                $klienModel = Klien::find($validated['id_klien']);
+                if ($klienModel && !empty($klienModel->jam_mulai)) {
+                    $validated['jam_hadir'] = substr($klienModel->jam_mulai, 0, 5);
+                }
             }
         }
 
@@ -132,6 +153,7 @@ class KehadiranKlienController extends Controller
                 'foto_url' => $kehadiran->foto_url,
                 'status_kehadiran' => $kehadiran->status_kehadiran ?? ($kehadiran->jadwalBimbingan->statusBimbingan->nama_status ?? 'Hadir'),
                 'formatted_tgl' => $kehadiran->tgl_hadir->translatedFormat('l, d F Y'),
+                'tgl_hadir_ymd' => $kehadiran->tgl_hadir->format('Y-m-d'),
                 'klien' => $kehadiran->klien,
                 'jadwal' => $kehadiran->jadwalBimbingan,
             ]);
@@ -150,8 +172,16 @@ class KehadiranKlienController extends Controller
             'tgl_hadir' => 'required|date',
             'jam_hadir' => 'required',
             'status_kehadiran' => 'nullable|string|max:50',
-            'foto_kehadiran' => 'nullable|image|mimes:jpeg,svg,jpg,webp|max:5120',
-            'catatan' => 'required|string|max:255',
+            'foto_kehadiran' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,bmp,svg,pdf|max:10240',
+            'catatan' => 'nullable|string|max:255',
+        ], [
+            'id_klien.required' => 'Klien wajib dipilih.',
+            'id_klien.exists' => 'Data klien tidak ditemukan.',
+            'tgl_hadir.required' => 'Tanggal hadir wajib diisi.',
+            'jam_hadir.required' => 'Jam kedatangan wajib diisi.',
+            'foto_kehadiran.file' => 'Berkas bukti kehadiran tidak valid.',
+            'foto_kehadiran.mimes' => 'Format bukti dokumentasi harus berupa gambar (JPG, JPEG, PNG, WEBP, GIF, BMP, SVG) atau PDF.',
+            'foto_kehadiran.max' => 'Ukuran berkas bukti dokumentasi maksimal 10MB.',
         ]);
 
         if (empty($validated['status_kehadiran'])) {
@@ -189,6 +219,9 @@ class KehadiranKlienController extends Controller
     public function destroy($id)
     {
         $kehadiran = KehadiranKlien::findOrFail($id);
+        $idJadwal = $kehadiran->id_jadwal_bimbingan;
+        $idKlien = $kehadiran->id_klien;
+        $tglHadir = $kehadiran->tgl_hadir;
 
         if ($kehadiran->foto_kehadiran && Storage::disk('public')->exists($kehadiran->foto_kehadiran)) {
             Storage::disk('public')->delete($kehadiran->foto_kehadiran);
@@ -196,6 +229,15 @@ class KehadiranKlienController extends Controller
 
         $kehadiran->delete();
 
-        return redirect()->route('pk.kehadiran.index')->with('success', 'Catatan kehadiran berhasil dihapus.');
+        // Hapus juga jadwal bimbingan yang terkait agar data di Jadwal Bimbingan ikut terhapus
+        if ($idJadwal) {
+            JadwalBimbingan::where('id_jadwal_bimbingan', $idJadwal)->delete();
+        } else {
+            JadwalBimbingan::where('id_klien', $idKlien)
+                ->whereDate('tgl_bimbingan', $tglHadir)
+                ->delete();
+        }
+
+        return redirect()->route('pk.kehadiran.index')->with('success', 'Catatan kehadiran dan jadwal bimbingan terkait berhasil dihapus.');
     }
 }

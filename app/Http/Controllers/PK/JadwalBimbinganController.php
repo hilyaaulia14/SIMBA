@@ -110,6 +110,8 @@ class JadwalBimbinganController extends Controller
                 'success' => true,
                 'jadwal' => $jadwal,
                 'formatted_date' => $jadwal->tgl_bimbingan->translatedFormat('l, d F Y'),
+                'tgl_bimbingan_ymd' => $jadwal->tgl_bimbingan->format('Y-m-d'),
+                'tgl_hadir_ymd' => ($jadwal->kehadiran && $jadwal->kehadiran->tgl_hadir) ? $jadwal->kehadiran->tgl_hadir->format('Y-m-d') : null,
                 'klien' => $jadwal->klien,
                 'status' => $jadwal->statusBimbingan,
                 'pegawai' => $jadwal->pegawai,
