@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-            @if(request()->filled('search') || request()->filled('tgl_masuk') || request()->filled('id_surat'))
+            @if(request()->filled('search') || request()->filled('tgl_masuk') || request()->filled('tanggal') || request()->filled('id_surat'))
                 <a href="{{ route('admin.surat-masuk.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
                     Reset
                 </a>

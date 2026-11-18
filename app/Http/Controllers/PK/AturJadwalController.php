@@ -37,15 +37,45 @@ class AturJadwalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_klien' => 'required|exists:klien,id_klien',
+            'id_klien' => 'required',
             'hari' => 'nullable|in:Senin,Selasa,Rabu,Kamis,Jumat',
             'tgl_bimbingan' => 'nullable|date',
             'jam_mulai' => 'required',
             'keterangan' => 'nullable|string|max:255',
         ], [
-            'id_klien.required' => 'Klien wajib dipilih.',
+            'id_klien.required' => 'Klien wajib dipilih atau diketik.',
             'jam_mulai.required' => 'Waktu bimbingan wajib ditentukan.',
         ]);
+
+        $klienInput = trim($request->input('id_klien'));
+        $klien = null;
+
+        // 1. Cek jika input berupa ID numerik
+        if (is_numeric($klienInput)) {
+            $klien = Klien::find($klienInput);
+        }
+
+        // 2. Cek jika input teks mengandung nomor registrasi dalam kurung, misal: "Ahmad Supriyadi (REG/2026/BPS/001)"
+        if (!$klien && preg_match('/\((.*?)\)/', $klienInput, $matches)) {
+            $noReg = trim($matches[1]);
+            $klien = Klien::where('no_register', $noReg)->first();
+        }
+
+        // 3. Cari berdasarkan nama_klien atau no_register dari data klien yang ada
+        if (!$klien) {
+            $klien = Klien::where('no_register', $klienInput)
+                ->orWhere('nama_klien', $klienInput)
+                ->orWhere('nama_klien', 'like', "%{$klienInput}%")
+                ->orWhere('no_register', 'like', "%{$klienInput}%")
+                ->first();
+        }
+
+        // 4. Jika klien tidak ditemukan di dalam Data Klien, tolak dan beri tahu pengguna
+        if (!$klien) {
+            return back()->withInput()->with('error', 'Klien "' . e($klienInput) . '" tidak ditemukan dalam Data Klien. Silakan pilih klien yang sudah terdaftar.');
+        }
+
+        $idKlien = $klien->id_klien;
 
         $hari = $validated['hari'] ?? null;
         if (!$hari && !empty($validated['tgl_bimbingan'])) {
@@ -59,12 +89,12 @@ class AturJadwalController extends Controller
 
         // Set rule in atur_jadwal
         AturJadwal::updateOrCreate(
-            ['id_klien' => $validated['id_klien']],
+            ['id_klien' => $idKlien],
             ['hari' => $hari, 'jam_mulai' => $validated['jam_mulai']]
         );
 
         // Update Klien jam_mulai
-        Klien::where('id_klien', $validated['id_klien'])->update([
+        Klien::where('id_klien', $idKlien)->update([
             'jam_mulai' => $validated['jam_mulai'],
         ]);
 
@@ -72,7 +102,7 @@ class AturJadwalController extends Controller
         if (!empty($validated['tgl_bimbingan'])) {
             \App\Models\JadwalBimbingan::create([
                 'id_pegawai' => \Illuminate\Support\Facades\Auth::id() ?? 2,
-                'id_klien' => $validated['id_klien'],
+                'id_klien' => $idKlien,
                 'id_status_bimbingan' => 4, // Terjadwal
                 'tgl_bimbingan' => $validated['tgl_bimbingan'],
                 'jam_mulai' => $validated['jam_mulai'],

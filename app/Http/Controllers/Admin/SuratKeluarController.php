@@ -19,21 +19,20 @@ class SuratKeluarController extends Controller
             $query->where(function($q) use ($search) {
                 $q->where('no_surat', 'like', "%{$search}%")
                   ->orWhere('tujuan_surat', 'like', "%{$search}%")
-                  ->orWhere('perihal', 'like', "%{$search}%");
+                  ->orWhere('perihal', 'like', "%{$search}%")
+                  ->orWhere('lampiran', 'like', "%{$search}%")
+                  ->orWhere('keterangan', 'like', "%{$search}%")
+                  ->orWhereHas('surat', function($sq) use ($search) {
+                      $sq->where('nama_surat', 'like', "%{$search}%");
+                  });
 
-                // Dukung pencarian tanggal langsung pada kotak telusuri (format: DD/MM/YYYY, DD-MM-YYYY, YYYY-MM-DD)
-                if (preg_match('/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/', $search, $matches)) {
-                    $dateFormatted = sprintf('%04d-%02d-%02d', $matches[3], $matches[2], $matches[1]);
-                    $q->orWhereDate('tgl_keluar', $dateFormatted);
-                } elseif (preg_match('/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/', $search)) {
-                    $dateFormatted = date('Y-m-d', strtotime($search));
-                    $q->orWhereDate('tgl_keluar', $dateFormatted);
-                }
+                // Pencarian tanggal pada kolom tgl_keluar
+                $this->applyDateSearch($q, 'tgl_keluar', $search);
             });
         }
 
         // Filter tanggal dari input date picker (tgl_keluar / tanggal)
-        $tglFilter = $request->input('tgl_keluar') ?: $request->input('tanggal');
+        $tglFilter = $this->normalizeDateFilter($request->input('tgl_keluar') ?: $request->input('tanggal'));
         if (!empty($tglFilter)) {
             $query->whereDate('tgl_keluar', $tglFilter);
         }

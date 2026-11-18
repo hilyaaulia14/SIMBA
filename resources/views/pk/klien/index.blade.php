@@ -46,22 +46,36 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 5%;">No</th>
-                        <th style="width: 22%;">Nomor Registrasi</th>
-                        <th style="width: 23%;">Nama Klien</th>
-                        <th style="width: 24%;">Nama Pembimbing</th>
-                        <th style="width: 16%; white-space: nowrap;">Telepon</th>
-                        <th style="width: 10%; text-align: center;">Aksi</th>
+                        <th style="width: 5%; text-align: center;">No</th>
+                        <th style="width: 17%;">Nomor Registrasi</th>
+                        <th style="width: 18%;">Nama Klien</th>
+                        <th style="width: 18%;">Asal UPT</th>
+                        <th style="width: 15%;">Tindak Pidana</th>
+                        <th style="width: 13%; text-align: center;">Jenis Bimbingan</th>
+                        <th style="width: 8%; text-align: center;">Jenis Kelamin</th>
+                        <th style="width: 6%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($klienList as $index => $klien)
                         <tr>
-                            <td>{{ $klienList->firstItem() + $index }}</td>
-                            <td>{{ $klien->no_register }}</td>
+                            <td style="text-align: center;">{{ $klienList->firstItem() + $index }}</td>
+                            <td class="fw-semibold text-dark">{{ $klien->no_register }}</td>
                             <td>{{ $klien->nama_klien }}</td>
-                            <td>{{ $klien->jadwalBimbingan->first()?->pegawai?->nama_pegawai ?? (Auth::user()->nama_pegawai ?? 'Budi Santoso, S.Sos.') }}</td>
-                            <td style="white-space: nowrap;">{{ $klien->telepon ?? '0812-3456-7890' }}</td>
+                            <td>{{ $klien->asal_upt ?? '-' }}</td>
+                            <td>{{ $klien->tindak_pidana ?? '-' }}</td>
+                            <td style="text-align: center;">
+                                @if($klien->jenis_bimbingan == 'Pembebasan Bersyarat (PB)')
+                                    <span class="badge" style="background-color: #E0F2FE; color: #0369A1; font-weight: 500; font-size: 0.78rem; border-radius: 50px; padding: 0.35rem 0.65rem;">PB</span>
+                                @elseif($klien->jenis_bimbingan == 'Cuti Bersyarat (CB)')
+                                    <span class="badge" style="background-color: #FEF3C7; color: #92400E; font-weight: 500; font-size: 0.78rem; border-radius: 50px; padding: 0.35rem 0.65rem;">CB</span>
+                                @else
+                                    <span class="text-muted small">{{ $klien->jenis_bimbingan ?? '-' }}</span>
+                                @endif
+                            </td>
+                            <td style="text-align: center;">
+                                <span class="small text-muted">{{ $klien->jenis_kelamin ?? '-' }}</span>
+                            </td>
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Klien" onclick="showDetailKlien({{ $klien->id_klien }})">
@@ -78,7 +92,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
+                            <td colspan="8" class="text-center py-5 text-muted">
                                 Tidak ada data klien yang ditemukan.
                             </td>
                         </tr>
@@ -121,32 +135,50 @@
                 <div class="modal-body p-4">
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Nomor Registrasi <span class="text-danger">*</span></label>
+                            <input type="text" name="no_register" class="form-control form-control-figma" placeholder="Contoh : 1969/DW/XI/2026" required>
+                        </div>
+
+                        <div class="col-12 col-md-6">
                             <label class="form-label-figma">Nama Klien <span class="text-danger">*</span></label>
                             <input type="text" name="nama_klien" class="form-control form-control-figma" placeholder="Nama lengkap klien" required>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Nomor Registrasi <span class="text-danger">*</span></label>
-                            <input type="text" name="no_register" class="form-control form-control-figma" placeholder="Contoh : BJM-2026-0146" required>
+                            <label class="form-label-figma">Asal UPT <span class="text-danger">*</span></label>
+                            <input type="text" name="asal_upt" class="form-control form-control-figma" placeholder="Contoh : Lapas Kelas IIA Banjarmasin" required>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Telepon <span class="text-danger">*</span></label>
-                            <input type="text" name="telepon" class="form-control form-control-figma" placeholder="08XX-XXXX-XXXX" value="0812-3456-7890">
+                            <label class="form-label-figma">Tindak Pidana <span class="text-danger">*</span></label>
+                            <input type="text" name="tindak_pidana" class="form-control form-control-figma" placeholder="Contoh : Narkotika / Pencurian" required>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Jenis Tidak Pidana <span class="text-danger">*</span></label>
-                            <input type="text" name="tindak_pidana" class="form-control form-control-figma" placeholder="Catatan" required>
+                            <label class="form-label-figma">Jenis Bimbingan <span class="text-danger">*</span></label>
+                            <select name="jenis_bimbingan" class="form-select form-control-figma" required>
+                                <option value="" disabled selected>Pilih Jenis Bimbingan</option>
+                                <option value="Pembebasan Bersyarat (PB)">Pembebasan Bersyarat (PB)</option>
+                                <option value="Cuti Bersyarat (CB)">Cuti Bersyarat (CB)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <select name="jenis_kelamin" class="form-select form-control-figma" required>
+                                <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Alamat Lengkap <span class="text-danger">*</span></label>
-                            <textarea name="alamat" class="form-control form-control-figma" rows="3" placeholder="Alamat tempat tinggal klien"></textarea>
+                            <label class="form-label-figma">Alamat <span class="text-danger">*</span></label>
+                            <textarea name="alamat" class="form-control form-control-figma" rows="3" placeholder="Alamat tempat tinggal klien" required></textarea>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Keterangan</label>
+                            <label class="form-label-figma">Keterangan <span class="text-muted fw-normal" style="font-size: 0.85rem;">(Opsional)</span></label>
                             <textarea name="keterangan" class="form-control form-control-figma" rows="2" placeholder="Catatan opsional"></textarea>
                         </div>
                     </div>
@@ -178,7 +210,7 @@
             </div>
             <div class="modal-footer-figma">
                 <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-figma-save" id="detail_klien_btn_edit">Simpan</button>
+                <button type="button" class="btn btn-figma-save" id="detail_klien_btn_edit">Edit Klien</button>
             </div>
         </div>
     </div>
@@ -194,46 +226,64 @@
                 <div class="modal-header-figma">
                     <div>
                         <h4 class="modal-title-figma">Edit Data Klien</h4>
-                        <p class="modal-subtitle-figma">Isi data klien sesuai informasi yang ada.</p>
+                        <p class="modal-subtitle-figma">Perbarui data klien sesuai informasi yang ada.</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Nama Klien <span class="text-danger">*</span></label>
-                            <input type="text" name="nama_klien" id="edit_nama_klien" class="form-control form-control-figma" required>
-                        </div>
-
-                        <div class="col-12 col-md-6">
                             <label class="form-label-figma">Nomor Registrasi <span class="text-danger">*</span></label>
-                            <input type="text" name="no_register" id="edit_no_register" class="form-control form-control-figma" required>
+                            <input type="text" name="no_register" id="edit_no_register" class="form-control form-control-figma" placeholder="Contoh : 1969/DW/XI/2026" required>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Telepon <span class="text-danger">*</span></label>
-                            <input type="text" name="telepon" id="edit_telepon" class="form-control form-control-figma">
+                            <label class="form-label-figma">Nama Klien <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_klien" id="edit_nama_klien" class="form-control form-control-figma" placeholder="Nama lengkap klien" required>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Jenis Tidak Pidana <span class="text-danger">*</span></label>
-                            <input type="text" name="tindak_pidana" id="edit_tindak_pidana" class="form-control form-control-figma" required>
+                            <label class="form-label-figma">Asal UPT <span class="text-danger">*</span></label>
+                            <input type="text" name="asal_upt" id="edit_asal_upt" class="form-control form-control-figma" placeholder="Contoh : Lapas Kelas IIA Banjarmasin" required>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Tindak Pidana <span class="text-danger">*</span></label>
+                            <input type="text" name="tindak_pidana" id="edit_tindak_pidana" class="form-control form-control-figma" placeholder="Contoh : Narkotika / Pencurian" required>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Jenis Bimbingan <span class="text-danger">*</span></label>
+                            <select name="jenis_bimbingan" id="edit_jenis_bimbingan" class="form-select form-control-figma" required>
+                                <option value="" disabled>Pilih Jenis Bimbingan</option>
+                                <option value="Pembebasan Bersyarat (PB)">Pembebasan Bersyarat (PB)</option>
+                                <option value="Cuti Bersyarat (CB)">Cuti Bersyarat (CB)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <select name="jenis_kelamin" id="edit_jenis_kelamin" class="form-select form-control-figma" required>
+                                <option value="" disabled>Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Alamat Lengkap <span class="text-danger">*</span></label>
-                            <textarea name="alamat" id="edit_alamat" class="form-control form-control-figma" rows="3"></textarea>
+                            <label class="form-label-figma">Alamat <span class="text-danger">*</span></label>
+                            <textarea name="alamat" id="edit_alamat" class="form-control form-control-figma" rows="3" placeholder="Alamat tempat tinggal klien" required></textarea>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Keterangan</label>
-                            <textarea name="keterangan" id="edit_keterangan" class="form-control form-control-figma" rows="2"></textarea>
+                            <label class="form-label-figma">Keterangan <span class="text-muted fw-normal" style="font-size: 0.85rem;">(Opsional)</span></label>
+                            <textarea name="keterangan" id="edit_keterangan" class="form-control form-control-figma" rows="2" placeholder="Catatan opsional"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer-figma">
                     <button type="button" class="btn btn-figma-cancel" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-figma-save">Simpan</button>
+                    <button type="submit" class="btn btn-figma-save">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -266,9 +316,28 @@
 
 @section('scripts')
 <script>
+    function escapeHtml(text) {
+        if (!text) return '';
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
     function showDetailKlien(id) {
         const modal = new bootstrap.Modal(document.getElementById('modalDetailKlien'));
         modal.show();
+
+        document.getElementById('detail_klien_nama_title').innerText = 'Memuat data...';
+        document.getElementById('detailKlienContent').innerHTML = `
+            <div class="text-center py-4">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        `;
 
         fetch(`/pk/klien/${id}`, {
             headers: { 'Accept': 'application/json' }
@@ -280,24 +349,40 @@
             document.getElementById('detailKlienContent').innerHTML = `
                 <div class="row g-4 text-start">
                     <div class="col-md-6">
-                        <div class="form-label-figma">Nama Klien *</div>
-                        <div class="fw-medium text-dark">${data.nama_klien}</div>
+                        <div class="form-label-figma text-muted small">Nomor Registrasi</div>
+                        <div class="fw-semibold text-dark">${escapeHtml(data.no_register)}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-label-figma">Nomor Registrasi *</div>
-                        <div class="fw-medium text-dark">${data.no_register}</div>
+                        <div class="form-label-figma text-muted small">Nama Klien</div>
+                        <div class="fw-semibold text-dark">${escapeHtml(data.nama_klien)}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-label-figma">Telepon *</div>
-                        <div class="fw-medium text-dark">${data.telepon || '-'}</div>
+                        <div class="form-label-figma text-muted small">Asal UPT</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.asal_upt || '-')}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-label-figma">Keterangan</div>
-                        <div class="fw-medium text-dark">${data.keterangan || 'Klien dewasa bimbingan rutin.'}</div>
+                        <div class="form-label-figma text-muted small">Tindak Pidana</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.tindak_pidana || '-')}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma text-muted small">Jenis Bimbingan</div>
+                        <div class="fw-medium text-dark">
+                            <span class="badge ${data.jenis_bimbingan === 'Pembebasan Bersyarat (PB)' ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-dark'} px-2 py-1" style="border-radius: 50px;">
+                                ${escapeHtml(data.jenis_bimbingan || '-')}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma text-muted small">Jenis Kelamin</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.jenis_kelamin || '-')}</div>
                     </div>
                     <div class="col-12">
-                        <div class="form-label-figma">Alamat Lengkap *</div>
-                        <div class="fw-medium text-dark">${data.alamat || 'Jl. Kelayan B No. 12, Banjarmasin Selatan.'}</div>
+                        <div class="form-label-figma text-muted small">Alamat</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.alamat || '-')}</div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-label-figma text-muted small">Keterangan</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.keterangan || '-')}</div>
                     </div>
                 </div>
             `;
@@ -317,12 +402,14 @@
         .then(res => {
             const data = res.klien;
             document.getElementById('formEditKlien').action = `/pk/klien/${data.id_klien}`;
-            document.getElementById('edit_nama_klien').value = data.nama_klien;
-            document.getElementById('edit_no_register').value = data.no_register;
-            document.getElementById('edit_telepon').value = data.telepon || '';
-            document.getElementById('edit_tindak_pidana').value = data.tindak_pidana;
-            document.getElementById('edit_alamat').value = data.alamat || 'Jl. Kelayan B No. 12, Banjarmasin Selatan.';
-            document.getElementById('edit_keterangan').value = data.keterangan || 'Bimbingan rutin';
+            document.getElementById('edit_no_register').value = data.no_register || '';
+            document.getElementById('edit_nama_klien').value = data.nama_klien || '';
+            document.getElementById('edit_asal_upt').value = data.asal_upt || '';
+            document.getElementById('edit_tindak_pidana').value = data.tindak_pidana || '';
+            document.getElementById('edit_jenis_bimbingan').value = data.jenis_bimbingan || '';
+            document.getElementById('edit_jenis_kelamin').value = data.jenis_kelamin || '';
+            document.getElementById('edit_alamat').value = data.alamat || '';
+            document.getElementById('edit_keterangan').value = data.keterangan || '';
 
             const modal = new bootstrap.Modal(document.getElementById('modalEditKlien'));
             modal.show();

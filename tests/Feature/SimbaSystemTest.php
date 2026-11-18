@@ -262,27 +262,32 @@ class SimbaSystemTest extends TestCase
         $response->assertSee('Total Klien');
     }
 
-    /** Test 7: Modul Data Klien (Tanpa Field Jenis Bimbingan) */
-    public function test_pk_crud_klien_without_jenis_bimbingan()
+    /** Test 7: Modul Data Klien */
+    public function test_pk_crud_klien_with_jenis_bimbingan()
     {
         $response = $this->actingAs($this->pk)->get('/pk/klien');
         $response->assertStatus(200);
-        // Ensure "Jenis Bimbingan" is NOT in the client table or form
-        $response->assertDontSee('Jenis Bimbingan');
+        $response->assertSee('Jenis Bimbingan');
+        $response->assertSee('Asal UPT');
 
         // Create client
         $createResponse = $this->actingAs($this->pk)->post('/pk/klien', [
             'no_register' => 'TEST/REG/2026/999',
             'nama_klien' => 'Klien Percobaan Unit Test',
-            'telepon' => '0812-9999-8888',
-            'jenis_kelamin' => 'Laki-laki',
-            'tgl_lahir' => '1997-03-15',
-            'jam_mulai' => '09:30',
+            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
             'tindak_pidana' => 'Perjudian (Pasal 303 KUHP)',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'jenis_kelamin' => 'Laki-laki',
+            'alamat' => 'Jl. Percobaan No. 123',
+            'keterangan' => 'Keterangan percobaan',
         ]);
 
         $createResponse->assertRedirect(route('pk.klien.index'));
-        $this->assertDatabaseHas('klien', ['no_register' => 'TEST/REG/2026/999', 'telepon' => '0812-9999-8888']);
+        $this->assertDatabaseHas('klien', [
+            'no_register' => 'TEST/REG/2026/999',
+            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)'
+        ]);
 
         $klien = Klien::where('no_register', 'TEST/REG/2026/999')->first();
 
@@ -296,31 +301,28 @@ class SimbaSystemTest extends TestCase
         $searchNamaResponse->assertStatus(200);
         $searchNamaResponse->assertSee('TEST/REG/2026/999');
 
-        // Test search by nomor telepon (format tanda hubung & angka saja)
-        $searchTelpResponse = $this->actingAs($this->pk)->get('/pk/klien?search=0812-9999-8888');
-        $searchTelpResponse->assertStatus(200);
-        $searchTelpResponse->assertSee('Klien Percobaan Unit Test');
-
-        $searchTelpCleanResponse = $this->actingAs($this->pk)->get('/pk/klien?search=081299998888');
-        $searchTelpCleanResponse->assertStatus(200);
-        $searchTelpCleanResponse->assertSee('Klien Percobaan Unit Test');
-
-        // Test search by nama pembimbing
-        $searchPembimbingResponse = $this->actingAs($this->pk)->get('/pk/klien?search=' . $this->pk->nama_pegawai);
-        $searchPembimbingResponse->assertStatus(200);
-        $searchPembimbingResponse->assertSee('TEST/REG/2026/999');
+        // Test search by tindak pidana
+        $searchPidanaResponse = $this->actingAs($this->pk)->get('/pk/klien?search=Perjudian');
+        $searchPidanaResponse->assertStatus(200);
+        $searchPidanaResponse->assertSee('TEST/REG/2026/999');
 
         // Update
         $updateResponse = $this->actingAs($this->pk)->put('/pk/klien/' . $klien->id_klien, [
             'no_register' => 'TEST/REG/2026/999',
             'nama_klien' => 'Klien Percobaan Updated',
-            'jenis_kelamin' => 'Laki-laki',
-            'tgl_lahir' => '1997-03-15',
-            'jam_mulai' => '10:00',
+            'asal_upt' => 'Lapas Narkotika Karang Intan',
             'tindak_pidana' => 'Perjudian (Pasal 303 KUHP)',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'jenis_kelamin' => 'Laki-laki',
+            'alamat' => 'Jl. Percobaan Baru No. 456',
+            'keterangan' => 'Keterangan diupdate',
         ]);
         $updateResponse->assertRedirect(route('pk.klien.index'));
-        $this->assertDatabaseHas('klien', ['nama_klien' => 'Klien Percobaan Updated']);
+        $this->assertDatabaseHas('klien', [
+            'nama_klien' => 'Klien Percobaan Updated',
+            'asal_upt' => 'Lapas Narkotika Karang Intan',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)'
+        ]);
 
         // Delete
         $deleteResponse = $this->actingAs($this->pk)->delete('/pk/klien/' . $klien->id_klien);

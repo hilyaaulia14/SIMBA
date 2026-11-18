@@ -123,51 +123,66 @@ class DatabaseSeeder extends Seeder
         $klien1 = Klien::create([
             'no_register' => 'REG/2026/BPS/001',
             'nama_klien' => 'Ahmad Supriyadi',
+            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
             'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '1995-04-12',
             'jam_mulai' => '09:00:00',
             'tindak_pidana' => 'Pencurian (Pasal 363 KUHP)',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'alamat' => 'Jl. Kelayan B No. 12, Banjarmasin Selatan',
         ]);
 
         $klien2 = Klien::create([
             'no_register' => 'REG/2026/BPS/002',
             'nama_klien' => 'Siti Rahmawati',
+            'asal_upt' => 'Lapas Perempuan Kelas IIA Martapura',
             'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Perempuan',
             'tgl_lahir' => '1998-08-25',
             'jam_mulai' => '10:00:00',
             'tindak_pidana' => 'Penipuan / Penggelapan (Pasal 378 KUHP)',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Jl. Veteran No. 45, Banjarmasin Timur',
         ]);
 
         $klien3 = Klien::create([
             'no_register' => 'REG/2026/BPS/003',
             'nama_klien' => 'Muhammad Rizki Pratama',
+            'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
             'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '2001-11-03',
             'jam_mulai' => '10:30:00',
             'tindak_pidana' => 'Narkotika (UU No. 35/2009)',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'alamat' => 'Jl. Belitung Darat No. 88, Banjarmasin Barat',
         ]);
 
         $klien4 = Klien::create([
             'no_register' => 'REG/2026/BPS/004',
             'nama_klien' => 'Hendro Gunawan',
+            'asal_upt' => 'Lapas Narkotika Kelas IIA Karang Intan',
             'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Laki-laki',
             'tgl_lahir' => '1989-02-18',
             'jam_mulai' => '13:30:00',
             'tindak_pidana' => 'Penganiayaan (Pasal 351 KUHP)',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'alamat' => 'Jl. Sungai Andai No. 10, Banjarmasin Utara',
         ]);
 
         $klien5 = Klien::create([
             'no_register' => 'REG/2026/BPS/005',
             'nama_klien' => 'Dewi Lestari',
+            'asal_upt' => 'Lapas Perempuan Kelas IIA Martapura',
             'telepon' => '0812-3456-7890',
             'jenis_kelamin' => 'Perempuan',
             'tgl_lahir' => '1996-07-09',
             'jam_mulai' => '14:00:00',
             'tindak_pidana' => 'ITE / Transaksi Elektronik',
+            'jenis_bimbingan' => 'Cuti Bersyarat (CB)',
+            'alamat' => 'Jl. Pangeran Hidayatullah No. 21, Banjarmasin',
         ]);
 
         // 8. Atur Jadwal

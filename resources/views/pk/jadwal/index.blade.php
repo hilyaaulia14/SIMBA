@@ -29,7 +29,7 @@
                 <input type="date" name="tgl_bimbingan" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_bimbingan') }}" placeholder="DD/MM/YY" onchange="this.form.submit()">
             </div>
 
-            @if(request()->hasAny(['search', 'tgl_bimbingan']))
+            @if(request()->hasAny(['search', 'tgl_bimbingan', 'tanggal', 'id_status_bimbingan']))
                 <a href="{{ route('pk.jadwal.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
                     Reset
                 </a>

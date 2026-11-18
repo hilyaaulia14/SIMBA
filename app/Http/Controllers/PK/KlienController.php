@@ -13,39 +13,83 @@ class KlienController extends Controller
         $query = Klien::with(['aturJadwal', 'jadwalBimbingan.pegawai'])->latest();
 
         if ($request->filled('search')) {
-            $search = trim($request->search);
-            $cleanPhone = preg_replace('/[^0-9]/', '', $search);
-            $currentUser = auth()->user();
-            $matchesCurrentPK = $currentUser && !empty($currentUser->nama_pegawai) && (stripos($currentUser->nama_pegawai, $search) !== false);
+            $searchNormalized = trim($request->search);
+            $cleanPhone = preg_replace('/[^0-9]/', '', $searchNormalized);
+            $searchDash = str_replace(' ', '-', $searchNormalized);
 
-            $query->where(function($q) use ($search, $cleanPhone, $matchesCurrentPK) {
+            $query->where(function($q) use ($searchNormalized, $searchDash, $cleanPhone) {
                 // 1. Nomor Registrasi
-                $q->where('no_register', 'like', "%{$search}%")
+                $q->where('no_register', 'like', "%{$searchNormalized}%")
                 // 2. Nama Klien
-                  ->orWhere('nama_klien', 'like', "%{$search}%")
-                // 3. Nomor Telepon (format teks biasa maupun angka saja)
-                  ->orWhere('telepon', 'like', "%{$search}%")
+                  ->orWhere('nama_klien', 'like', "%{$searchNormalized}%")
+                // 3. Asal UPT
+                  ->orWhere('asal_upt', 'like', "%{$searchNormalized}%")
                 // 4. Tindak Pidana
-                  ->orWhere('tindak_pidana', 'like', "%{$search}%");
+                  ->orWhere('tindak_pidana', 'like', "%{$searchNormalized}%")
+                // 5. Jenis Bimbingan (PB / CB / teks lengkap)
+                  ->orWhere('jenis_bimbingan', 'like', "%{$searchNormalized}%");
 
-                if (!empty($cleanPhone)) {
-                    $q->orWhereRaw("REPLACE(REPLACE(REPLACE(COALESCE(telepon, ''), '-', ''), ' ', ''), '.', '') LIKE ?", ["%{$cleanPhone}%"]);
+                if (strcasecmp($searchNormalized, 'PB') === 0 || stripos('Pembebasan Bersyarat', $searchNormalized) !== false) {
+                    $q->orWhere('jenis_bimbingan', 'like', '%PB%');
+                }
+                if (strcasecmp($searchNormalized, 'CB') === 0 || stripos('Cuti Bersyarat', $searchNormalized) !== false) {
+                    $q->orWhere('jenis_bimbingan', 'like', '%CB%');
                 }
 
-                // 5. Nama Pembimbing (dari relasi jadwal bimbingan)
-                $q->orWhereHas('jadwalBimbingan.pegawai', function($pq) use ($search) {
-                    $pq->where('nama_pegawai', 'like', "%{$search}%");
-                });
+                // 6. Jenis Kelamin (mendukung "laki laki", "laki-laki", "pria", "perempuan", "wanita")
+                $q->orWhere('jenis_kelamin', 'like', "%{$searchNormalized}%")
+                  ->orWhere('jenis_kelamin', 'like', "%{$searchDash}%");
 
-                // Jika nama pembimbing yang sedang login cocok dengan kata kunci pencarian
-                if ($matchesCurrentPK) {
-                    $q->orWhereRaw('1 = 1');
+                $lower = strtolower($searchNormalized);
+                if (in_array($lower, ['laki', 'laki laki', 'laki-laki', 'pria', 'cowok'])) {
+                    $q->orWhere('jenis_kelamin', 'Laki-laki');
+                } elseif (in_array($lower, ['perempuan', 'wanita', 'cewek'])) {
+                    $q->orWhere('jenis_kelamin', 'Perempuan');
+                }
+
+                // 7. Alamat & Keterangan
+                $q->orWhere('alamat', 'like', "%{$searchNormalized}%")
+                  ->orWhere('keterangan', 'like', "%{$searchNormalized}%");
+
+                // 8. Nomor Telepon
+                if (!empty($cleanPhone) && strlen($cleanPhone) >= 4) {
+                    $q->orWhere('telepon', 'like', "%{$searchNormalized}%")
+                      ->orWhereRaw("REPLACE(REPLACE(REPLACE(COALESCE(telepon, ''), '-', ''), ' ', ''), '.', '') LIKE ?", ["%{$cleanPhone}%"]);
+                }
+
+                // 9. Pencarian Tanggal pada klien (created_at dan tgl_lahir)
+                if (preg_match('/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/', $searchNormalized, $m)) {
+                    $dateFormatted = sprintf('%04d-%02d-%02d', $m[3], $m[2], $m[1]);
+                    $q->orWhereDate('created_at', $dateFormatted)
+                      ->orWhereDate('tgl_lahir', $dateFormatted);
+                } elseif (preg_match('/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/', $searchNormalized, $m)) {
+                    $dateFormatted = sprintf('%04d-%02d-%02d', $m[1], $m[2], $m[3]);
+                    $q->orWhereDate('created_at', $dateFormatted)
+                      ->orWhereDate('tgl_lahir', $dateFormatted);
+                } elseif (preg_match('/^(19|20)\d{2}$/', $searchNormalized)) {
+                    $q->orWhereRaw("YEAR(created_at) = ?", [$searchNormalized])
+                      ->orWhereRaw("YEAR(tgl_lahir) = ?", [$searchNormalized]);
+                } else {
+                    $months = [
+                        'januari' => '01', 'jan' => '01', 'februari' => '02', 'feb' => '02',
+                        'maret' => '03', 'mar' => '03', 'april' => '04', 'apr' => '04',
+                        'mei' => '05', 'juni' => '06', 'jun' => '06', 'juli' => '07', 'jul' => '07',
+                        'agustus' => '08', 'agu' => '08', 'agt' => '08', 'september' => '09', 'sep' => '09',
+                        'oktober' => '10', 'okt' => '10', 'november' => '11', 'nov' => '11',
+                        'desember' => '12', 'des' => '12',
+                    ];
+                    foreach ($months as $name => $num) {
+                        if (preg_match('/^(\d{1,2})\s+' . $name . '\s+(\d{4})$/i', $lower, $m)) {
+                            $f = sprintf('%04d-%02d-%02d', $m[2], $num, $m[1]);
+                            $q->orWhereDate('created_at', $f)->orWhereDate('tgl_lahir', $f);
+                            break;
+                        } elseif ($lower === $name) {
+                            $q->orWhereRaw("MONTH(created_at) = ?", [$num])->orWhereRaw("MONTH(tgl_lahir) = ?", [$num]);
+                            break;
+                        }
+                    }
                 }
             });
-        }
-
-        if ($request->filled('jenis_kelamin')) {
-            $query->where('jenis_kelamin', $request->jenis_kelamin);
         }
 
         $klienList = $query->paginate(10)->withQueryString();
@@ -58,23 +102,25 @@ class KlienController extends Controller
         $validated = $request->validate([
             'no_register' => 'required|string|max:50|unique:klien,no_register',
             'nama_klien' => 'required|string|max:100',
-            'telepon' => 'nullable|string|max:30',
-            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
-            'tgl_lahir' => 'nullable|date',
-            'jam_mulai' => 'nullable',
+            'asal_upt' => 'required|string|max:150',
             'tindak_pidana' => 'required|string|max:100',
-            'alamat' => 'nullable|string|max:255',
+            'jenis_bimbingan' => 'required|in:Pembebasan Bersyarat (PB),Cuti Bersyarat (CB)',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'alamat' => 'required|string|max:255',
             'keterangan' => 'nullable|string|max:255',
+            'telepon' => 'nullable|string|max:30',
         ], [
             'no_register.required' => 'Nomor registrasi klien wajib diisi.',
             'no_register.unique' => 'Nomor registrasi klien sudah terdaftar.',
             'nama_klien.required' => 'Nama lengkap klien wajib diisi.',
-            'tindak_pidana.required' => 'Perkara / tindak pidana wajib diisi.',
+            'asal_upt.required' => 'Asal UPT wajib diisi.',
+            'tindak_pidana.required' => 'Tindak pidana wajib diisi.',
+            'jenis_bimbingan.required' => 'Jenis bimbingan wajib dipilih.',
+            'jenis_bimbingan.in' => 'Pilihan jenis bimbingan tidak valid.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'jenis_kelamin.in' => 'Pilihan jenis kelamin tidak valid.',
+            'alamat.required' => 'Alamat lengkap wajib diisi.',
         ]);
-
-        if (empty($validated['jenis_kelamin'])) {
-            $validated['jenis_kelamin'] = 'Laki-laki';
-        }
 
         Klien::create($validated);
 
@@ -111,23 +157,25 @@ class KlienController extends Controller
         $validated = $request->validate([
             'no_register' => 'required|string|max:50|unique:klien,no_register,' . $klien->id_klien . ',id_klien',
             'nama_klien' => 'required|string|max:100',
-            'telepon' => 'nullable|string|max:30',
-            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
-            'tgl_lahir' => 'nullable|date',
-            'jam_mulai' => 'nullable',
+            'asal_upt' => 'required|string|max:150',
             'tindak_pidana' => 'required|string|max:100',
-            'alamat' => 'nullable|string|max:255',
+            'jenis_bimbingan' => 'required|in:Pembebasan Bersyarat (PB),Cuti Bersyarat (CB)',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'alamat' => 'required|string|max:255',
             'keterangan' => 'nullable|string|max:255',
+            'telepon' => 'nullable|string|max:30',
         ], [
             'no_register.required' => 'Nomor registrasi klien wajib diisi.',
             'no_register.unique' => 'Nomor registrasi klien sudah terdaftar.',
             'nama_klien.required' => 'Nama lengkap klien wajib diisi.',
-            'tindak_pidana.required' => 'Perkara / tindak pidana wajib diisi.',
+            'asal_upt.required' => 'Asal UPT wajib diisi.',
+            'tindak_pidana.required' => 'Tindak pidana wajib diisi.',
+            'jenis_bimbingan.required' => 'Jenis bimbingan wajib dipilih.',
+            'jenis_bimbingan.in' => 'Pilihan jenis bimbingan tidak valid.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'jenis_kelamin.in' => 'Pilihan jenis kelamin tidak valid.',
+            'alamat.required' => 'Alamat lengkap wajib diisi.',
         ]);
-
-        if (empty($validated['jenis_kelamin'])) {
-            $validated['jenis_kelamin'] = $klien->jenis_kelamin ?? 'Laki-laki';
-        }
 
         $klien->update($validated);
 

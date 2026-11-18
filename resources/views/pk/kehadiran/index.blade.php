@@ -27,15 +27,15 @@
                     <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 50px 0 0 50px; border-color: var(--simba-border); padding-left: 1.15rem;">
                         <img src="{{ asset('assets/images/cari.svg') }}" alt="Cari" style="width: 15px; height: 15px; object-fit: contain;">
                     </span>
-                    <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Cari nama atau nomor register..." value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important; padding-left: 0.35rem;">
+                    <input type="text" name="search" class="form-control form-control-sm border-start-0 filter-pill-input" placeholder="Telusuri..." value="{{ request('search') }}" style="border-radius: 0 50px 50px 0 !important; padding-left: 0.35rem;">
                 </div>
             </div>
 
             <div style="width: 180px;">
-                <input type="date" name="tgl_hadir" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_hadir') }}" onchange="this.form.submit()">
+                <input type="date" name="tgl_hadir" class="form-control form-control-sm filter-pill-input" value="{{ request('tgl_hadir') }}" onchange="this.form.submit()" title="Filter berdasarkan tanggal">
             </div>
 
-            @if(request()->hasAny(['search', 'tgl_hadir']))
+            @if(request()->hasAny(['search', 'tgl_hadir', 'tanggal']))
                 <a href="{{ route('pk.kehadiran.index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 50px; font-weight: 500;">
                     Reset
                 </a>

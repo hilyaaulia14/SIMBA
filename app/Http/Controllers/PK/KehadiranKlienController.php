@@ -17,15 +17,42 @@ class KehadiranKlienController extends Controller
         $query = KehadiranKlien::with(['klien', 'jadwalBimbingan.statusBimbingan'])->latest('tgl_hadir');
 
         if ($request->filled('search')) {
-            $search = $request->search;
-            $query->whereHas('klien', function($q) use ($search) {
-                $q->where('nama_klien', 'like', "%{$search}%")
-                  ->orWhere('no_register', 'like', "%{$search}%");
+            $search = trim($request->search);
+            $query->where(function($q) use ($search) {
+                // Cari data klien terkait
+                $q->whereHas('klien', function($kq) use ($search) {
+                    $kq->where('nama_klien', 'like', "%{$search}%")
+                      ->orWhere('no_register', 'like', "%{$search}%")
+                      ->orWhere('asal_upt', 'like', "%{$search}%")
+                      ->orWhere('tindak_pidana', 'like', "%{$search}%")
+                      ->orWhere('jenis_bimbingan', 'like', "%{$search}%")
+                      ->orWhere('jenis_kelamin', 'like', "%{$search}%");
+
+                    if (strcasecmp($search, 'PB') === 0 || stripos('Pembebasan Bersyarat', $search) !== false) {
+                        $kq->orWhere('jenis_bimbingan', 'like', '%PB%');
+                    }
+                    if (strcasecmp($search, 'CB') === 0 || stripos('Cuti Bersyarat', $search) !== false) {
+                        $kq->orWhere('jenis_bimbingan', 'like', '%CB%');
+                    }
+                    if (in_array(strtolower($search), ['pria', 'laki', 'laki-laki'])) {
+                        $kq->orWhere('jenis_kelamin', 'Laki-laki');
+                    } elseif (in_array(strtolower($search), ['wanita', 'perempuan'])) {
+                        $kq->orWhere('jenis_kelamin', 'Perempuan');
+                    }
+                })
+                // Cari status kehadiran, catatan evaluasi, dan jam hadir
+                ->orWhere('status_kehadiran', 'like', "%{$search}%")
+                ->orWhere('catatan', 'like', "%{$search}%")
+                ->orWhere('jam_hadir', 'like', "%{$search}%");
+
+                // Pencarian tanggal pada kolom tanggal kehadiran
+                $this->applyDateSearch($q, 'tgl_hadir', $search);
             });
         }
 
-        if ($request->filled('tgl_hadir')) {
-            $query->whereDate('tgl_hadir', $request->tgl_hadir);
+        $tglFilter = $this->normalizeDateFilter($request->input('tgl_hadir') ?: $request->input('tanggal'));
+        if (!empty($tglFilter)) {
+            $query->whereDate('tgl_hadir', $tglFilter);
         }
 
         $kehadiranList = $query->paginate(10)->withQueryString();

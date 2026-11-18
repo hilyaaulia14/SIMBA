@@ -18,10 +18,43 @@ class JadwalBimbinganController extends Controller
         $query = JadwalBimbingan::with(['klien', 'statusBimbingan', 'pegawai', 'kehadiran'])->latest('tgl_bimbingan');
 
         if ($request->filled('search')) {
-            $search = $request->search;
-            $query->whereHas('klien', function($q) use ($search) {
-                $q->where('nama_klien', 'like', "%{$search}%")
-                  ->orWhere('no_register', 'like', "%{$search}%");
+            $search = trim($request->search);
+            $query->where(function($q) use ($search) {
+                // Cari data klien terkait
+                $q->whereHas('klien', function($kq) use ($search) {
+                    $kq->where('nama_klien', 'like', "%{$search}%")
+                      ->orWhere('no_register', 'like', "%{$search}%")
+                      ->orWhere('asal_upt', 'like', "%{$search}%")
+                      ->orWhere('tindak_pidana', 'like', "%{$search}%")
+                      ->orWhere('jenis_bimbingan', 'like', "%{$search}%")
+                      ->orWhere('jenis_kelamin', 'like', "%{$search}%");
+
+                    if (strcasecmp($search, 'PB') === 0 || stripos('Pembebasan Bersyarat', $search) !== false) {
+                        $kq->orWhere('jenis_bimbingan', 'like', '%PB%');
+                    }
+                    if (strcasecmp($search, 'CB') === 0 || stripos('Cuti Bersyarat', $search) !== false) {
+                        $kq->orWhere('jenis_bimbingan', 'like', '%CB%');
+                    }
+                    if (in_array(strtolower($search), ['pria', 'laki', 'laki-laki'])) {
+                        $kq->orWhere('jenis_kelamin', 'Laki-laki');
+                    } elseif (in_array(strtolower($search), ['wanita', 'perempuan'])) {
+                        $kq->orWhere('jenis_kelamin', 'Perempuan');
+                    }
+                })
+                // Cari status bimbingan (Hadir, Terjadwal, Dijadwalkan Ulang, dsb)
+                ->orWhereHas('statusBimbingan', function($sq) use ($search) {
+                    $sq->where('nama_status', 'like', "%{$search}%");
+                })
+                // Cari nama pembimbing
+                ->orWhereHas('pegawai', function($pq) use ($search) {
+                    $pq->where('nama_pegawai', 'like', "%{$search}%");
+                })
+                // Cari jam mulai dan keterangan
+                ->orWhere('jam_mulai', 'like', "%{$search}%")
+                ->orWhere('keterangan', 'like', "%{$search}%");
+
+                // Pencarian tanggal pada kolom tanggal bimbingan
+                $this->applyDateSearch($q, 'tgl_bimbingan', $search);
             });
         }
 
@@ -29,8 +62,9 @@ class JadwalBimbinganController extends Controller
             $query->where('id_status_bimbingan', $request->id_status_bimbingan);
         }
 
-        if ($request->filled('tgl_bimbingan')) {
-            $query->whereDate('tgl_bimbingan', $request->tgl_bimbingan);
+        $tglFilter = $this->normalizeDateFilter($request->input('tgl_bimbingan') ?: $request->input('tanggal'));
+        if (!empty($tglFilter)) {
+            $query->whereDate('tgl_bimbingan', $tglFilter);
         }
 
         $jadwalList = $query->paginate(10)->withQueryString();

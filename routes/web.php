@@ -67,7 +67,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::middleware(['auth', 'role:pk'])->prefix('pk')->name('pk.')->group(function () {
     Route::get('/dashboard', [PKDashboardController::class, 'index'])->name('dashboard');
 
-    // Modul Data Klien (Tanpa jenis bimbingan)
+    // Modul Data Klien
     Route::get('/klien', [KlienController::class, 'index'])->name('klien.index');
     Route::post('/klien', [KlienController::class, 'store'])->name('klien.store');
     Route::get('/klien/{id}', [KlienController::class, 'show'])->name('klien.show');
