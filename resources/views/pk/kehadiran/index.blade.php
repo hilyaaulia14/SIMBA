@@ -192,7 +192,7 @@
 
                         <div class="col-12">
                             <label class="form-label-figma">Keterangan</label>
-                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="Klien hadir bimbingan tatap muka sesuai jadwal.">
+                            <input type="text" name="catatan" class="form-control form-control-figma" placeholder="Keterangan (Opsional)" value="">
                         </div>
 
                         <input type="hidden" name="tgl_hadir" value="{{ date('Y-m-d') }}">
