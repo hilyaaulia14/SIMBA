@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Pegawai;
 use App\Models\Klien;
 use App\Models\JadwalBimbingan;
@@ -13,6 +14,8 @@ use Carbon\Carbon;
 
 class ComprehensiveSearchFilterTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected $admin;
     protected $pk;
 
@@ -119,11 +122,38 @@ class ComprehensiveSearchFilterTest extends TestCase
         $today = Carbon::today()->toDateString();
         $res = $this->actingAs($this->pk)->get('/pk/jadwal?tgl_bimbingan=' . $today);
         $res->assertStatus(200);
+        $res->assertSee('Nomor Telepon');
 
         // Search tanggal format DD/MM/YYYY pada jadwal
         $formattedDate = Carbon::today()->format('d/m/Y');
         $searchRes = $this->actingAs($this->pk)->get('/pk/jadwal?search=' . $formattedDate);
         $searchRes->assertStatus(200);
+
+        // Search berdasarkan nomor telepon klien
+        $klien = Klien::create([
+            'no_register' => 'TEST/JADWAL/TELP/' . uniqid(),
+            'nama_klien' => 'Klien Jadwal Telp ' . uniqid(),
+            'asal_upt' => 'RUTAN KELAS IIB MARABAHAN',
+            'tindak_pidana' => 'Korupsi',
+            'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
+            'jenis_kelamin' => 'Laki-laki',
+            'alamat' => 'Jl. Telepon No. 12',
+            'telepon' => '081299887766',
+        ]);
+
+        $jadwal = JadwalBimbingan::create([
+            'id_klien' => $klien->id_klien,
+            'id_pegawai' => $this->pk->id_pegawai,
+            'id_status_bimbingan' => 4, // Terjadwal
+            'tgl_bimbingan' => Carbon::tomorrow()->toDateString(),
+            'jam_mulai' => '09:00:00',
+            'keterangan' => 'Sesi tes telepon',
+        ]);
+
+        $searchPhoneRes = $this->actingAs($this->pk)->get('/pk/jadwal?search=081299887766');
+        $searchPhoneRes->assertStatus(200);
+        $searchPhoneRes->assertSee($klien->nama_klien);
+        $searchPhoneRes->assertSee('081299887766');
     }
 
     public function test_kehadiran_search_and_date_filter()

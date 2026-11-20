@@ -46,13 +46,14 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th style="width: 5%; text-align: center;">No</th>
-                        <th style="width: 17%;">Nomor Registrasi</th>
-                        <th style="width: 18%;">Nama Klien</th>
-                        <th style="width: 18%;">Asal UPT</th>
-                        <th style="width: 15%;">Tindak Pidana</th>
-                        <th style="width: 13%; text-align: center;">Jenis Bimbingan</th>
-                        <th style="width: 8%; text-align: center;">Jenis Kelamin</th>
+                        <th style="width: 4%; text-align: center;">No</th>
+                        <th style="width: 15%;">Nomor Registrasi</th>
+                        <th style="width: 16%;">Nama Klien</th>
+                        <th style="width: 14%;">Asal UPT</th>
+                        <th style="width: 13%;">Tindak Pidana</th>
+                        <th style="width: 10%; text-align: center;">Jenis Bimbingan</th>
+                        <th style="width: 9%; text-align: center;">Jenis Kelamin</th>
+                        <th style="width: 13%;">Nomor Telepon</th>
                         <th style="width: 6%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
@@ -76,6 +77,7 @@
                             <td style="text-align: center;">
                                 <span class="small text-muted">{{ $klien->jenis_kelamin ?? '-' }}</span>
                             </td>
+                            <td>{{ $klien->telepon ?? '-' }}</td>
                             <td style="text-align: center;">
                                 <div class="d-inline-flex gap-1 align-items-center">
                                     <button class="btn-action-square" title="Detail Klien" onclick="showDetailKlien({{ $klien->id_klien }})">
@@ -92,7 +94,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-5 text-muted">
+                            <td colspan="9" class="text-center py-5 text-muted">
                                 Tidak ada data klien yang ditemukan.
                             </td>
                         </tr>
@@ -170,6 +172,11 @@
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label-figma">Nomor Telepon <span class="text-muted fw-normal" style="font-size: 0.85rem;"></span></label>
+                            <input type="text" name="telepon" class="form-control form-control-figma" rows="1" placeholder="Contoh : 081234567890">
                         </div>
 
                         <div class="col-12">
@@ -268,6 +275,11 @@
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label-figma">Nomor Telepon <span class="text-muted fw-normal" style="font-size: 0.85rem;">(Opsional)</span></label>
+                            <input type="text" name="telepon" id="edit_telepon" class="form-control form-control-figma" placeholder="Contoh : 081234567890">
                         </div>
 
                         <div class="col-12">
@@ -376,6 +388,10 @@
                         <div class="form-label-figma text-muted small">Jenis Kelamin</div>
                         <div class="fw-medium text-dark">${escapeHtml(data.jenis_kelamin || '-')}</div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-label-figma text-muted small">Nomor Telepon</div>
+                        <div class="fw-medium text-dark">${escapeHtml(data.telepon || '-')}</div>
+                    </div>
                     <div class="col-12">
                         <div class="form-label-figma text-muted small">Alamat</div>
                         <div class="fw-medium text-dark">${escapeHtml(data.alamat || '-')}</div>
@@ -408,6 +424,7 @@
             document.getElementById('edit_tindak_pidana').value = data.tindak_pidana || '';
             document.getElementById('edit_jenis_bimbingan').value = data.jenis_bimbingan || '';
             document.getElementById('edit_jenis_kelamin').value = data.jenis_kelamin || '';
+            document.getElementById('edit_telepon').value = data.telepon || '';
             document.getElementById('edit_alamat').value = data.alamat || '';
             document.getElementById('edit_keterangan').value = data.keterangan || '';
 

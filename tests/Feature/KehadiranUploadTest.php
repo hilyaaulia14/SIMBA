@@ -145,4 +145,60 @@ class KehadiranUploadTest extends TestCase
         $this->assertNotNull($kehadiran);
         $this->assertEquals('14:15', substr($kehadiran->jam_hadir, 0, 5));
     }
+
+    public function test_hapus_bukti_kehadiran_tanpa_id_jadwal_tetap_menghapus_jadwal_hadir_klien()
+    {
+        $klien = Klien::first();
+        $jadwal = JadwalBimbingan::create([
+            'id_pegawai' => $this->pk->id_pegawai,
+            'id_klien' => $klien->id_klien,
+            'id_status_bimbingan' => 2, // Hadir
+            'tgl_bimbingan' => '2026-11-20',
+            'jam_mulai' => '10:00:00',
+            'keterangan' => 'Jadwal status hadir',
+        ]);
+
+        $kehadiran = \App\Models\KehadiranKlien::create([
+            'id_jadwal_bimbingan' => null, // Simulasi id_jadwal null
+            'id_klien' => $klien->id_klien,
+            'tgl_hadir' => '2026-11-19',
+            'jam_hadir' => '10:00:00',
+            'status_kehadiran' => 'Hadir',
+            'catatan' => 'Presensi tanpa link id jadwal',
+        ]);
+
+        $response = $this->actingAs($this->pk)->delete('/pk/kehadiran/' . $kehadiran->id_kehadiran);
+
+        $response->assertRedirect(route('pk.kehadiran.index'));
+        $this->assertDatabaseMissing('kehadiran_klien', ['id_kehadiran' => $kehadiran->id_kehadiran]);
+        $this->assertDatabaseMissing('jadwal_bimbingan', ['id_jadwal_bimbingan' => $jadwal->id_jadwal_bimbingan]);
+    }
+
+    public function test_hapus_jadwal_bimbingan_juga_menghapus_kehadiran_terkait()
+    {
+        $klien = Klien::first();
+        $jadwal = JadwalBimbingan::create([
+            'id_pegawai' => $this->pk->id_pegawai,
+            'id_klien' => $klien->id_klien,
+            'id_status_bimbingan' => 2,
+            'tgl_bimbingan' => Carbon::today()->toDateString(),
+            'jam_mulai' => '10:00:00',
+            'keterangan' => 'Jadwal uji hapus cascade',
+        ]);
+
+        $kehadiran = \App\Models\KehadiranKlien::create([
+            'id_jadwal_bimbingan' => $jadwal->id_jadwal_bimbingan,
+            'id_klien' => $klien->id_klien,
+            'tgl_hadir' => Carbon::today()->toDateString(),
+            'jam_hadir' => '10:00:00',
+            'status_kehadiran' => 'Hadir',
+            'catatan' => 'Presensi cascade',
+        ]);
+
+        $response = $this->actingAs($this->pk)->delete('/pk/jadwal/' . $jadwal->id_jadwal_bimbingan);
+
+        $response->assertRedirect(route('pk.jadwal.index'));
+        $this->assertDatabaseMissing('jadwal_bimbingan', ['id_jadwal_bimbingan' => $jadwal->id_jadwal_bimbingan]);
+        $this->assertDatabaseMissing('kehadiran_klien', ['id_kehadiran' => $kehadiran->id_kehadiran]);
+    }
 }

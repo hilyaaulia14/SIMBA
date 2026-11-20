@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -20,6 +20,8 @@ use App\Models\KehadiranKlien;
 
 class SimbaSystemTest extends TestCase
 {
+    use DatabaseTransactions;
+
     protected $admin;
     protected $pk;
 
@@ -269,12 +271,14 @@ class SimbaSystemTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Jenis Bimbingan');
         $response->assertSee('Asal UPT');
+        $response->assertSee('Nomor Telepon');
 
         // Create client
         $createResponse = $this->actingAs($this->pk)->post('/pk/klien', [
             'no_register' => 'TEST/REG/2026/999',
             'nama_klien' => 'Klien Percobaan Unit Test',
             'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
+            'telepon' => '081234567890',
             'tindak_pidana' => 'Perjudian (Pasal 303 KUHP)',
             'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)',
             'jenis_kelamin' => 'Laki-laki',
@@ -286,6 +290,7 @@ class SimbaSystemTest extends TestCase
         $this->assertDatabaseHas('klien', [
             'no_register' => 'TEST/REG/2026/999',
             'asal_upt' => 'Lapas Kelas IIA Banjarmasin',
+            'telepon' => '081234567890',
             'jenis_bimbingan' => 'Pembebasan Bersyarat (PB)'
         ]);
 

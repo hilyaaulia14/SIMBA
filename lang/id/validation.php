@@ -65,5 +65,6 @@ return [
         'tgl_hadir' => 'Tanggal hadir',
         'jam_hadir' => 'Jam hadir',
         'catatan' => 'Keterangan',
+        'telepon' => 'Nomor telepon',
     ],
 ];

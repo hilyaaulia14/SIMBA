@@ -43,11 +43,12 @@
             <table class="table-simba">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 16%; text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">Tanggal</th>
-                        <th class="text-center" style="width: 18%; text-align: center;">Jam</th>
-                        <th style="width: 24%; padding-left: 2rem;">Klien</th>
-                        <th class="text-center" style="width: 24%; text-align: center;">Status</th>
-                        <th class="text-center" style="width: 18%; text-align: center;">Aksi</th>
+                        <th class="text-center" style="width: 14%; text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">Tanggal</th>
+                        <th class="text-center" style="width: 12%; text-align: center;">Jam</th>
+                        <th style="width: 22%; padding-left: 1.5rem;">Klien</th>
+                        <th style="width: 18%;">Nomor Telepon</th>
+                        <th class="text-center" style="width: 18%; text-align: center;">Status</th>
+                        <th class="text-center" style="width: 16%; text-align: center;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,8 @@
                         <tr>
                             <td class="text-center" style="text-align: center; padding-left: 1rem !important; padding-right: 1rem !important;">{{ $jadwal->tgl_bimbingan->format('d/m/Y') }}</td>
                             <td class="text-center" style="text-align: center;">{{ substr($jadwal->jam_mulai, 0, 5) }}</td>
-                            <td style="padding-left: 2rem;">{{ $jadwal->klien->nama_klien ?? '-' }}</td>
+                            <td style="padding-left: 1.5rem;">{{ $jadwal->klien->nama_klien ?? '-' }}</td>
+                            <td>{{ $jadwal->klien->telepon ?? '-' }}</td>
                             <td class="text-center" style="text-align: center;">
                                 <span class="{{ $statusClass }}">
                                     ● {{ $displayStatus }}
@@ -84,7 +86,7 @@
                                     <button class="btn-action-square" title="Edit Jadwal" onclick="showEditJadwal({{ $jadwal->id_jadwal_bimbingan }})">
                                         <img src="{{ asset('assets/images/edit.svg') }}" alt="Edit">
                                     </button>
-                                    <button class="btn-action-square" title="Catatan Kehadiran" onclick="openCatatanKehadiran({{ $jadwal->id_jadwal_bimbingan }}, {{ $jadwal->id_klien }}, '{{ addslashes($jadwal->klien->nama_klien ?? '') }}', '{{ $jadwal->tgl_bimbingan->translatedFormat('d F Y') }}', '{{ substr($jadwal->jam_mulai, 0, 5) }}')">
+                                    <button class="btn-action-square" title="Catatan Kehadiran" onclick="openCatatanKehadiran({{ $jadwal->id_jadwal_bimbingan }}, {{ $jadwal->id_klien }}, '{{ addslashes($jadwal->klien->nama_klien ?? '') }}', '{{ $jadwal->tgl_bimbingan->translatedFormat('d F Y') }}', '{{ substr($jadwal->jam_mulai, 0, 5) }}', '{{ $jadwal->tgl_bimbingan->format('Y-m-d') }}')">
                                         <img src="{{ asset('assets/images/kehadiran.svg') }}" alt="Catatan Kehadiran">
                                     </button>
                                 </div>
@@ -92,7 +94,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center py-5 text-muted">
+                            <td colspan="6" class="text-center py-5 text-muted">
                                 Tidak ada data jadwal bimbingan yang ditemukan.
                             </td>
                         </tr>
@@ -354,6 +356,10 @@
                         <div class="fw-medium text-dark">${data.klien ? data.klien.nama_klien : '-'}</div>
                     </div>
                     <div class="col-md-6">
+                        <div class="form-label-figma">Nomor Telepon Klien</div>
+                        <div class="fw-medium text-dark">${data.klien && data.klien.telepon ? data.klien.telepon : '-'}</div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-label-figma">Nama Pembimbing</div>
                         <div class="fw-medium text-dark">${data.pegawai ? data.pegawai.nama_pegawai : 'Andi Pratama, S.Sos.'}</div>
                     </div>
@@ -408,10 +414,13 @@
         });
     }
 
-    function openCatatanKehadiran(id, idKlien, namaKlien, tgl, jam) {
+    function openCatatanKehadiran(id, idKlien, namaKlien, tgl, jam, tglYmd) {
         document.getElementById('kehadiran_id_jadwal').value = id;
         document.getElementById('kehadiran_id_klien').value = idKlien;
         document.getElementById('kehadiran_jam_hadir').value = jam;
+        if (tglYmd) {
+            document.getElementById('kehadiran_tgl_hadir').value = tglYmd;
+        }
         document.getElementById('kehadiran_subtitle').innerText = `${namaKlien} - ${tgl}, ${jam}`;
 
         const fileInput = document.getElementById('upload_presensi_file');

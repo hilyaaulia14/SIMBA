@@ -19,26 +19,19 @@
         </div>
     </div>
 
-    <!-- 3 Metric Cards (Figma Exact) -->
+    <!-- 2 Metric Cards Persuratan Admin -->
     <div class="row g-4 mb-5">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
             <div class="metric-card-figma">
                 <div class="metric-card-label">Total Surat Masuk</div>
                 <div class="metric-card-number">{{ $totalSuratMasuk }}</div>
             </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
             <div class="metric-card-figma">
                 <div class="metric-card-label">Total Surat Keluar</div>
                 <div class="metric-card-number">{{ $totalSuratKeluar }}</div>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-            <div class="metric-card-figma">
-                <div class="metric-card-label">Jadwal</div>
-                <div class="metric-card-number">{{ $totalJadwal ?? 9 }}</div>
             </div>
         </div>
     </div>

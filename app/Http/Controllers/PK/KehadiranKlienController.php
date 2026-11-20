@@ -99,9 +99,31 @@ class KehadiranKlienController extends Controller
         if (!empty($validated['id_jadwal_bimbingan'])) {
             $linkedJadwal = JadwalBimbingan::find($validated['id_jadwal_bimbingan']);
         } else {
+            // 1. Cari jadwal klien pada tanggal yang sama
             $linkedJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
                 ->whereDate('tgl_bimbingan', $validated['tgl_hadir'])
                 ->first();
+
+            // 2. Jika tidak ada pada tanggal sama, cari jadwal klien yang berstatus Terjadwal (id 4)
+            if (!$linkedJadwal) {
+                $linkedJadwal = JadwalBimbingan::where('id_klien', $validated['id_klien'])
+                    ->where('id_status_bimbingan', 4)
+                    ->orderBy('tgl_bimbingan')
+                    ->first();
+            }
+
+            // 3. Jika tidak ada jadwal sama sekali, buatkan jadwal baru otomatis agar selalu sinkron
+            if (!$linkedJadwal) {
+                $linkedJadwal = JadwalBimbingan::create([
+                    'id_pegawai' => \Illuminate\Support\Facades\Auth::id() ?? 2,
+                    'id_klien' => $validated['id_klien'],
+                    'id_status_bimbingan' => 2, // Hadir
+                    'tgl_bimbingan' => $validated['tgl_hadir'],
+                    'jam_mulai' => $validated['jam_hadir'] ?? '09:00',
+                    'keterangan' => $validated['catatan'] ?? 'Bimbingan rutin klien pemasyarakatan',
+                ]);
+            }
+
             if ($linkedJadwal) {
                 $validated['id_jadwal_bimbingan'] = $linkedJadwal->id_jadwal_bimbingan;
             }
@@ -230,12 +252,31 @@ class KehadiranKlienController extends Controller
         $kehadiran->delete();
 
         // Hapus juga jadwal bimbingan yang terkait agar data di Jadwal Bimbingan ikut terhapus
+        $jadwalDeleted = false;
         if ($idJadwal) {
-            JadwalBimbingan::where('id_jadwal_bimbingan', $idJadwal)->delete();
-        } else {
-            JadwalBimbingan::where('id_klien', $idKlien)
+            $jadwalDeleted = JadwalBimbingan::where('id_jadwal_bimbingan', $idJadwal)->delete() > 0;
+        }
+
+        if (!$jadwalDeleted) {
+            // Hapus jadwal klien dengan tanggal bimbingan sama dengan tgl_hadir
+            $deleted = JadwalBimbingan::where('id_klien', $idKlien)
                 ->whereDate('tgl_bimbingan', $tglHadir)
                 ->delete();
+
+            // Jika belum terhapus, hapus jadwal klien yang berstatus Hadir (status 2) atau jadwal terbaru
+            if (!$deleted) {
+                $jadwalTerkait = JadwalBimbingan::where('id_klien', $idKlien)
+                    ->where('id_status_bimbingan', 2)
+                    ->latest('id_jadwal_bimbingan')
+                    ->first()
+                    ?? JadwalBimbingan::where('id_klien', $idKlien)
+                    ->latest('id_jadwal_bimbingan')
+                    ->first();
+
+                if ($jadwalTerkait) {
+                    $jadwalTerkait->delete();
+                }
+            }
         }
 
         return redirect()->route('pk.kehadiran.index')->with('success', 'Catatan kehadiran dan jadwal bimbingan terkait berhasil dihapus.');

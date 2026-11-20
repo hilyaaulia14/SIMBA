@@ -19,15 +19,21 @@ class JadwalBimbinganController extends Controller
 
         if ($request->filled('search')) {
             $search = trim($request->search);
-            $query->where(function($q) use ($search) {
+            $cleanPhone = preg_replace('/[^0-9]/', '', $search);
+            $query->where(function($q) use ($search, $cleanPhone) {
                 // Cari data klien terkait
-                $q->whereHas('klien', function($kq) use ($search) {
+                $q->whereHas('klien', function($kq) use ($search, $cleanPhone) {
                     $kq->where('nama_klien', 'like', "%{$search}%")
                       ->orWhere('no_register', 'like', "%{$search}%")
                       ->orWhere('asal_upt', 'like', "%{$search}%")
+                      ->orWhere('telepon', 'like', "%{$search}%")
                       ->orWhere('tindak_pidana', 'like', "%{$search}%")
                       ->orWhere('jenis_bimbingan', 'like', "%{$search}%")
                       ->orWhere('jenis_kelamin', 'like', "%{$search}%");
+
+                    if (!empty($cleanPhone) && strlen($cleanPhone) >= 4) {
+                        $kq->orWhereRaw("REPLACE(REPLACE(REPLACE(COALESCE(telepon, ''), '-', ''), ' ', ''), '.', '') LIKE ?", ["%{$cleanPhone}%"]);
+                    }
 
                     if (strcasecmp($search, 'PB') === 0 || stripos('Pembebasan Bersyarat', $search) !== false) {
                         $kq->orWhere('jenis_bimbingan', 'like', '%PB%');
@@ -148,6 +154,16 @@ class JadwalBimbinganController extends Controller
     public function destroy($id)
     {
         $jadwal = JadwalBimbingan::findOrFail($id);
+
+        // Hapus juga catatan kehadiran dan berkas foto terkait jika ada
+        $kehadiran = \App\Models\KehadiranKlien::where('id_jadwal_bimbingan', $id)->first();
+        if ($kehadiran) {
+            if ($kehadiran->foto_kehadiran && \Illuminate\Support\Facades\Storage::disk('public')->exists($kehadiran->foto_kehadiran)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($kehadiran->foto_kehadiran);
+            }
+            $kehadiran->delete();
+        }
+
         $jadwal->delete();
 
         return redirect()->route('pk.jadwal.index')->with('success', 'Jadwal bimbingan berhasil dihapus.');
