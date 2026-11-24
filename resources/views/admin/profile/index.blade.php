@@ -61,8 +61,8 @@
                             <input type="text" name="jabatan" class="form-control form-control-figma" value="{{ old('jabatan', $admin->jabatan) }}" placeholder="Jabatan" required>
                         </div>
                         <div class="col-12 col-md-6">
-                            <label class="form-label-figma">Email</label>
-                            <input type="email" name="email" class="form-control form-control-figma" value="{{ old('email', $admin->email) }}" placeholder="admin@bapasbanjarmasin.go.id">
+                            <label class="form-label-figma">Peran Hak Akses</label>
+                            <input type="text" class="form-control form-control-figma bg-light" value="{{ $admin->role->nama_role ?? 'Admin / Bagian Umum' }}" readonly>
                         </div>
                         <div class="col-12">
                             <label class="form-label-figma">Alamat</label>

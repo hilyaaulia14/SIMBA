@@ -72,6 +72,7 @@ class KehadiranKlienController extends Controller
             'jam_hadir' => 'required',
             'status_kehadiran' => 'nullable|string|max:50',
             'foto_kehadiran' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,bmp,svg,pdf|max:10240',
+            'foto_kehadiran_base64' => 'nullable|string',
             'catatan' => 'nullable|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
@@ -92,6 +93,21 @@ class KehadiranKlienController extends Controller
             $filename = 'kehadiran_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('kehadiran', $filename, 'public');
             $validated['foto_kehadiran'] = $path;
+        } elseif ($request->filled('foto_kehadiran_base64')) {
+            $base64Data = $request->input('foto_kehadiran_base64');
+            if (preg_match('/^data:image\/(\w+);base64,/', $base64Data, $type)) {
+                $base64Image = substr($base64Data, strpos($base64Data, ',') + 1);
+                $type = strtolower($type[1]);
+                if (in_array($type, ['jpeg', 'jpg', 'png', 'webp'])) {
+                    $decoded = base64_decode($base64Image);
+                    if ($decoded !== false) {
+                        $extension = ($type === 'jpeg') ? 'jpg' : $type;
+                        $filename = 'kehadiran_' . time() . '_' . uniqid() . '.' . $extension;
+                        Storage::disk('public')->put('kehadiran/' . $filename, $decoded);
+                        $validated['foto_kehadiran'] = 'kehadiran/' . $filename;
+                    }
+                }
+            }
         }
 
         // Auto link schedule if not provided
@@ -195,6 +211,7 @@ class KehadiranKlienController extends Controller
             'jam_hadir' => 'required',
             'status_kehadiran' => 'nullable|string|max:50',
             'foto_kehadiran' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif,bmp,svg,pdf|max:10240',
+            'foto_kehadiran_base64' => 'nullable|string',
             'catatan' => 'nullable|string|max:255',
         ], [
             'id_klien.required' => 'Klien wajib dipilih.',
@@ -219,6 +236,24 @@ class KehadiranKlienController extends Controller
             $filename = 'kehadiran_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('kehadiran', $filename, 'public');
             $validated['foto_kehadiran'] = $path;
+        } elseif ($request->filled('foto_kehadiran_base64')) {
+            $base64Data = $request->input('foto_kehadiran_base64');
+            if (preg_match('/^data:image\/(\w+);base64,/', $base64Data, $type)) {
+                $base64Image = substr($base64Data, strpos($base64Data, ',') + 1);
+                $type = strtolower($type[1]);
+                if (in_array($type, ['jpeg', 'jpg', 'png', 'webp'])) {
+                    $decoded = base64_decode($base64Image);
+                    if ($decoded !== false) {
+                        if ($kehadiran->foto_kehadiran && Storage::disk('public')->exists($kehadiran->foto_kehadiran)) {
+                            Storage::disk('public')->delete($kehadiran->foto_kehadiran);
+                        }
+                        $extension = ($type === 'jpeg') ? 'jpg' : $type;
+                        $filename = 'kehadiran_' . time() . '_' . uniqid() . '.' . $extension;
+                        Storage::disk('public')->put('kehadiran/' . $filename, $decoded);
+                        $validated['foto_kehadiran'] = 'kehadiran/' . $filename;
+                    }
+                }
+            }
         }
 
         $kehadiran->update($validated);

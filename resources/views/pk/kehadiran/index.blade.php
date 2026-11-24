@@ -182,11 +182,79 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Bukti Dokumentasi</label>
-                            <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file_kehadiran').click()">
-                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
-                                <span class="small text-muted d-block" id="presensi_filename_kehadiran">Klik untuk mengunggah bukti (JPG, PNG, WEBP, atau PDF)</span>
-                                <input type="file" name="foto_kehadiran" id="upload_presensi_file_kehadiran" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename_kehadiran')">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <label class="form-label-figma mb-0">Bukti Dokumentasi</label>
+                                <div class="btn-group btn-group-sm p-1 rounded-pill" style="background-color: #F1F5F9; border: 1px solid #E2E8F0;">
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 py-1 fw-medium" id="btn_mode_upload_tambah" onclick="setKehadiranMediaMode('tambah', 'upload')" style="background-color: #102A45; color: #FFFFFF; font-size: 0.78rem;">
+                                        <i class="bi bi-file-earmark-arrow-up me-1"></i> Unggah Berkas
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 py-1 fw-medium" id="btn_mode_camera_tambah" onclick="setKehadiranMediaMode('tambah', 'camera')" style="background-color: transparent; color: #64748B; font-size: 0.78rem;">
+                                        <i class="bi bi-camera-video me-1"></i> Kamera Real-Time
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Opsi 1: Unggah Berkas -->
+                            <div id="container_upload_tambah">
+                                <div class="upload-dropzone-figma" onclick="document.getElementById('upload_presensi_file_kehadiran').click()">
+                                    <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                    <span class="small text-muted d-block" id="presensi_filename_kehadiran">Klik untuk mengunggah bukti (JPG, PNG, WEBP, atau PDF)</span>
+                                    <input type="file" name="foto_kehadiran" id="upload_presensi_file_kehadiran" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'presensi_filename_kehadiran')">
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button type="button" class="btn btn-link btn-sm text-decoration-none p-0" onclick="setKehadiranMediaMode('tambah', 'camera')" style="color: var(--simba-navy); font-size: 0.82rem; font-weight: 500;">
+                                        <i class="bi bi-camera-fill me-1"></i> Atau gunakan Kamera Real-Time langsung
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Opsi 2: Kamera Real-Time -->
+                            <div id="container_camera_tambah" class="d-none">
+                                <div class="p-3 rounded-3 text-center" style="background: #0B132B; border: 1.5px solid #1C2541;">
+                                    <!-- Live Video View -->
+                                    <div id="camera_feed_wrap_tambah" class="position-relative mx-auto rounded-3 overflow-hidden bg-black" style="max-width: 100%; width: 440px; height: 260px; display: flex; align-items: center; justify-content: center;">
+                                        <video id="camera_video_tambah" autoplay playsinline class="w-100 h-100" style="object-fit: cover;"></video>
+                                        <div class="position-absolute top-0 start-0 m-2 px-2 py-1 rounded text-white d-flex align-items-center gap-1 shadow-sm" style="background: rgba(220, 38, 38, 0.88); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;">
+                                            <span class="spinner-grow spinner-grow-sm" style="width: 8px; height: 8px;" role="status"></span>
+                                            <span>LIVE KAMERA</span>
+                                        </div>
+                                        <div class="position-absolute" style="width: 160px; height: 200px; border: 2px dashed rgba(255,255,255,0.45); border-radius: 24px; pointer-events: none;"></div>
+                                    </div>
+
+                                    <!-- Preview Hasil Jepretan -->
+                                    <div id="camera_preview_wrap_tambah" class="d-none position-relative mx-auto rounded-3 overflow-hidden" style="max-width: 100%; width: 440px; height: 260px; background: #000;">
+                                        <img id="camera_captured_img_tambah" class="w-100 h-100" style="object-fit: contain;" alt="Hasil Kamera">
+                                        <div class="position-absolute top-0 start-0 m-2 px-2 py-1 rounded text-white d-flex align-items-center gap-1 shadow-sm" style="background: rgba(16, 185, 129, 0.95); font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-check-circle-fill"></i> Foto Siap Digunakan
+                                        </div>
+                                    </div>
+
+                                    <canvas id="camera_canvas_tambah" class="d-none"></canvas>
+                                    <input type="hidden" name="foto_kehadiran_base64" id="foto_kehadiran_base64_tambah">
+
+                                    <!-- Controls -->
+                                    <div class="d-flex justify-content-center align-items-center gap-2 mt-3 flex-wrap">
+                                        <div id="camera_live_controls_tambah" class="d-flex gap-2">
+                                            <button type="button" class="btn btn-sm btn-light d-inline-flex align-items-center gap-1 px-3 py-2 fw-medium shadow-sm" onclick="switchCameraFacing('tambah')" style="border-radius: 8px; font-size: 0.82rem;">
+                                                <i class="bi bi-arrow-repeat"></i> Ganti Kamera
+                                            </button>
+                                            <button type="button" class="btn btn-sm text-white d-inline-flex align-items-center gap-2 px-4 py-2 fw-semibold shadow-sm" onclick="captureRealtimeSnapshot('tambah', 'upload_presensi_file_kehadiran')" style="background-color: #2563EB; border-color: #2563EB; border-radius: 8px; font-size: 0.85rem;">
+                                                <i class="bi bi-camera-fill"></i> Ambil Foto
+                                            </button>
+                                        </div>
+
+                                        <div id="camera_preview_controls_tambah" class="d-none d-flex gap-2">
+                                            <button type="button" class="btn btn-sm btn-outline-light d-inline-flex align-items-center gap-1 px-3 py-2 fw-medium" onclick="retakeRealtimeSnapshot('tambah')" style="border-radius: 8px; font-size: 0.82rem;">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Ambil Ulang Foto
+                                            </button>
+                                            <span class="badge d-inline-flex align-items-center px-3 py-2 text-white" style="background-color: #059669; font-size: 0.8rem; border-radius: 8px;">
+                                                <i class="bi bi-check2-circle me-1 fs-6"></i> Foto Disematkan
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div id="camera_error_tambah" class="alert alert-danger d-none mt-2 mb-0 py-2 small text-start" role="alert"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -291,11 +359,79 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label-figma">Bukti Dokumentasi</label>
-                            <div class="upload-dropzone-figma" onclick="document.getElementById('edit_upload_presensi_file').click()">
-                                <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
-                                <span class="small text-muted d-block" id="edit_presensi_filename">Klik untuk mengganti foto dokumentasi (Opsional)</span>
-                                <input type="file" name="foto_kehadiran" id="edit_upload_presensi_file" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'edit_presensi_filename')">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <label class="form-label-figma mb-0">Bukti Dokumentasi</label>
+                                <div class="btn-group btn-group-sm p-1 rounded-pill" style="background-color: #F1F5F9; border: 1px solid #E2E8F0;">
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 py-1 fw-medium" id="btn_mode_upload_edit" onclick="setKehadiranMediaMode('edit', 'upload')" style="background-color: #102A45; color: #FFFFFF; font-size: 0.78rem;">
+                                        <i class="bi bi-file-earmark-arrow-up me-1"></i> Unggah Berkas
+                                    </button>
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 py-1 fw-medium" id="btn_mode_camera_edit" onclick="setKehadiranMediaMode('edit', 'camera')" style="background-color: transparent; color: #64748B; font-size: 0.78rem;">
+                                        <i class="bi bi-camera-video me-1"></i> Kamera Real-Time
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Opsi 1: Unggah Berkas -->
+                            <div id="container_upload_edit">
+                                <div class="upload-dropzone-figma" onclick="document.getElementById('edit_upload_presensi_file').click()">
+                                    <img src="{{ asset('assets/images/unggah.svg') }}" alt="Unggah" style="width: 44px; height: 44px; object-fit: contain; margin-bottom: 0.5rem;">
+                                    <span class="small text-muted d-block" id="edit_presensi_filename">Klik untuk mengganti foto dokumentasi (Opsional)</span>
+                                    <input type="file" name="foto_kehadiran" id="edit_upload_presensi_file" class="d-none" accept="image/*,.pdf" onchange="updateFilename(this, 'edit_presensi_filename')">
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button type="button" class="btn btn-link btn-sm text-decoration-none p-0" onclick="setKehadiranMediaMode('edit', 'camera')" style="color: var(--simba-navy); font-size: 0.82rem; font-weight: 500;">
+                                        <i class="bi bi-camera-fill me-1"></i> Atau gunakan Kamera Real-Time langsung
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Opsi 2: Kamera Real-Time -->
+                            <div id="container_camera_edit" class="d-none">
+                                <div class="p-3 rounded-3 text-center" style="background: #0B132B; border: 1.5px solid #1C2541;">
+                                    <!-- Live Video View -->
+                                    <div id="camera_feed_wrap_edit" class="position-relative mx-auto rounded-3 overflow-hidden bg-black" style="max-width: 100%; width: 440px; height: 260px; display: flex; align-items: center; justify-content: center;">
+                                        <video id="camera_video_edit" autoplay playsinline class="w-100 h-100" style="object-fit: cover;"></video>
+                                        <div class="position-absolute top-0 start-0 m-2 px-2 py-1 rounded text-white d-flex align-items-center gap-1 shadow-sm" style="background: rgba(220, 38, 38, 0.88); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;">
+                                            <span class="spinner-grow spinner-grow-sm" style="width: 8px; height: 8px;" role="status"></span>
+                                            <span>LIVE KAMERA</span>
+                                        </div>
+                                        <div class="position-absolute" style="width: 160px; height: 200px; border: 2px dashed rgba(255,255,255,0.45); border-radius: 24px; pointer-events: none;"></div>
+                                    </div>
+
+                                    <!-- Preview Hasil Jepretan -->
+                                    <div id="camera_preview_wrap_edit" class="d-none position-relative mx-auto rounded-3 overflow-hidden" style="max-width: 100%; width: 440px; height: 260px; background: #000;">
+                                        <img id="camera_captured_img_edit" class="w-100 h-100" style="object-fit: contain;" alt="Hasil Kamera">
+                                        <div class="position-absolute top-0 start-0 m-2 px-2 py-1 rounded text-white d-flex align-items-center gap-1 shadow-sm" style="background: rgba(16, 185, 129, 0.95); font-size: 0.72rem; font-weight: 600;">
+                                            <i class="bi bi-check-circle-fill"></i> Foto Siap Digunakan
+                                        </div>
+                                    </div>
+
+                                    <canvas id="camera_canvas_edit" class="d-none"></canvas>
+                                    <input type="hidden" name="foto_kehadiran_base64" id="foto_kehadiran_base64_edit">
+
+                                    <!-- Controls -->
+                                    <div class="d-flex justify-content-center align-items-center gap-2 mt-3 flex-wrap">
+                                        <div id="camera_live_controls_edit" class="d-flex gap-2">
+                                            <button type="button" class="btn btn-sm btn-light d-inline-flex align-items-center gap-1 px-3 py-2 fw-medium shadow-sm" onclick="switchCameraFacing('edit')" style="border-radius: 8px; font-size: 0.82rem;">
+                                                <i class="bi bi-arrow-repeat"></i> Ganti Kamera
+                                            </button>
+                                            <button type="button" class="btn btn-sm text-white d-inline-flex align-items-center gap-2 px-4 py-2 fw-semibold shadow-sm" onclick="captureRealtimeSnapshot('edit', 'edit_upload_presensi_file')" style="background-color: #2563EB; border-color: #2563EB; border-radius: 8px; font-size: 0.85rem;">
+                                                <i class="bi bi-camera-fill"></i> Ambil Foto
+                                            </button>
+                                        </div>
+
+                                        <div id="camera_preview_controls_edit" class="d-none d-flex gap-2">
+                                            <button type="button" class="btn btn-sm btn-outline-light d-inline-flex align-items-center gap-1 px-3 py-2 fw-medium" onclick="retakeRealtimeSnapshot('edit')" style="border-radius: 8px; font-size: 0.82rem;">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Ambil Ulang Foto
+                                            </button>
+                                            <span class="badge d-inline-flex align-items-center px-3 py-2 text-white" style="background-color: #059669; font-size: 0.8rem; border-radius: 8px;">
+                                                <i class="bi bi-check2-circle me-1 fs-6"></i> Foto Disematkan
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div id="camera_error_edit" class="alert alert-danger d-none mt-2 mb-0 py-2 small text-start" role="alert"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -470,5 +606,212 @@
         const modal = new bootstrap.Modal(document.getElementById('modalDeleteKehadiran'));
         modal.show();
     }
+
+    // ==========================================
+    // Real-Time Camera Management for Attendance
+    // ==========================================
+    const activeStreams = {};
+    const currentFacingModes = {
+        tambah: 'user',
+        edit: 'user'
+    };
+
+    async function setKehadiranMediaMode(context, mode) {
+        const btnUpload = document.getElementById(`btn_mode_upload_${context}`);
+        const btnCamera = document.getElementById(`btn_mode_camera_${context}`);
+        const containerUpload = document.getElementById(`container_upload_${context}`);
+        const containerCamera = document.getElementById(`container_camera_${context}`);
+
+        if (mode === 'camera') {
+            if (btnUpload) {
+                btnUpload.style.backgroundColor = 'transparent';
+                btnUpload.style.color = '#64748B';
+            }
+            if (btnCamera) {
+                btnCamera.style.backgroundColor = '#102A45';
+                btnCamera.style.color = '#FFFFFF';
+            }
+            if (containerUpload) containerUpload.classList.add('d-none');
+            if (containerCamera) containerCamera.classList.remove('d-none');
+            await startRealtimeCamera(context);
+        } else {
+            if (btnUpload) {
+                btnUpload.style.backgroundColor = '#102A45';
+                btnUpload.style.color = '#FFFFFF';
+            }
+            if (btnCamera) {
+                btnCamera.style.backgroundColor = 'transparent';
+                btnCamera.style.color = '#64748B';
+            }
+            if (containerUpload) containerUpload.classList.remove('d-none');
+            if (containerCamera) containerCamera.classList.add('d-none');
+            stopRealtimeCamera(context);
+        }
+    }
+
+    async function startRealtimeCamera(context) {
+        const errorEl = document.getElementById(`camera_error_${context}`);
+        if (errorEl) {
+            errorEl.classList.add('d-none');
+            errorEl.innerText = '';
+        }
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            if (errorEl) {
+                errorEl.classList.remove('d-none');
+                errorEl.innerText = 'Peramban tidak mendukung akses kamera secara langsung, atau halaman tidak dibuka melalui HTTPS/Localhost. Silakan gunakan opsi Unggah Berkas.';
+            }
+            return;
+        }
+
+        stopRealtimeCamera(context);
+
+        if (!currentFacingModes[context]) {
+            currentFacingModes[context] = 'user';
+        }
+
+        try {
+            const constraints = {
+                video: {
+                    facingMode: currentFacingModes[context],
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                audio: false
+            };
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            activeStreams[context] = stream;
+
+            const video = document.getElementById(`camera_video_${context}`);
+            if (video) {
+                video.srcObject = stream;
+                video.style.transform = (currentFacingModes[context] === 'user') ? 'scaleX(-1)' : 'none';
+                await video.play();
+            }
+
+            const feedWrap = document.getElementById(`camera_feed_wrap_${context}`);
+            const previewWrap = document.getElementById(`camera_preview_wrap_${context}`);
+            const liveControls = document.getElementById(`camera_live_controls_${context}`);
+            const previewControls = document.getElementById(`camera_preview_controls_${context}`);
+
+            if (feedWrap) feedWrap.classList.remove('d-none');
+            if (previewWrap) previewWrap.classList.add('d-none');
+            if (liveControls) liveControls.classList.remove('d-none');
+            if (previewControls) previewControls.classList.add('d-none');
+
+        } catch (err) {
+            console.error('Kamera error:', err);
+            if (errorEl) {
+                errorEl.classList.remove('d-none');
+                if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                    errorEl.innerText = 'Izin kamera ditolak. Berikan izin kamera pada bilah alamat peramban Anda, atau gunakan opsi Unggah Berkas.';
+                } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+                    errorEl.innerText = 'Perangkat kamera tidak ditemukan pada komputer/perangkat Anda. Silakan gunakan opsi Unggah Berkas.';
+                } else {
+                    errorEl.innerText = 'Gagal mengakses kamera: ' + (err.message || 'Terjadi kesalahan sistem') + '. Silakan gunakan opsi Unggah Berkas.';
+                }
+            }
+        }
+    }
+
+    function captureRealtimeSnapshot(context, fileInputId) {
+        const video = document.getElementById(`camera_video_${context}`);
+        const canvas = document.getElementById(`camera_canvas_${context}`);
+        const previewImg = document.getElementById(`camera_captured_img_${context}`);
+        const base64Input = document.getElementById(`foto_kehadiran_base64_${context}`);
+
+        if (!video || !canvas) return;
+
+        const width = video.videoWidth || 640;
+        const height = video.videoHeight || 480;
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        if (currentFacingModes[context] === 'user') {
+            ctx.translate(width, 0);
+            ctx.scale(-1, 1);
+        }
+        ctx.drawImage(video, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+
+        if (previewImg) previewImg.src = dataUrl;
+        if (base64Input) base64Input.value = dataUrl;
+
+        canvas.toBlob((blob) => {
+            if (blob) {
+                const fileName = `bukti_kehadiran_${Date.now()}.jpg`;
+                const file = new File([blob], fileName, { type: 'image/jpeg' });
+                const fileInput = document.getElementById(fileInputId);
+                if (fileInput) {
+                    try {
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        fileInput.files = dataTransfer.files;
+                    } catch (e) {
+                        console.warn('DataTransfer files assignment not supported:', e);
+                    }
+                }
+                const filenameSpan = document.getElementById(
+                    context === 'tambah' ? 'presensi_filename_kehadiran' : 'edit_presensi_filename'
+                );
+                if (filenameSpan) {
+                    filenameSpan.innerText = `Foto Kamera: ${fileName}`;
+                }
+            }
+        }, 'image/jpeg', 0.92);
+
+        stopRealtimeCamera(context);
+
+        const feedWrap = document.getElementById(`camera_feed_wrap_${context}`);
+        const previewWrap = document.getElementById(`camera_preview_wrap_${context}`);
+        const liveControls = document.getElementById(`camera_live_controls_${context}`);
+        const previewControls = document.getElementById(`camera_preview_controls_${context}`);
+
+        if (feedWrap) feedWrap.classList.add('d-none');
+        if (previewWrap) previewWrap.classList.remove('d-none');
+        if (liveControls) liveControls.classList.add('d-none');
+        if (previewControls) previewControls.classList.remove('d-none');
+    }
+
+    async function retakeRealtimeSnapshot(context) {
+        const base64Input = document.getElementById(`foto_kehadiran_base64_${context}`);
+        if (base64Input) base64Input.value = '';
+
+        await startRealtimeCamera(context);
+    }
+
+    async function switchCameraFacing(context) {
+        currentFacingModes[context] = (currentFacingModes[context] === 'user') ? 'environment' : 'user';
+        await startRealtimeCamera(context);
+    }
+
+    function stopRealtimeCamera(context) {
+        if (activeStreams[context]) {
+            activeStreams[context].getTracks().forEach(track => {
+                try { track.stop(); } catch(e){}
+            });
+            delete activeStreams[context];
+        }
+        const video = document.getElementById(`camera_video_${context}`);
+        if (video) {
+            video.srcObject = null;
+        }
+    }
+
+    // Stop streams when modals close
+    document.addEventListener('DOMContentLoaded', function() {
+        ['modalTambahKehadiran', 'modalEditKehadiran'].forEach(modalId => {
+            const el = document.getElementById(modalId);
+            if (el) {
+                el.addEventListener('hidden.bs.modal', function() {
+                    const ctx = (modalId === 'modalTambahKehadiran') ? 'tambah' : 'edit';
+                    stopRealtimeCamera(ctx);
+                });
+            }
+        });
+    });
 </script>
 @endsection

@@ -201,4 +201,38 @@ class KehadiranUploadTest extends TestCase
         $this->assertDatabaseMissing('jadwal_bimbingan', ['id_jadwal_bimbingan' => $jadwal->id_jadwal_bimbingan]);
         $this->assertDatabaseMissing('kehadiran_klien', ['id_kehadiran' => $kehadiran->id_kehadiran]);
     }
+
+    public function test_simpan_bukti_kehadiran_dengan_kamera_realtime_base64_berhasil()
+    {
+        $klien = Klien::first();
+        // 1x1 transparent/red JPEG pixel in base64
+        $fakeBase64 = 'data:image/jpeg;base64,' . base64_encode(imagecreate(10, 10) ? "\xFF\xD8\xFF\xE0\x00\x10JFIF\x00\x01\x01\x01\x00`\x00`\x00\x00\xFF\xDB\x00C\x00\x08\x06\x06\x07\x06\x05\x08\x07\x07\x07\t\t\x08\n\x0c\x14\r\x0c\x0b\x0b\x0c\x19\x12\x13\x0f\x14\x1d\x1a\x1f\x1e\x1d\x1a\x1c\x1c $.\' \",#\x1c\x1c(7),01444\x1f\'9=82<.342\xFF\xC0\x00\x0b\x08\x00\x01\x00\x01\x01\x01\x11\x00\xFF\xC4\x00\x1f\x00\x00\x01\x05\x01\x01\x01\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\xFF\xDA\x00\x08\x01\x01\x00\x00?\x00\xbf\x00\xFF\xD9" : 'fake');
+
+        $response = $this->actingAs($this->pk)->post('/pk/kehadiran', [
+            'id_klien' => $klien->id_klien,
+            'tgl_hadir' => Carbon::today()->toDateString(),
+            'jam_hadir' => '11:15',
+            'status_kehadiran' => 'Hadir',
+            'foto_kehadiran_base64' => $fakeBase64,
+            'catatan' => 'Presensi via kamera real-time',
+        ]);
+
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('pk.kehadiran.index'));
+        
+        $kehadiran = \App\Models\KehadiranKlien::where('catatan', 'Presensi via kamera real-time')->first();
+        $this->assertNotNull($kehadiran);
+        $this->assertNotNull($kehadiran->foto_kehadiran);
+        $this->assertTrue(Storage::disk('public')->exists($kehadiran->foto_kehadiran));
+    }
+
+    public function test_halaman_kehadiran_memiliki_elemen_kamera_realtime()
+    {
+        $response = $this->actingAs($this->pk)->get('/pk/kehadiran');
+        $response->assertStatus(200);
+        $response->assertSee('Kamera Real-Time');
+        $response->assertSee('btn_mode_camera_tambah');
+        $response->assertSee('camera_video_tambah');
+        $response->assertSee('Ambil Foto');
+    }
 }
