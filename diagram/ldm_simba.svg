@@ -1,287 +1,188 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2480 1150" width="2480" height="1150" style="background-color: #ffffff; font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2100 1080" width="2100" height="1080" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <defs>
-
+    <!-- PowerDesigner ERone marker: Mandatory One tick mark '|' -->
     <marker id="ERone" viewBox="0 0 10 16" refX="5" refY="8" markerWidth="10" markerHeight="16" orient="auto">
-        <line x1="5" y1="0" x2="5" y2="16" stroke="#00AAAA" stroke-width="1.5" />
+        <line x1="5" y1="0" x2="5" y2="16" stroke="#00AAAA" stroke-width="1.8" />
     </marker>
-    
-
-    <marker id="ERoneToMany" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" orient="auto">
-        <line x1="3" y1="0" x2="3" y2="16" stroke="#00AAAA" stroke-width="1.5" />
-        <line x1="3" y1="8" x2="15" y2="0" stroke="#00AAAA" stroke-width="1.5" />
-        <line x1="3" y1="8" x2="15" y2="16" stroke="#00AAAA" stroke-width="1.5" />
+    <!-- PowerDesigner ERoneToMany marker: Mandatory Many crow's foot with tick mark '>-|' -->
+    <marker id="ERoneToMany" viewBox="0 0 18 16" refX="16" refY="8" markerWidth="18" markerHeight="16" orient="auto">
+        <line x1="4" y1="0" x2="4" y2="16" stroke="#00AAAA" stroke-width="1.8" />
+        <line x1="4" y1="8" x2="16" y2="0" stroke="#00AAAA" stroke-width="1.8" />
+        <line x1="4" y1="8" x2="16" y2="16" stroke="#00AAAA" stroke-width="1.8" />
     </marker>
-    
+    <style>
+        .title-text { font-size: 14px; font-weight: bold; fill: #000000; text-anchor: middle; dominant-baseline: middle; }
+        .subtitle-text { font-size: 11px; fill: #333333; text-anchor: middle; dominant-baseline: middle; }
+        .ent-header-bg { fill: #E5FFFF; stroke: #00AAAA; stroke-width: 1.5; }
+        .ent-header-text { font-size: 12px; font-weight: bold; fill: #000000; text-anchor: middle; dominant-baseline: middle; }
+        .ent-body-bg { fill: #FFFFFF; stroke: #00AAAA; stroke-width: 1.5; }
+        .ent-attr-text { font-size: 11px; fill: #000000; font-family: Consolas, monospace, Helvetica; }
+        .ent-pi-bg { fill: #E5FFFF; stroke: #00AAAA; stroke-width: 1.5; }
+        .ent-pi-text { font-size: 11px; fill: #000000; font-family: Consolas, monospace, Helvetica; }
+        .rel-line { stroke: #00AAAA; stroke-width: 1.5; fill: none; }
+        .label-bg { fill: #ffffff; stroke: #00AAAA; stroke-width: 0.8; rx: 3; ry: 3; }
+        .label-text { font-size: 11px; font-style: italic; fill: #000000; text-anchor: middle; dominant-baseline: middle; }
+        .underline { text-decoration: underline; font-weight: bold; }
+    </style>
 </defs>
-
-    <rect x="80" y="15" width="2320" height="42" rx="4" ry="4" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-    <text x="1240" y="32" text-anchor="middle" font-size="13" font-weight="bold" fill="#000000">LOGICAL DATA MODEL (LDM) SISTEM INFORMASI SIMBA</text>
-    <text x="1240" y="47" text-anchor="middle" font-size="11" fill="#333333">Balai Pemasyarakatan (Bapas) Kelas I Banjarmasin - Model Data Logikal (Notasi PowerDesigner LDM dengan Tipe Data, Migrasi FK, dan Mandatory Flag)</text>
-    
-
-    <rect x="80" y="1080" width="2320" height="30" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1"/>
-    <text x="95" y="1100" font-size="11" fill="#000000">
-        <tspan font-weight="bold">Keterangan Notasi LDM:</tspan>
-        <tspan dx="15">&#8226; <tspan text-decoration="underline">Garis Bawah</tspan> = Primary Identifier (&lt;pi&gt;)</tspan>
-        <tspan dx="15">&#8226; &lt;fi&gt; / &lt;fi1..3&gt; = Foreign Identifier (Migrasi Foreign Key)</tspan>
-        <tspan dx="15">&#8226; &lt;M&gt; = Mandatory (Wajib Diisi / Not Null)</tspan>
-        <tspan dx="15">&#8226; | = Mandatory One (1)</tspan>
-        <tspan dx="15">&#8226; &gt;-| = Mandatory Many (1,n)</tspan>
-    </text>
-    
-<path d="M 440 170 L 540 170" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERone)"/>
-<rect x="454.0" y="156.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="490" y="169" text-anchor="middle" font-size="11" fill="#000000">menerima</text>
-<path d="M 920 230 L 970 230 L 970 490 L 1020 490" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="934.0" y="351.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="970" y="364" text-anchor="middle" font-size="11" fill="#000000">memiliki</text>
-<path d="M 635 292 L 635 800" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="592.0" y="536.0" width="86" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="635" y="549" text-anchor="middle" font-size="11" fill="#000000">menghadiri</text>
-<path d="M 1200 212 L 1200 440" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="1164.0" y="316.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="1200" y="329" text-anchor="middle" font-size="11" fill="#000000">menandai</text>
-<path d="M 1096 652 L 1096 900 L 920 900" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERone)"/>
-<rect x="956.5" y="886.0" width="107" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="1010" y="899" text-anchor="middle" font-size="11" fill="#000000">memverifikasi</text>
-<path d="M 1540 540 L 1400 540" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="1420.0" y="526.0" width="100" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="1470" y="539" text-anchor="middle" font-size="11" fill="#000000">menjadwalkan</text>
-<path d="M 1720 212 L 1720 440" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="1680.5" y="316.0" width="79" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="1720" y="329" text-anchor="middle" font-size="11" fill="#000000">mempunyai</text>
-<path d="M 1920 540 L 2020 540" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="1930.5" y="526.0" width="79" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="1970" y="539" text-anchor="middle" font-size="11" fill="#000000">mengelola</text>
-<path d="M 2200 460 L 2200 292" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="2150.0" y="366.0" width="100" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="2200" y="379" text-anchor="middle" font-size="11" fill="#000000">mengarsipkan</text>
-<path d="M 2200 572 L 2200 800" stroke="#00AAAA" stroke-width="1.5" fill="none" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)"/>
-<rect x="2164.0" y="676.0" width="72" height="18" fill="#FFFFFF" stroke="none"/>
-<text x="2200" y="689" text-anchor="middle" font-size="11" fill="#000000">mencatat</text>
-<rect x="80" y="100" width="360" height="142" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="260.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">atur_jadwal</text>
-<line x1="80" y1="126" x2="440" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="88" y="143" font-size="11" fill="#000000" text-decoration="underline">id_atur_jadwal</text>
-<text x="228" y="143" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="265" y="143" font-size="11" fill="#000000">Integer</text>
-<text x="428" y="143" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="88" y="163" font-size="11" fill="#000000">id_klien</text>
-<text x="228" y="163" font-size="11" fill="#000000">&lt;fi&gt;</text>
-<text x="265" y="163" font-size="11" fill="#000000">Integer</text>
-<text x="428" y="163" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="88" y="183" font-size="11" fill="#000000">hari</text>
-<text x="265" y="183" font-size="11" fill="#000000">Variable characters (20)</text>
-<text x="428" y="183" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="88" y="203" font-size="11" fill="#000000">jam_mulai</text>
-<text x="265" y="203" font-size="11" fill="#000000">Time</text>
-<text x="428" y="203" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="80" y1="216" x2="440" y2="216" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="88" y="232" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="540" y="80" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="730.0" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">klien</text>
-<line x1="540" y1="106" x2="920" y2="106" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="548" y="123" font-size="11" fill="#000000" text-decoration="underline">id_klien</text>
-<text x="688" y="123" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="725" y="123" font-size="11" fill="#000000">Integer</text>
-<text x="908" y="123" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="143" font-size="11" fill="#000000">nama_klien</text>
-<text x="725" y="143" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="908" y="143" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="163" font-size="11" fill="#000000">no_register</text>
-<text x="725" y="163" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="908" y="163" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="183" font-size="11" fill="#000000">jenis_kelamin</text>
-<text x="725" y="183" font-size="11" fill="#000000">Variable characters (20)</text>
-<text x="908" y="183" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="203" font-size="11" fill="#000000">tgl_lahir</text>
-<text x="725" y="203" font-size="11" fill="#000000">Date</text>
-<text x="908" y="203" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="223" font-size="11" fill="#000000">jam_mulai</text>
-<text x="725" y="223" font-size="11" fill="#000000">Time</text>
-<text x="908" y="223" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="243" font-size="11" fill="#000000">tindak_pidana</text>
-<text x="725" y="243" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="908" y="243" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="540" y1="256" x2="920" y2="256" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="548" y="272" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="1020" y="100" width="360" height="102" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1200.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">status_bimbingan</text>
-<line x1="1020" y1="126" x2="1380" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1028" y="143" font-size="11" fill="#000000" text-decoration="underline">id_status_bimbingan</text>
-<text x="1168" y="143" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="1205" y="143" font-size="11" fill="#000000">Integer</text>
-<text x="1368" y="143" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="163" font-size="11" fill="#000000">nama_status</text>
-<text x="1205" y="163" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="1368" y="163" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="1020" y1="176" x2="1380" y2="176" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1028" y="192" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="1540" y="100" width="360" height="102" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1720.0" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">role</text>
-<line x1="1540" y1="126" x2="1900" y2="126" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1548" y="143" font-size="11" fill="#000000" text-decoration="underline">id_role</text>
-<text x="1688" y="143" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="1725" y="143" font-size="11" fill="#000000">Integer</text>
-<text x="1888" y="143" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="163" font-size="11" fill="#000000">nama_role</text>
-<text x="1725" y="163" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="1888" y="163" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="1540" y1="176" x2="1900" y2="176" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1548" y="192" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="2020" y="80" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2210.0" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat_masuk</text>
-<line x1="2020" y1="106" x2="2400" y2="106" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="123" font-size="11" fill="#000000" text-decoration="underline">id_surat_masuk</text>
-<text x="2168" y="123" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="2205" y="123" font-size="11" fill="#000000">Integer</text>
-<text x="2388" y="123" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="143" font-size="11" fill="#000000">id_surat</text>
-<text x="2168" y="143" font-size="11" fill="#000000">&lt;fi&gt;</text>
-<text x="2205" y="143" font-size="11" fill="#000000">Integer</text>
-<text x="2388" y="143" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="163" font-size="11" fill="#000000">no_surat</text>
-<text x="2205" y="163" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="2388" y="163" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="183" font-size="11" fill="#000000">asal_surat</text>
-<text x="2205" y="183" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="2388" y="183" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="203" font-size="11" fill="#000000">tgl_masuk</text>
-<text x="2205" y="203" font-size="11" fill="#000000">Date</text>
-<text x="2388" y="203" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="223" font-size="11" fill="#000000">perihal</text>
-<text x="2205" y="223" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="2388" y="223" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="243" font-size="11" fill="#000000">upload_dokumen</text>
-<text x="2205" y="243" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="2388" y="243" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="2020" y1="256" x2="2400" y2="256" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="272" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="1020" y="440" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1210.0" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">jadwal_bimbingan</text>
-<line x1="1020" y1="466" x2="1400" y2="466" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1028" y="483" font-size="11" fill="#000000" text-decoration="underline">id_jadwal_bimbingan</text>
-<text x="1168" y="483" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="1205" y="483" font-size="11" fill="#000000">Integer</text>
-<text x="1388" y="483" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="503" font-size="11" fill="#000000">id_pegawai</text>
-<text x="1168" y="503" font-size="11" fill="#000000">&lt;fi1&gt;</text>
-<text x="1205" y="503" font-size="11" fill="#000000">Integer</text>
-<text x="1388" y="503" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="523" font-size="11" fill="#000000">id_klien</text>
-<text x="1168" y="523" font-size="11" fill="#000000">&lt;fi2&gt;</text>
-<text x="1205" y="523" font-size="11" fill="#000000">Integer</text>
-<text x="1388" y="523" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="543" font-size="11" fill="#000000">id_status_bimbingan</text>
-<text x="1168" y="543" font-size="11" fill="#000000">&lt;fi3&gt;</text>
-<text x="1205" y="543" font-size="11" fill="#000000">Integer</text>
-<text x="1388" y="543" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="563" font-size="11" fill="#000000">tgl_bimbingan</text>
-<text x="1205" y="563" font-size="11" fill="#000000">Date</text>
-<text x="1388" y="563" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="583" font-size="11" fill="#000000">jam_mulai</text>
-<text x="1205" y="583" font-size="11" fill="#000000">Time</text>
-<text x="1388" y="583" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1028" y="603" font-size="11" fill="#000000">keterangan</text>
-<text x="1205" y="603" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="1388" y="603" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="1020" y1="616" x2="1400" y2="616" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1028" y="632" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="1540" y="440" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1730.0" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">pegawai</text>
-<line x1="1540" y1="466" x2="1920" y2="466" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1548" y="483" font-size="11" fill="#000000" text-decoration="underline">id_pegawai</text>
-<text x="1688" y="483" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="1725" y="483" font-size="11" fill="#000000">Integer</text>
-<text x="1908" y="483" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="503" font-size="11" fill="#000000">id_role</text>
-<text x="1688" y="503" font-size="11" fill="#000000">&lt;fi&gt;</text>
-<text x="1725" y="503" font-size="11" fill="#000000">Integer</text>
-<text x="1908" y="503" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="523" font-size="11" fill="#000000">nama_pegawai</text>
-<text x="1725" y="523" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="1908" y="523" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="543" font-size="11" fill="#000000">nip(usn)</text>
-<text x="1725" y="543" font-size="11" fill="#000000">Variable characters (30)</text>
-<text x="1908" y="543" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="563" font-size="11" fill="#000000">password</text>
-<text x="1725" y="563" font-size="11" fill="#000000">Variable characters (64)</text>
-<text x="1908" y="563" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="583" font-size="11" fill="#000000">jabatan</text>
-<text x="1725" y="583" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="1908" y="583" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="1548" y="603" font-size="11" fill="#000000">foto</text>
-<text x="1725" y="603" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="1908" y="603" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="1540" y1="616" x2="1920" y2="616" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="1548" y="632" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="2020" y="460" width="360" height="102" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2200.0" y="477" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat</text>
-<line x1="2020" y1="486" x2="2380" y2="486" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="503" font-size="11" fill="#000000" text-decoration="underline">id_surat</text>
-<text x="2168" y="503" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="2205" y="503" font-size="11" fill="#000000">Integer</text>
-<text x="2368" y="503" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="523" font-size="11" fill="#000000">nama_surat</text>
-<text x="2205" y="523" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="2368" y="523" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="2020" y1="536" x2="2380" y2="536" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="552" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="540" y="800" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="730.0" y="817" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">kehadiran_klien</text>
-<line x1="540" y1="826" x2="920" y2="826" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="548" y="843" font-size="11" fill="#000000" text-decoration="underline">id_kehadiran</text>
-<text x="688" y="843" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="725" y="843" font-size="11" fill="#000000">Integer</text>
-<text x="908" y="843" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="863" font-size="11" fill="#000000">id_jadwal_bimbingan</text>
-<text x="688" y="863" font-size="11" fill="#000000">&lt;fi1&gt;</text>
-<text x="725" y="863" font-size="11" fill="#000000">Integer</text>
-<text x="908" y="863" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="883" font-size="11" fill="#000000">id_klien</text>
-<text x="688" y="883" font-size="11" fill="#000000">&lt;fi2&gt;</text>
-<text x="725" y="883" font-size="11" fill="#000000">Integer</text>
-<text x="908" y="883" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="903" font-size="11" fill="#000000">tgl_hadir</text>
-<text x="725" y="903" font-size="11" fill="#000000">Date</text>
-<text x="908" y="903" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="923" font-size="11" fill="#000000">jam_hadir</text>
-<text x="725" y="923" font-size="11" fill="#000000">Time</text>
-<text x="908" y="923" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="943" font-size="11" fill="#000000">foto_kehadiran</text>
-<text x="725" y="943" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="908" y="943" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="548" y="963" font-size="11" fill="#000000">catatan</text>
-<text x="725" y="963" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="908" y="963" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="540" y1="976" x2="920" y2="976" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="548" y="992" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
-<rect x="2020" y="800" width="380" height="202" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2210.0" y="817" text-anchor="middle" font-size="12" font-weight="bold" fill="#000000">surat_keluar</text>
-<line x1="2020" y1="826" x2="2400" y2="826" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="843" font-size="11" fill="#000000" text-decoration="underline">id_surat_keluar</text>
-<text x="2168" y="843" font-size="11" fill="#000000">&lt;pi&gt;</text>
-<text x="2205" y="843" font-size="11" fill="#000000">Integer</text>
-<text x="2388" y="843" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="863" font-size="11" fill="#000000">id_surat</text>
-<text x="2168" y="863" font-size="11" fill="#000000">&lt;fi&gt;</text>
-<text x="2205" y="863" font-size="11" fill="#000000">Integer</text>
-<text x="2388" y="863" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="883" font-size="11" fill="#000000">no_surat</text>
-<text x="2205" y="883" font-size="11" fill="#000000">Variable characters (50)</text>
-<text x="2388" y="883" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="903" font-size="11" fill="#000000">tujuan_surat</text>
-<text x="2205" y="903" font-size="11" fill="#000000">Variable characters (100)</text>
-<text x="2388" y="903" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="923" font-size="11" fill="#000000">tgl_keluar</text>
-<text x="2205" y="923" font-size="11" fill="#000000">Date</text>
-<text x="2388" y="923" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="943" font-size="11" fill="#000000">perihal</text>
-<text x="2205" y="943" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="2388" y="943" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<text x="2028" y="963" font-size="11" fill="#000000">upload_dokumen</text>
-<text x="2205" y="963" font-size="11" fill="#000000">Variable characters (255)</text>
-<text x="2388" y="963" text-anchor="end" font-size="11" fill="#000000">&lt;M&gt;</text>
-<line x1="2020" y1="976" x2="2400" y2="976" stroke="#00AAAA" stroke-width="1.5"/>
-<text x="2028" y="992" font-size="11" fill="#000000">identifier_1 &#160;&#160;&#160;&#160;&lt;pi&gt;</text>
+<rect width="2100" height="1080" fill="#ffffff" />
+<rect x="60" y="15" width="1960" height="46" rx="4" ry="4" fill="#E5FFFF" stroke="#00AAAA" stroke-width="1.5"/>
+<text x="1040" y="30" class="title-text">LOGICAL DATA MODEL (LDM) SISTEM INFORMASI SIMBA</text>
+<text x="1040" y="47" class="subtitle-text">Balai Pemasyarakatan (Bapas) Kelas I Banjarmasin - Pemetaan Tipe Logikal Relasional (Standar PowerDesigner LDM)</text>
+<path d="M 450 470 L 370 470" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="375" y="461" width="65" height="18" class="label-bg" />
+<text x="407" y="470" class="label-text">menerima</text>
+<path d="M 540 686 L 540 780" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="503" y="724.0" width="74" height="18" class="label-bg" />
+<text x="540" y="733.0" class="label-text">menghadiri</text>
+<path d="M 790 450 L 860 450" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="795" y="441" width="60" height="18" class="label-bg" />
+<text x="825" y="450" class="label-text">memiliki</text>
+<path d="M 930 596 L 930 850 L 790 850" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERone)" />
+<rect x="815" y="841" width="80" height="18" class="label-bg" />
+<text x="855" y="850" class="label-text">memverifikasi</text>
+<path d="M 1030.0 186 L 1030.0 410" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="998.0" y="289.0" width="64" height="18" class="label-bg" />
+<text x="1030.0" y="298.0" class="label-text">menandai</text>
+<path d="M 1270 490 L 1200 490" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="1195" y="481" width="80" height="18" class="label-bg" />
+<text x="1235" y="490" class="label-text">menjadwalkan</text>
+<path d="M 1440.0 186 L 1440.0 410" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="1403.0" y="289.0" width="74" height="18" class="label-bg" />
+<text x="1440.0" y="298.0" class="label-text">mempunyai</text>
+<path d="M 1610 460 L 1680 460" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="1605" y="451" width="68" height="18" class="label-bg" />
+<text x="1639" y="460" class="label-text">mengelola</text>
+<path d="M 1850.0 410 L 1850.0 348" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="1805.0" y="370.0" width="90" height="18" class="label-bg" />
+<text x="1850.0" y="379.0" class="label-text">mengarsipkan</text>
+<path d="M 1850.0 506 L 1850.0 780" class="rel-line" marker-start="url(#ERone)" marker-end="url(#ERoneToMany)" />
+<rect x="1817.0" y="634.0" width="66" height="18" class="label-bg" />
+<text x="1850.0" y="643.0" class="label-text">mencatat</text>
+<rect x="1270" y="90" width="340" height="26" class="ent-header-bg" />
+<text x="1440.0" y="103" class="ent-header-text">role</text>
+<rect x="1270" y="116" width="340" height="44" class="ent-body-bg" />
+<text x="1280" y="131" class="ent-attr-text underline">id_role : Integer    &lt;pi&gt;</text>
+<text x="1280" y="149" class="ent-attr-text">nama_role : Variable characters (50)</text>
+<rect x="1270" y="160" width="340" height="24" class="ent-pi-bg" />
+<text x="1280" y="176" class="ent-pi-text">identifier_1</text>
+<text x="1570" y="176" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="860" y="90" width="340" height="26" class="ent-header-bg" />
+<text x="1030.0" y="103" class="ent-header-text">status_bimbingan</text>
+<rect x="860" y="116" width="340" height="44" class="ent-body-bg" />
+<text x="870" y="131" class="ent-attr-text underline">id_status_bimbingan : Integer    &lt;pi&gt;</text>
+<text x="870" y="149" class="ent-attr-text">nama_status : Variable characters (50)</text>
+<rect x="860" y="160" width="340" height="24" class="ent-pi-bg" />
+<text x="870" y="176" class="ent-pi-text">identifier_1</text>
+<text x="1160" y="176" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="1680" y="90" width="340" height="26" class="ent-header-bg" />
+<text x="1850.0" y="103" class="ent-header-text">surat_masuk</text>
+<rect x="1680" y="116" width="340" height="206" class="ent-body-bg" />
+<text x="1690" y="131" class="ent-attr-text underline">id_surat_masuk : Integer    &lt;pi&gt;</text>
+<text x="1690" y="149" class="ent-attr-text">id_surat : Integer    &lt;fi&gt;</text>
+<text x="1690" y="167" class="ent-attr-text">no_surat : Variable characters (100)</text>
+<text x="1690" y="185" class="ent-attr-text">asal_surat : Variable characters (150)</text>
+<text x="1690" y="203" class="ent-attr-text">tgl_masuk : Date</text>
+<text x="1690" y="221" class="ent-attr-text">tgl_diterima : Date</text>
+<text x="1690" y="239" class="ent-attr-text">tujuan : Variable characters (150)</text>
+<text x="1690" y="257" class="ent-attr-text">perihal : Variable characters (255)</text>
+<text x="1690" y="275" class="ent-attr-text">lampiran : Variable characters (100)</text>
+<text x="1690" y="293" class="ent-attr-text">keterangan : Text</text>
+<text x="1690" y="311" class="ent-attr-text">upload_dokumen : Variable characters (255)</text>
+<rect x="1680" y="322" width="340" height="24" class="ent-pi-bg" />
+<text x="1690" y="338" class="ent-pi-text">identifier_1</text>
+<text x="1980" y="338" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="60" y="410" width="310" height="26" class="ent-header-bg" />
+<text x="215.0" y="423" class="ent-header-text">atur_jadwal</text>
+<rect x="60" y="436" width="310" height="80" class="ent-body-bg" />
+<text x="70" y="451" class="ent-attr-text underline">id_atur_jadwal : Integer    &lt;pi&gt;</text>
+<text x="70" y="469" class="ent-attr-text">id_klien : Integer    &lt;fi&gt;</text>
+<text x="70" y="487" class="ent-attr-text">hari : Variable characters (50)</text>
+<text x="70" y="505" class="ent-attr-text">jam_mulai : Time</text>
+<rect x="60" y="516" width="310" height="24" class="ent-pi-bg" />
+<text x="70" y="532" class="ent-pi-text">identifier_1</text>
+<text x="330" y="532" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="450" y="410" width="340" height="26" class="ent-header-bg" />
+<text x="620.0" y="423" class="ent-header-text">klien</text>
+<rect x="450" y="436" width="340" height="224" class="ent-body-bg" />
+<text x="460" y="451" class="ent-attr-text underline">id_klien : Integer    &lt;pi&gt;</text>
+<text x="460" y="469" class="ent-attr-text">no_register : Variable characters (50)</text>
+<text x="460" y="487" class="ent-attr-text">nama_klien : Variable characters (100)</text>
+<text x="460" y="505" class="ent-attr-text">asal_upt : Variable characters (150)</text>
+<text x="460" y="523" class="ent-attr-text">telepon : Variable characters (30)</text>
+<text x="460" y="541" class="ent-attr-text">jenis_kelamin : Variable characters (20)</text>
+<text x="460" y="559" class="ent-attr-text">tgl_lahir : Date</text>
+<text x="460" y="577" class="ent-attr-text">jam_mulai : Time</text>
+<text x="460" y="595" class="ent-attr-text">tindak_pidana : Variable characters (100)</text>
+<text x="460" y="613" class="ent-attr-text">jenis_bimbingan : Variable characters (50)</text>
+<text x="460" y="631" class="ent-attr-text">alamat : Text</text>
+<text x="460" y="649" class="ent-attr-text">keterangan : Text</text>
+<rect x="450" y="660" width="340" height="24" class="ent-pi-bg" />
+<text x="460" y="676" class="ent-pi-text">identifier_1</text>
+<text x="750" y="676" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="860" y="410" width="340" height="26" class="ent-header-bg" />
+<text x="1030.0" y="423" class="ent-header-text">jadwal_bimbingan</text>
+<rect x="860" y="436" width="340" height="134" class="ent-body-bg" />
+<text x="870" y="451" class="ent-attr-text underline">id_jadwal_bimbingan : Integer    &lt;pi&gt;</text>
+<text x="870" y="469" class="ent-attr-text">id_pegawai : Integer    &lt;fi&gt;</text>
+<text x="870" y="487" class="ent-attr-text">id_klien : Integer    &lt;fi&gt;</text>
+<text x="870" y="505" class="ent-attr-text">id_status_bimbingan : Integer    &lt;fi&gt;</text>
+<text x="870" y="523" class="ent-attr-text">tgl_bimbingan : Date</text>
+<text x="870" y="541" class="ent-attr-text">jam_mulai : Time</text>
+<text x="870" y="559" class="ent-attr-text">keterangan : Variable characters (255)</text>
+<rect x="860" y="570" width="340" height="24" class="ent-pi-bg" />
+<text x="870" y="586" class="ent-pi-text">identifier_1</text>
+<text x="1160" y="586" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="1270" y="410" width="340" height="26" class="ent-header-bg" />
+<text x="1440.0" y="423" class="ent-header-text">pegawai</text>
+<rect x="1270" y="436" width="340" height="170" class="ent-body-bg" />
+<text x="1280" y="451" class="ent-attr-text underline">id_pegawai : Integer    &lt;pi&gt;</text>
+<text x="1280" y="469" class="ent-attr-text">id_role : Integer    &lt;fi&gt;</text>
+<text x="1280" y="487" class="ent-attr-text">nama_pegawai : Variable characters (100)</text>
+<text x="1280" y="505" class="ent-attr-text">nip_usn : Variable characters (30)</text>
+<text x="1280" y="523" class="ent-attr-text">password : Variable characters (255)</text>
+<text x="1280" y="541" class="ent-attr-text">jabatan : Variable characters (50)</text>
+<text x="1280" y="559" class="ent-attr-text">email : Variable characters (100)</text>
+<text x="1280" y="577" class="ent-attr-text">alamat : Text</text>
+<text x="1280" y="595" class="ent-attr-text">foto : Variable characters (255)</text>
+<rect x="1270" y="606" width="340" height="24" class="ent-pi-bg" />
+<text x="1280" y="622" class="ent-pi-text">identifier_1</text>
+<text x="1570" y="622" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="1680" y="410" width="340" height="26" class="ent-header-bg" />
+<text x="1850.0" y="423" class="ent-header-text">surat</text>
+<rect x="1680" y="436" width="340" height="44" class="ent-body-bg" />
+<text x="1690" y="451" class="ent-attr-text underline">id_surat : Integer    &lt;pi&gt;</text>
+<text x="1690" y="469" class="ent-attr-text">nama_surat : Variable characters (100)</text>
+<rect x="1680" y="480" width="340" height="24" class="ent-pi-bg" />
+<text x="1690" y="496" class="ent-pi-text">identifier_1</text>
+<text x="1980" y="496" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="450" y="780" width="340" height="26" class="ent-header-bg" />
+<text x="620.0" y="793" class="ent-header-text">kehadiran_klien</text>
+<rect x="450" y="806" width="340" height="152" class="ent-body-bg" />
+<text x="460" y="821" class="ent-attr-text underline">id_kehadiran : Integer    &lt;pi&gt;</text>
+<text x="460" y="839" class="ent-attr-text">id_jadwal_bimbingan : Integer    &lt;fi&gt;</text>
+<text x="460" y="857" class="ent-attr-text">id_klien : Integer    &lt;fi&gt;</text>
+<text x="460" y="875" class="ent-attr-text">tgl_hadir : Date</text>
+<text x="460" y="893" class="ent-attr-text">jam_hadir : Time</text>
+<text x="460" y="911" class="ent-attr-text">foto_kehadiran : Variable characters (255)</text>
+<text x="460" y="929" class="ent-attr-text">status_kehadiran : Variable characters (50)</text>
+<text x="460" y="947" class="ent-attr-text">catatan : Variable characters (255)</text>
+<rect x="450" y="958" width="340" height="24" class="ent-pi-bg" />
+<text x="460" y="974" class="ent-pi-text">identifier_1</text>
+<text x="750" y="974" class="ent-pi-text">&lt;pi&gt;</text>
+<rect x="1680" y="780" width="340" height="26" class="ent-header-bg" />
+<text x="1850.0" y="793" class="ent-header-text">surat_keluar</text>
+<rect x="1680" y="806" width="340" height="170" class="ent-body-bg" />
+<text x="1690" y="821" class="ent-attr-text underline">id_surat_keluar : Integer    &lt;pi&gt;</text>
+<text x="1690" y="839" class="ent-attr-text">id_surat : Integer    &lt;fi&gt;</text>
+<text x="1690" y="857" class="ent-attr-text">no_surat : Variable characters (100)</text>
+<text x="1690" y="875" class="ent-attr-text">tujuan_surat : Variable characters (150)</text>
+<text x="1690" y="893" class="ent-attr-text">tgl_keluar : Date</text>
+<text x="1690" y="911" class="ent-attr-text">perihal : Variable characters (255)</text>
+<text x="1690" y="929" class="ent-attr-text">lampiran : Variable characters (100)</text>
+<text x="1690" y="947" class="ent-attr-text">keterangan : Text</text>
+<text x="1690" y="965" class="ent-attr-text">upload_dokumen : Variable characters (255)</text>
+<rect x="1680" y="976" width="340" height="24" class="ent-pi-bg" />
+<text x="1690" y="992" class="ent-pi-text">identifier_1</text>
+<text x="1980" y="992" class="ent-pi-text">&lt;pi&gt;</text>
 </svg>
